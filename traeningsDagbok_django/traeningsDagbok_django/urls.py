@@ -18,9 +18,7 @@ from django.contrib import admin
 from dagbok import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
+    url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),
-    #~ url(r'^$', views.index, name='index'),
-    
 ]

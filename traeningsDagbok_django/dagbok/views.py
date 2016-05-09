@@ -11,4 +11,4 @@ def register(request):
     return HttpResponse("REGISTRERA SIG")
     
 def login(request):
-    return HttpResponse("REGISTRERA SIG")
+    return HttpResponse("LOGGA IN")
