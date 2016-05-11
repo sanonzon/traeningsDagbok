@@ -75,14 +75,15 @@
             <h4 class="modal-title">Logga in</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
               <div class="form-group">
                 <div class="row">
                   <div class="col-3">
                     <label for="inputEmail3" class="control-label">Användarnamn:</label>
                   </div>
                   <div class="col-9">
-                    <input type="text" class="form-control" id="inputEmailLog" placeholder="Email">
+                    <input type="text" class="form-control" name="username" id="inputEmailReg" placeholder="Email">
                   </div>
                 </div>
               </div>
@@ -92,7 +93,7 @@
                     <label for="inputPassword3" class="control-label">Lösenord:</label>
                   </div>
                   <div class="col-9">
-                    <input type="password" class="form-control" id="inputPasswordLog" placeholder="Password">
+                    <input type="password" class="form-control" name="password" id="inputPasswordReg" placeholder="Password">
                   </div>
                 </div>
               </div>
