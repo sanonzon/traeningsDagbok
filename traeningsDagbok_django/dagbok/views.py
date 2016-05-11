@@ -34,10 +34,16 @@ def dashboard(request):
 
 def register(request):
     if request.method == 'POST':
-        if request.POST['username'] and request.POST['password']:
-            User.objects.create_user(request.POST['username'], 'null@null.com', request.POST['password'])
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        if username and password:
+            User.objects.create_user(username, 'null@null.com', password)
             
-            return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return render(request, 'dagbok/dashboard.html')
+            #~ return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
     else:
         return render(request, 'dagbok/index.html')
         
