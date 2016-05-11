@@ -305,8 +305,7 @@ footer p {
 
 /* MEDIA QUERIES */
 
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
+/*@media only screen and (max-width: 768px) {
     [class*="col-"] {
         width: 100%;
     }
@@ -337,4 +336,4 @@ footer p {
     display: block;
     text-align: left;
   }
-}
+}*/

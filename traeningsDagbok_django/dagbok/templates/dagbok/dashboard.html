@@ -5,11 +5,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static "dagbok/css/style.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/dashboard.css" %}">
+    <link rel="stylesheet" href="{% static "dagbok/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "dagbok/css/font-awesome.css" %}">
+    <link rel="stylesheet" href="{% static "dagbok/css/normalize.css" %}">
   </head>
   <body>
-    <p>
-      Hej
-    </p>
+
+    <div class="container display-table">
+      <div class="row display-table-row">
+        <div class="col-3 display-table-cell valign-top" id="dashboard-menu">
+          <h1 id="nav">Navigation</h1>
+        </div>
+        <div class="col-9 display-table-cell valign-top" id="dashboard-content">
+          <div class="row fix">
+            <header id="nav-header" class="clearfix">
+              <div class="col-5">
+                <input type="text" id="header-search-field" placeholder="Sök efter något...">
+              </div>
+              <div class="col-7">
+                <ul class="pull-right">
+                  <li id="welcome">Välkommen till din dashboard</li>
+                  <li class="fixed-width">
+                    <a href="#">
+                      <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+                      <span class="label label-warning">3</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="logout">
+                      <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+                      Logga ut
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </header>
+          </div>
+
+          <div class="row">
+            <footer id="dashboard-footer" class="clearfix">
+              <div class="pull-left">
+                <strong>&copy; Copyright Training of Doom</strong>
+              </div>
+              <div class="pull-right">Träningsdojon Dashboard</div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "dagbok/script/script.js" %}"></script>
+    <script type="text/javascript" src="{% static "dagbok/script/bootstrap.js" %}"></script>
   </body>
 </html>
