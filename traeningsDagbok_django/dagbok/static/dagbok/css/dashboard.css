@@ -1,0 +1,108 @@
+body {
+  background-color: #fefefe !important;
+}
+
+#dashboard-menu {
+  background-color: #2f4050;
+  padding: 0;
+  width: 250px;
+}
+
+#dashboard-menu h1 {
+  color: #496d87;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 25px;
+}
+
+#dashboard-content {
+  width: 100vw;
+  position: relative;
+}
+
+.display-table {
+  display: table;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.display-table-row {
+  display: table-row;
+  min-height: 100vh;
+}
+
+.display-table-cell {
+  display: table-cell;
+  float: none;
+  min-height: 100vh;
+}
+
+.valign-top {
+  vertical-align: top;
+}
+
+#nav-header {
+  border-bottom: 1px solid #e7eaec;
+}
+
+#nav-header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #676a6c;
+}
+
+#nav-header ul li {
+  float: left;
+  margin-left: 15px;
+  padding: 17px 0;
+}
+
+#nav-header ul .fa {
+  color: #676a6c;
+}
+
+#nav-header ul a {
+  text-decoration: none;
+}
+
+#nav-header .logout {
+  color: #676a6c;
+}
+
+#nav-header .logout:hover {
+  color: #676a6c;
+}
+
+#nav-header #welcome {
+  margin-right: 20px;
+}
+
+#nav-header ul .label {
+  position: absolute;
+  margin-top: -7px;
+  margin-left: -6px;
+}
+
+#nav-header .fixed-width {
+  width: 45px;
+}
+
+#nav-header #header-search-field {
+  padding-top: 17px;
+  vertical-align: center;
+  width: 60%;
+  outline: none;
+  border: none;
+}
+
+#dashboard-footer {
+  width: 96%;
+  min-height: 70px;
+  background: none;
+  color: #191919;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #e7eaec;
+  padding-top: 20px;
+}
