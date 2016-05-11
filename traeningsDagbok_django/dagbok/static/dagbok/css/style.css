@@ -143,7 +143,7 @@ li.icon {
 .register-circle span {
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-trans§: uppercase;
   letter-spacing: 1px;
   position: absolute;
   top: 50%;
@@ -258,12 +258,8 @@ textarea:focus {
 
 /* FORM STYLES */
 
-#inputEmail3 {
-  width: 60%;
-}
-
-#inputPassword3 {
-  width: 60%;
+.form-control {
+  width: 60% !important;
 }
 
 /* FOOTER */
