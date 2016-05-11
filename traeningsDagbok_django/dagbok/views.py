@@ -9,6 +9,9 @@ def index(request):
 
 def register(request):
     return HttpResponse("REGISTRERA SIG")
-    
+
 def login(request):
     return HttpResponse("LOGGA IN")
+
+def dashboard(request):
+    return render(request, 'dagbok/dashboard.html')
