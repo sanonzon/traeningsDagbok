@@ -7,9 +7,35 @@
     <title>Träningsdojon</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static "dagbok/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "dagbok/css/bootstrap.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/normalize.css" %}">
   </head>
   <body>
+
+    <!-- MODALS -->
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Register Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Registrera dig!</h4>
+          </div>
+          <div class="modal-body">
+            <p>Text goes here</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Register Modal END -->
+
+    <!-- MODALS END -->
+
     <header class="hero">
       <div class="row navbar">
         <div class="col-2">
@@ -17,7 +43,7 @@
         </div>
         <div class="col-10">
           <ul class="menu">
-            <li><a href="#">Registrera dig</a></li>
+            <li><a data-toggle="modal" data-target="#registerModal">Registrera dig</a></li>
             <li><a href="#">Logga in</a></li>
             <li><a href="#about-section">Om Träningsdojon</a></li>
             <li><a href="#contact-section">Kontakt</a></li>
@@ -105,6 +131,8 @@
       </div>
     </footer>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "dagbok/script/script.js" %}"></script>
+    <script type="text/javascript" src="{% static "dagbok/script/bootstrap.js" %}"></script>
   </body>
 </html>
