@@ -256,6 +256,16 @@ textarea:focus {
   outline: none;
 }
 
+/* FORM STYLES */
+
+#inputEmail3 {
+  width: 60%;
+}
+
+#inputPassword3 {
+  width: 60%;
+}
+
 /* FOOTER */
 
 footer {
