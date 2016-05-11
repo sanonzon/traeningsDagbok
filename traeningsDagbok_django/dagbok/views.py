@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
@@ -19,16 +20,10 @@ def dashboard(request):
 
 def register(request):
     if request.method == 'POST':
-        print request.POST        
-        #~ userName = request.REQUEST.get('username', None)
-        #~ userPass = request.REQUEST.get('password', None)
-        #~ userMail = request.REQUEST.get('email', None)
-        
-        #~ user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
-
-        #~ username = request.POST['username']
-        #~ password = request.POST['password']
-        return HttpResponse("REGISTRERA SIG")
+        if request.POST['username'] and request.POST['password']:
+            User.objects.create_user(request.POST['username'], 'null@null.com', request.POST['password'])
+            
+            return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
     else:
         return render(request, 'dagbok/index.html')
         
