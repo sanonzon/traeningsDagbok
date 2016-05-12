@@ -16,13 +16,63 @@
     <div class="container display-table">
       <div class="row display-table-row">
         <div class="col-3 display-table-cell valign-top" id="dashboard-menu">
-          <h1 id="nav">Navigation</h1>
+          <h1 id="nav">Träningsdojon</h1>
+          <input type="text" id="header-search-field" placeholder="Sök efter något...">
+          <span id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <ul>
+            <li class="link">
+              <a class="list-group-item" href="#">
+                <i class="fa fa-th" aria-hidden="true"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="link">
+              <a class="list-group-item" href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
+                <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                <span>Min träning</span>
+              </a>
+            </li>
+
+            <ul class="collapse" id="collapse-post">
+              <li>
+                <a class="list-group-item" href="#">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <span>Kalender</span>
+                </a>
+              </li>
+              <li>
+                <a class="list-group-item" href="#">
+                  <i class="fa fa-line-chart" aria-hidden="true"></i>
+                  <span>Framsteg</span>
+                </a>
+              </li>
+              <li>
+                <a class="list-group-item" href="#">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  <span>Lägg till träning</span>
+                </a>
+              </li>
+            </ul>
+
+            <li class="link">
+              <a class="list-group-item" href="#">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>Profil</span>
+              </a>
+            </li>
+            <li class="link">
+              <a class="list-group-item" href="#">
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                <span>Inställningar</span>
+              </a>
+            </li>
+          </ul>
         </div>
         <div class="col-9 display-table-cell valign-top" id="dashboard-content">
           <div class="row fix">
             <header id="nav-header" class="clearfix">
               <div class="col-5">
-                <input type="text" id="header-search-field" placeholder="Sök efter något...">
+                <!-- sökrutan ska kanske vara här dunno -->
               </div>
               <div class="col-7">
                 <ul class="pull-right">

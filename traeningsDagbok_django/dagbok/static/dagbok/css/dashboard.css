@@ -4,16 +4,31 @@ body {
 }
 
 #dashboard-menu {
-  background-color: #2f4050;
+  background-color: #293239;
   padding: 0;
   width: 250px;
 }
 
 #dashboard-menu h1 {
-  color: #496d87;
+  font-family: "Arizonia";
+  color: #6c8195;
   text-align: center;
   margin: 10px 0;
-  font-size: 25px;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+#dashboard-menu .list-group-item {
+  background-color: #293239;
+  border-bottom: 1px solid #45586a;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+}
+
+#dashboard-menu a {
+  color: #acbac7;
 }
 
 #dashboard-content {
@@ -93,12 +108,27 @@ body {
   width: 45px;
 }
 
-#nav-header #header-search-field {
+#header-search-field {
+  background-color: #293239;
+  color: #acbac7;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  width: 80%;
   padding-top: 17px;
   vertical-align: center;
-  width: 60%;
+  border-bottom: 1px solid #45586a;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
   outline: none;
-  border: none;
+  display: inline;
+}
+
+#search-icon {
+  display: inline;
+  color: #45586a;
+  font-size: 18px;
 }
 
 #dashboard-footer {
