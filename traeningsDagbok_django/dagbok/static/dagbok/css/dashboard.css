@@ -102,7 +102,7 @@ body {
   background: none;
   color: #191919;
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   border-top: 1px solid #e7eaec;
   padding-top: 20px;
 }
