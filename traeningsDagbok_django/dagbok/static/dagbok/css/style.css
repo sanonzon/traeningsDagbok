@@ -202,14 +202,6 @@ li.icon {
   min-height: 80vh;
 }
 
-.form-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 80vh;
-}
-
 .contact {
   min-height: 100vh;
 }
@@ -224,42 +216,6 @@ li.icon {
   text-align: center;
   margin: 0 auto;
   margin-top: 30px;
-}
-
-.contact-form label, input, textarea {
-  display: block;
-}
-
-.contact-form input {
-  padding: 5px;
-}
-
-.contact-form label {
-  font-weight: 600;
-  margin: 10px;
-}
-
-.contact-form textarea {
-  border-color: #dfdddd;
-  padding: 5px;
-}
-
-input[type="button"] {
-  margin-top: 10px;
-}
-
-input:focus {
-  outline: none;
-}
-
-textarea:focus {
-  outline: none;
-}
-
-/* FORM STYLES */
-
-.form-control {
-  width: 60% !important;
 }
 
 /* FOOTER */
@@ -305,7 +261,7 @@ footer p {
 
 /* MEDIA QUERIES */
 
-/*@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     [class*="col-"] {
         width: 100%;
     }
@@ -336,4 +292,4 @@ footer p {
     display: block;
     text-align: left;
   }
-}*/
+}
