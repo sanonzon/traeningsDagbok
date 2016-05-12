@@ -50,9 +50,11 @@ def register(request):
             
             user = authenticate(username=username, password=password)
             login(request, user)
-            return render(request, 'dagbok/dashboard.html')
+            return redirect('/dashboard')
+
+            #~ return render(request, 'dagbok/dashboard.html')
             #~ return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
     else:
-        return render(request, 'dagbok/index.html')
+        return redirect('/')
         
         
