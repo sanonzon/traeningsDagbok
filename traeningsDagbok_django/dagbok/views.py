@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -19,7 +20,8 @@ def login_user(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            return render(request, 'dagbok/dashboard.html')
+            #~ return render(request, 'dagbok/dashboard.html')
+            return redirect('/dashboard')
             # Redirect to a success page.
         else:
             return HttpResponse("Disabled account.")
@@ -30,9 +32,11 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return render(request, 'dagbok/index.html')
+    return redirect('/')
+    #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
+    #~ return redirect('/dashboard')
     return render(request, 'dagbok/dashboard.html')
 
 

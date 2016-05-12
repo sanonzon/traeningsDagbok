@@ -1,5 +1,6 @@
 body {
   background-color: #fefefe !important;
+  height: 100vh !important;
 }
 
 #dashboard-menu {
@@ -18,23 +19,27 @@ body {
 #dashboard-content {
   width: 100vw;
   position: relative;
+  min-height: 100vh;
 }
 
 .display-table {
   display: table;
   padding: 0;
   min-height: 100vh;
+  height: 100%;
 }
 
 .display-table-row {
   display: table-row;
   min-height: 100vh;
+  height: 100%;
 }
 
 .display-table-cell {
   display: table-cell;
   float: none;
   min-height: 100vh;
+  height: 100%;
 }
 
 .valign-top {
