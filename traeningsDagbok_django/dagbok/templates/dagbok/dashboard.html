@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static "dagbok/css/normalize.css" %}">
   </head>
   <body>
-
+{% if user.is_authenticated %}
     <div class="container display-table">
       <div class="row display-table-row">
         <div class="col-3 display-table-cell valign-top" id="dashboard-menu">
@@ -34,7 +34,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="logout">
+                    <a href="{% url "logout" %}" class="logout">
                       <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
                       Logga ut
                     </a>
@@ -43,6 +43,8 @@
               </div>
             </header>
           </div>
+
+    <h1>HEJ {{ user.get_username }}</h1>
 
           <div class="row">
             <footer id="dashboard-footer" class="clearfix">
@@ -55,7 +57,9 @@
         </div>
       </div>
     </div>
-
+{% else %}
+    loggaindååååå
+{% endif %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "dagbok/script/script.js" %}"></script>
     <script type="text/javascript" src="{% static "dagbok/script/bootstrap.js" %}"></script>
