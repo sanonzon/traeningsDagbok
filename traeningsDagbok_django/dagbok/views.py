@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def index(request):
@@ -11,8 +12,21 @@ def index(request):
 #~ def register(request):
     #~ return HttpResponse("REGISTRERA SIG")
 
-def login(request):
-    return HttpResponse("LOGGA IN")
+def login_user(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return render(request, 'dagbok/dashboard.html')
+            # Redirect to a success page.
+        else:
+            return HttpResponse("Disabled account.")
+            # Return a 'disabled account' error message
+    else:
+        return HttpResponse("Invalid login.")
+        # Return an 'invalid login' error message.
 
 def dashboard(request):
     return render(request, 'dagbok/dashboard.html')
@@ -20,10 +34,16 @@ def dashboard(request):
 
 def register(request):
     if request.method == 'POST':
-        if request.POST['username'] and request.POST['password']:
-            User.objects.create_user(request.POST['username'], 'null@null.com', request.POST['password'])
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        if username and password:
+            User.objects.create_user(username, 'null@null.com', password)
             
-            return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return render(request, 'dagbok/dashboard.html')
+            #~ return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
     else:
         return render(request, 'dagbok/index.html')
         
