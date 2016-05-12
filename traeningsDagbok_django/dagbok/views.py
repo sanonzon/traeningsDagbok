@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):
@@ -27,6 +27,10 @@ def login_user(request):
     else:
         return HttpResponse("Invalid login.")
         # Return an 'invalid login' error message.
+
+def logout_user(request):
+    logout(request)
+    return render(request, 'dagbok/index.html')
 
 def dashboard(request):
     return render(request, 'dagbok/dashboard.html')
