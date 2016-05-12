@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 
+from .forms import CreateAccountForm
+
 # Create your views here.
 def index(request):
     return render(request, 'dagbok/index.html')
@@ -57,4 +59,26 @@ def register(request):
     else:
         return redirect('/')
         
-        
+def create_user(request):
+    #~ if request.user.is_authenticated():
+        #~ return redirect('bank-login')
+
+    form = CreateAccountForm(request.POST)
+
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = User(username=username)
+        user.set_password(password)
+        user.is_active = True
+        user.save()
+
+        login(request, authenticate(username=username, password=password))
+        return redirect('/dashboard')
+    else:
+        return render(
+            request,
+            'dagbok/index.html',
+            {
+                'form': form,
+            })
