@@ -4,11 +4,6 @@ from django.db import models
 
 # Create your models here.
 
-class Users(models.Model):
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-
-
 class Workout_type(models.Model):
     #~ workout_type = models.Selection([('1','Gym'),('2', 'Simning')],string='Workout type')
     workout_type = (('1', 'Gym'),('2','Simning'))
