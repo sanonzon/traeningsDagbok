@@ -27,6 +27,16 @@ body {
   border-radius: 0;
 }
 
+#dashboard-menu .list-group-item-collapsed {
+  background-color: #1e2428;
+  border-bottom: 0;
+  border-top: 0;
+  border-left: 3px solid #27ae60;
+  border-right: 0;
+  border-radius: 0;
+  padding-left: 30px;
+}
+
 #dashboard-menu a {
   color: #acbac7;
 }
@@ -35,6 +45,9 @@ body {
   width: 100vw;
   position: relative;
   min-height: 100vh;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .display-table {
@@ -88,6 +101,7 @@ body {
 
 #nav-header .logout {
   color: #676a6c;
+  margin-right: 15px;
 }
 
 #nav-header .logout:hover {
@@ -132,12 +146,25 @@ body {
 }
 
 #dashboard-footer {
-  width: 96%;
+  width: 100%;
   min-height: 70px;
   background: none;
   color: #191919;
   position: absolute;
   bottom: 0px;
   border-top: 1px solid #e7eaec;
-  padding-top: 20px;
+  padding: 20px;
+}
+
+#welcome-name {
+  font-size: 14px;
+}
+
+#nav-header-fix {
+  padding: 0 10px;
+  background-color: #f4f7f8;
+}
+
+.label-warning {
+  background-color: #27ae60 !important;
 }

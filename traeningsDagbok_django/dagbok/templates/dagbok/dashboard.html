@@ -15,8 +15,8 @@
 {% if user.is_authenticated %}
     <div class="container display-table">
       <div class="row display-table-row">
-        <div class="col-3 display-table-cell valign-top" id="dashboard-menu">
-          <h1 id="nav">Träningsdojon</h1>
+        <div class="col-3 display-table-cell valign-top clearfix" id="dashboard-menu">
+          <h1>Träningsdojon</h1>
           <input type="text" id="header-search-field" placeholder="Sök efter något...">
           <span id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
           <ul>
@@ -35,19 +35,19 @@
 
             <ul class="collapse" id="collapse-post">
               <li>
-                <a class="list-group-item" href="#">
+                <a class="list-group-item list-group-item-collapsed" href="#">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                   <span>Kalender</span>
                 </a>
               </li>
               <li>
-                <a class="list-group-item" href="#">
+                <a class="list-group-item list-group-item-collapsed" href="#">
                   <i class="fa fa-line-chart" aria-hidden="true"></i>
                   <span>Framsteg</span>
                 </a>
               </li>
               <li>
-                <a class="list-group-item" href="#">
+                <a class="list-group-item list-group-item-collapsed" href="#">
                   <i class="fa fa-plus" aria-hidden="true"></i>
                   <span>Lägg till träning</span>
                 </a>
@@ -71,12 +71,13 @@
         <div class="col-9 display-table-cell valign-top" id="dashboard-content">
           <div class="row fix">
             <header id="nav-header" class="clearfix">
-              <div class="col-5">
-                <!-- sökrutan ska kanske vara här dunno -->
-              </div>
-              <div class="col-7">
+              <div class="col-12" id="nav-header-fix">
+                <div class="pull-left">
+                  <ul>
+                    <li id="welcome-name">Hej {{ user.get_username }}, välkommen till din dashboard!</li>
+                  </ul>
+                </div>
                 <ul class="pull-right">
-                  <li id="welcome">Välkommen till din dashboard</li>
                   <li class="fixed-width">
                     <a href="#">
                       <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
@@ -93,7 +94,7 @@
               </div>
             </header>
             <div class="col-12">
-              <h1>HEJ {{ user.get_username }}</h1>
+              <!-- THINGS IN HERE -->
             </div>
           </div>
 
