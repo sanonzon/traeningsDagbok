@@ -150,8 +150,6 @@ body {
   min-height: 70px;
   background: none;
   color: #191919;
-  position: absolute;
-  bottom: 0px;
   border-top: 1px solid #e7eaec;
   padding: 20px;
 }
@@ -167,4 +165,19 @@ body {
 
 .label-warning {
   background-color: #27ae60 !important;
+}
+
+.chart-rect-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chart-rect {
+  background-color: pink;
+  height: 350px;
+  width: 450px;
+  margin: 10px;
+  padding: 10px;
 }
