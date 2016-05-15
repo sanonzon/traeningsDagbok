@@ -1,5 +1,5 @@
 body {
-  background-color: #fefefe !important;
+  background-color: #f5f9fa !important;
   height: 100vh !important;
 }
 
@@ -175,9 +175,47 @@ body {
 }
 
 .chart-rect {
-  background-color: pink;
-  height: 350px;
+  background-color: white;
+  border: 1px solid #d4d4d4;
+  -webkit-box-shadow: 15px -11px 30px -8px rgba(0,0,0,0.12);
+  -moz-box-shadow: 15px -11px 30px -8px rgba(0,0,0,0.12);
+  box-shadow: 15px -11px 30px -8px rgba(0,0,0,0.12);
+  height: 100%;
   width: 450px;
   margin: 10px;
   padding: 10px;
+  overflow: auto;
+}
+
+.widget-header {
+  border-bottom: 1px solid #d4d4d4;
+  padding-bottom: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 13px;
+  color: #45586a;
+}
+
+.icon-padding {
+  padding-left: 7px;
+}
+
+.form-control {
+  width: 100% !important
+}
+
+.form-control-select {
+  width: 70% !important;
+  margin-bottom: 10px;
+}
+
+.fast-workout-label {
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 7px;
+}
+
+.input-group-workout {
+  width: 75% !important;
 }
