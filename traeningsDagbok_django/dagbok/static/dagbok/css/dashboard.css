@@ -184,7 +184,6 @@ body {
   width: 450px;
   margin: 10px;
   padding: 10px;
-  overflow: auto;
 }
 
 .widget-header {
@@ -205,7 +204,7 @@ body {
   width: 100% !important
 }
 
-.form-control-select {
+#selectFastWorkout {
   width: 70% !important;
   margin-bottom: 10px;
 }
