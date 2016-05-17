@@ -1,106 +1,147 @@
 {% include "dagbok/header.html" %}
-              <!-- THINGS IN HERE -->
+<!-- THINGS IN HERE -->
 
-              <div class="chart-rect">
-                <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Snabbtillägg träning</span></h4>
-                <select id="selectFastWorkout" class="form-control">
-                  <option value="option0">Välj träning</option>
-                  <option value="fastWorkoutRunning">Löpning</option>
-                  <option value="fastWorkoutSwimming">Simning</option>
-                  <option value="fastWorkoutStyrke">Styrkelyftning</option>
-                </select>
-                <div id="fast-workout-wrapper">
-                  <div id="fastWorkoutRunning" class="fast-workout-sections">
-                    <div class="row">
-                      <div class="col-2">
-                        <label class="fast-workout-label">Sträcka:</label>
-                      </div>
-                      <div class="col-10">
-                        <div class="input-group input-group-workout">
-                          <input type="text" class="form-control" placeholder="T.ex. 1.9" aria-describedby="basic-addon2">
-                          <span class="input-group-addon" id="basic-addon2">km</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-2">
-                        <label class="fast-workout-label">Tid:</label>
-                      </div>
-                      <div class="col-10">
-                        <div class="input-group input-group-workout">
-                          <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
-                          <span class="input-group-addon" id="basic-addon2">min:sek</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-2">
-                        <label class="fast-workout-label">Känsla:</label>
-                      </div>
-                      <div class="col-10">
-                        <div class="input-group input-group-workout">
-                          <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <button type="submit" class="btn btn-default">Lägg till träning</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="fastWorkoutSwimming" class="fast-workout-sections">
-                    <div class="row">
-                      <div class="col-2">
-                        <label class="fast-workout-label">Sträcka:</label>
-                      </div>
-                      <div class="col-10">
-                        <div class="input-group input-group-workout">
-                          <input type="text" class="form-control" placeholder="T.ex. 500" aria-describedby="basic-addon2">
-                          <span class="input-group-addon" id="basic-addon2">meter</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-2">
-                        <label class="fast-workout-label">Tid:</label>
-                      </div>
-                      <div class="col-10">
-                        <div class="input-group input-group-workout">
-                          <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
-                          <span class="input-group-addon" id="basic-addon2">min:sek</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-2">
-                        <label class="fast-workout-label">Känsla:</label>
-                      </div>
-                      <div class="col-10">
-                        <div class="input-group input-group-workout">
-                          <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <button type="submit" class="btn btn-default">Lägg till träning</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="fastWorkoutStyrke" class="fast-workout-sections">
-                    Styrketräning
-                  </div>
-                </div>
-              </div>
-              <div class="chart-rect">
-                Här placeras en chart
-              </div>
-              <div class="chart-rect">
-                Här placeras en chart
-              </div>
-              <div class="chart-rect">
-                Här placeras en chart
-              </div>
-            </div>
+<div class="chart-rect">
+  <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Snabbtillägg träning</span></h4>
+  <select id="selectFastWorkout" class="form-control">
+    <option value="option0">Välj träning</option>
+    <option value="fastWorkoutRunning">Löpning</option>
+    <option value="fastWorkoutSwimming">Simning</option>
+    <option value="fastWorkoutStyrke">Styrkelyftning</option>
+  </select>
+  <div id="fast-workout-wrapper">
+    <div id="fastWorkoutRunning" class="fast-workout-sections">
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control" placeholder="T.ex. 1.9" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">km</span>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Känsla:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-default">Lägg till träning</button>
+        </div>
+      </div>
+    </div>
+    <div id="fastWorkoutSwimming" class="fast-workout-sections">
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control" placeholder="T.ex. 500" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">meter</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Känsla:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-default">Lägg till träning</button>
+        </div>
+      </div>
+    </div>
+    <div id="fastWorkoutStyrke" class="fast-workout-sections">
+      Styrketräning
+    </div>
+  </div>
+</div>
+
+<div class="chart-rect">
+  <h4 class="widget-header"><i class="fa fa-heartbeat"></i><span class="icon-padding">Dina senaste pass</span></h4>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th>
+        Datum
+      </th>
+      <th>
+        Sport
+      </th>
+      <th>
+        Sträcka
+      </th>
+      <th>
+        Tid
+      </th>
+    </tr>
+    <tr>
+      <td>26/6</td>
+      <td>Simning</td>
+      <td>500m</td>
+      <td>30m 40s</td>
+    </tr>
+    <tr>
+      <td>26/6</td>
+      <td>Löpning</td>
+      <td>1.5km</td>
+      <td>20m 45s</td>
+    </tr>
+    <tr>
+      <td>26/6</td>
+      <td>Löpning</td>
+      <td>1.5km</td>
+      <td>20m 45s</td>
+    </tr>
+    <tr>
+      <td>26/6</td>
+      <td>Löpning</td>
+      <td>1.5km</td>
+      <td>20m 45s</td>
+    </tr>
+  </table>
+</div>
+<!-- <div class="chart-rect">
+  Här placeras en chart
+</div>
+<div class="chart-rect">
+  Här placeras en chart
+</div> -->
+
+{% include "dagbok/footer.html" %}

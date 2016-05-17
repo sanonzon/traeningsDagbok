@@ -20,6 +20,8 @@ from dagbok import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
+    url(r'^calendar/', views.calendar, name='calendar'),
+    url(r'^profile/', views.profile, name='profile'),
     url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),
 ]

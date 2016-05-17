@@ -63,28 +63,15 @@ def footer(request):
     #~ return redirect('/dashboard')
     return render(request, 'dagbok/footer.html')
 
-#~ def register(request):
-    #~ if request.method == 'POST':
-        #~ username = request.POST['username']
-        #~ password = request.POST['password']
-        #~ 
-        #~ if username and password:
-            #~ User.objects.create_user(username, 'null@null.com', password)
-            #~ 
-            #~ user = authenticate(username=username, password=password)
-            #~ login(request, user)
-            #~ return redirect('/dashboard')
-#~ 
-    #~ else:
-        #~ return redirect('/')
-        
-def create_user(request):
-    #~ if request.user.is_authenticated():
-        #~ return redirect('bank-login')
-        
-    #~ print "METHOD = POST ????   %s" % (request.method == 'POST')
-    #~ print "CreateAccountForm(request.POST) ????   %s" % (CreateAccountForm(request.POST))
-    
+def calendar(request):
+    #~ return redirect('/dashboard')
+    return render(request, 'dagbok/calendar.html')
+
+def profile(request):
+    #~ return redirect('/dashboard')
+    return render(request, 'dagbok/profile.html')
+
+def register(request):
     if request.method == 'POST':
         form = CreateAccountForm(request.POST)
         username = request.POST['username']
