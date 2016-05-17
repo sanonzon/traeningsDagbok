@@ -1,151 +1,95 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{% static "dagbok/css/style.css" %}">
-    <link rel="stylesheet" href="{% static "dagbok/css/dashboard.css" %}">
-    <link rel="stylesheet" href="{% static "dagbok/css/bootstrap.css" %}">
-    <link rel="stylesheet" href="{% static "dagbok/css/font-awesome.css" %}">
-    <link rel="stylesheet" href="{% static "dagbok/css/normalize.css" %}">
-  </head>
-  <body>
-{% if user.is_authenticated %}
-    <div class="container display-table">
-      <div class="row display-table-row">
-        <div class="col-3 display-table-cell valign-top clearfix" id="dashboard-menu">
-          <h1>Träningsdojon</h1>
-          <input type="text" id="header-search-field" placeholder="Sök efter något...">
-          <span id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <ul>
-            <li class="link">
-              <a class="list-group-item" href="#">
-                <i class="fa fa-dashboard" aria-hidden="true"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li class="link">
-              <a class="list-group-item" href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
-                <i class="fa fa-heartbeat" aria-hidden="true"></i>
-                <span>Min träning</span>
-              </a>
-            </li>
-
-            <ul class="collapse" id="collapse-post">
-              <li>
-                <a class="list-group-item list-group-item-collapsed" href="#">
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                  <span>Kalender</span>
-                </a>
-              </li>
-              <li>
-                <a class="list-group-item list-group-item-collapsed" href="#">
-                  <i class="fa fa-line-chart" aria-hidden="true"></i>
-                  <span>Framsteg</span>
-                </a>
-              </li>
-              <li>
-                <a class="list-group-item list-group-item-collapsed" href="#">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                  <span>Lägg till träning</span>
-                </a>
-              </li>
-              <li>
-                <a class="list-group-item list-group-item-collapsed" href="#">
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <span>Mål</span>
-                </a>
-              </li>
-            </ul>
-
-            <li class="link">
-              <a class="list-group-item" href="#">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <span>Profil</span>
-              </a>
-            </li>
-            <li class="link">
-              <a class="list-group-item" href="#">
-                <i class="fa fa-cogs" aria-hidden="true"></i>
-                <span>Inställningar</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-9 display-table-cell valign-top" id="dashboard-content">
-          <div class="row fix">
-            <header id="nav-header" class="clearfix">
-              <div class="col-12" id="nav-header-fix">
-                <div class="pull-left">
-                  <ul>
-                    <li id="welcome-name">Hej {{ user.get_username }}, välkommen till din dashboard!</li>
-                  </ul>
-                </div>
-                <ul class="pull-right">
-                  <li class="fixed-width">
-                    <a href="#">
-                      <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-                      <span class="label label-warning">3</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url "logout" %}" class="logout">
-                      <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
-                      Logga ut
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </header>
-            <div class="col-12 chart-rect-wrapper">
+{% include "dagbok/header.html" %}
               <!-- THINGS IN HERE -->
+
               <div class="chart-rect">
                 <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Snabbtillägg träning</span></h4>
-                <select class="form-control form-control-select">
-                  <option>Välj träning</option>
-                  <option>Löpning</option>
-                  <option>Simning</option>
-                  <option>Styrkelyftning</option>
+                <select id="selectFastWorkout" class="form-control">
+                  <option value="option0">Välj träning</option>
+                  <option value="fastWorkoutRunning">Löpning</option>
+                  <option value="fastWorkoutSwimming">Simning</option>
+                  <option value="fastWorkoutStyrke">Styrkelyftning</option>
                 </select>
                 <div id="fast-workout-wrapper">
-                  <div class="row">
-                    <div class="col-2">
-                      <label class="fast-workout-label">Sträcka:</label>
+                  <div id="fastWorkoutRunning" class="fast-workout-sections">
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="fast-workout-label">Sträcka:</label>
+                      </div>
+                      <div class="col-10">
+                        <div class="input-group input-group-workout">
+                          <input type="text" class="form-control" placeholder="T.ex. 1.9" aria-describedby="basic-addon2">
+                          <span class="input-group-addon" id="basic-addon2">km</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-10">
-                      <div class="input-group input-group-workout">
-                        <input type="text" class="form-control" placeholder="T.ex. 1.9" aria-describedby="basic-addon2">
-                        <span class="input-group-addon" id="basic-addon2">km</span>
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="fast-workout-label">Tid:</label>
+                      </div>
+                      <div class="col-10">
+                        <div class="input-group input-group-workout">
+                          <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+                          <span class="input-group-addon" id="basic-addon2">min:sek</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="fast-workout-label">Känsla:</label>
+                      </div>
+                      <div class="col-10">
+                        <div class="input-group input-group-workout">
+                          <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-default">Lägg till träning</button>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-2">
-                      <label class="fast-workout-label">Tid:</label>
+                  <div id="fastWorkoutSwimming" class="fast-workout-sections">
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="fast-workout-label">Sträcka:</label>
+                      </div>
+                      <div class="col-10">
+                        <div class="input-group input-group-workout">
+                          <input type="text" class="form-control" placeholder="T.ex. 500" aria-describedby="basic-addon2">
+                          <span class="input-group-addon" id="basic-addon2">meter</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-10">
-                      <div class="input-group input-group-workout">
-                        <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
-                        <span class="input-group-addon" id="basic-addon2">min:sek</span>
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="fast-workout-label">Tid:</label>
+                      </div>
+                      <div class="col-10">
+                        <div class="input-group input-group-workout">
+                          <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+                          <span class="input-group-addon" id="basic-addon2">min:sek</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-2">
+                        <label class="fast-workout-label">Känsla:</label>
+                      </div>
+                      <div class="col-10">
+                        <div class="input-group input-group-workout">
+                          <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-default">Lägg till träning</button>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-2">
-                      <label class="fast-workout-label">Känsla:</label>
-                    </div>
-                    <div class="col-10">
-                      <div class="input-group input-group-workout">
-                        <input type="text" class="form-control" id="fastWorkoutFeeling" placeholder="Hur kändes det?">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-default">Lägg till träning</button>
-                    </div>
+                  <div id="fastWorkoutStyrke" class="fast-workout-sections">
+                    Styrketräning
                   </div>
                 </div>
               </div>
@@ -158,42 +102,5 @@
               <div class="chart-rect">
                 Här placeras en chart
               </div>
-              <!-- <div class="row">
-                <div class="col-6 chart-rect">
-                  Här placeras en chart
-                </div>
-                <div class="col-6 chart-rect">
-                  Här placeras en annan chart
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6 chart-rect">
-                  Chart igen
-                </div>
-                <div class="col-6 chart-rect">
-                  Chart igen
-                </div>
-              </div> -->
             </div>
           </div>
-
-          <div class="row">
-            <footer id="dashboard-footer" class="clearfix">
-              <div class="pull-left">
-                <strong>&copy; Copyright Training of Doom</strong>
-              </div>
-              <div class="pull-right">Träningsdojon Dashboard</div>
-            </footer>
-          </div>
-        </div>
-      </div>
-    </div>
-{% else %}
-    loggaindååååå
-    {% template "dagbok/testfoot.html" %}}
-{% endif %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="{% static "dagbok/script/script.js" %}"></script>
-    <script type="text/javascript" src="{% static "dagbok/script/bootstrap.js" %}"></script>
-  </body>
-</html>
