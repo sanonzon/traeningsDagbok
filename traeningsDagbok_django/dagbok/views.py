@@ -38,23 +38,18 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/dashboard.html')
 
 def header(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/header.html')
 
 def footer(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/footer.html')
 
 def calendar(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/calendar.html')
 
 def profile(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/profile.html')
 
 def register(request):
