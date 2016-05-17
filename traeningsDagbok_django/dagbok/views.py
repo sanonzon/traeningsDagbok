@@ -41,15 +41,14 @@ def dashboard(request):
     #~ return redirect('/dashboard')
     return render(request, 'dagbok/dashboard.html')
 
-
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        
+
         if username and password:
             User.objects.create_user(username, 'null@null.com', password)
-            
+
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('/dashboard')
@@ -58,7 +57,7 @@ def register(request):
             #~ return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
     else:
         return redirect('/')
-        
+
 def create_user(request):
     #~ if request.user.is_authenticated():
         #~ return redirect('bank-login')
