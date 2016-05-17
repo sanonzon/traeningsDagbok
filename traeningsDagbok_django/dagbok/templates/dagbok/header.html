@@ -23,7 +23,7 @@
           <span id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
           <ul>
             <li class="link">
-              <a class="list-group-item" href="#">
+              <a class="list-group-item" href="{% url "dashboard" %}">
                 <i class="fa fa-dashboard" aria-hidden="true"></i>
                 <span>Dashboard</span>
               </a>
@@ -37,7 +37,7 @@
 
             <ul class="collapse" id="collapse-post">
               <li>
-                <a class="list-group-item list-group-item-collapsed" href="#">
+                <a class="list-group-item list-group-item-collapsed" href="{% url "calendar" %}">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                   <span>Kalender</span>
                 </a>
@@ -63,7 +63,7 @@
             </ul>
 
             <li class="link">
-              <a class="list-group-item" href="#">
+              <a class="list-group-item" href="{% url "profile" %}">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Profil</span>
               </a>

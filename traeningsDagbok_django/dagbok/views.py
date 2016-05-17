@@ -49,6 +49,14 @@ def footer(request):
     #~ return redirect('/dashboard')
     return render(request, 'dagbok/footer.html')
 
+def calendar(request):
+    #~ return redirect('/dashboard')
+    return render(request, 'dagbok/calendar.html')
+
+def profile(request):
+    #~ return redirect('/dashboard')
+    return render(request, 'dagbok/profile.html')
+
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
