@@ -25,7 +25,7 @@
             <h4 class="modal-title">Registrera dig</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" action="{% url 'register' %}" method="POST">
+            <form class="form-horizontal" id="register-form" action="{% url 'register' %}" method="POST">
                 {% csrf_token %}
               <div class="form-group">
                 <div class="row">
@@ -33,9 +33,13 @@
                     <label for="inputEmail3" class="control-label">Användarnamn:</label>
                   </div>
                   <div class="col-9">
+<!--
                     <input type="text" class="form-control" name="username" id="inputEmailReg" placeholder="Användarnamn">
-                    <!-- TODO: EMMA, HJÄÄÄÄLP!!! -->
-                    {{ form.username.errors }}
+-->
+                    <!-- TODO: Need to give these Django generated fields
+                                some proper .css i suppose -->
+                    {{ register_form.username }}
+                    {{ register_form.username.errors }}
                   </div>
                 </div>
               </div>
@@ -45,9 +49,29 @@
                     <label for="inputPassword3" class="control-label">Lösenord:</label>
                   </div>
                   <div class="col-9">
+<!--
                     <input type="password" class="form-control" name="password" id="inputPasswordReg" placeholder="Lösenord">
-                    <!-- TODO: EMMA, HJÄLP HÄR OCKSÅÅÅÅ!!!! -->
-                    {{ form.password.errors }}
+-->
+                    <!-- TODO: Need to give these Django generated fields
+                                some proper .css i suppose -->
+                    {{ register_form.password }}
+                    {{ register_form.password.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-3">
+                    <label for="inputPassword3" class="control-label">Lösenord igen:</label>
+                  </div>
+                  <div class="col-9">
+<!--
+                    <input type="password" class="form-control" name="repeatPassword" id="inputPasswordReg2" placeholder="Lösenord">
+-->
+                    <!-- TODO: Need to give these Django generated fields
+                                some proper .css i suppose -->
+                    {{ register_form.passwordRepeat }}
+                    {{ register_form.passwordRepeat.errors }}
                   </div>
                 </div>
               </div>
@@ -62,7 +86,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+            <button type="button" class="btn btn-default" id="register-button" data-dismiss="modal">Stäng</button>
           </div>
         </div>
       </div>
@@ -79,7 +103,7 @@
             <h4 class="modal-title">Logga in</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" action="{% url 'login' %}" method="POST">
+            <form class="form-horizontal" id="login-form" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
               <div class="form-group">
                 <div class="row">
@@ -87,7 +111,10 @@
                     <label for="inputEmail3" class="control-label">Användarnamn:</label>
                   </div>
                   <div class="col-9">
+<!--
                     <input type="text" class="form-control" name="username" id="inputEmailLog" placeholder="Användarnamn">
+-->
+                    {{ login_form.username }}
                   </div>
                 </div>
               </div>
@@ -97,7 +124,11 @@
                     <label for="inputPassword3" class="control-label">Lösenord:</label>
                   </div>
                   <div class="col-9">
+<!--
                     <input type="password" class="form-control" name="password" id="inputPasswordLog" placeholder="Lösenord">
+-->
+                    {{ login_form.password }}
+                    {{ login_form.password.errors }}
                   </div>
                 </div>
               </div>
