@@ -53,10 +53,20 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
+    if request.POST:
+        print request.POST
+        if request.POST['workoutType'] == 'weightlifting':
+            print "GYMFORMULÄRET ÄR POSTAT: DO STUFF"
+        elif request.POST['workoutType'] == 'swimming':
+            print "simma"
+        elif request.POST['workoutType'] == 'running':
+            print "springa som fan"
     # context = RequestContext(request)
-    swimmingFastWork = models.Swimming.objects.all()
-    workouts = models.WorkOuts.objects.all().order_by('-id')[:5]
-    return render(request, 'dagbok/dashboard.html', {'workouts': workouts})
+    #~ swimmingFastWork = models.Swimming.objects.all()
+    #~ workouts = models.WorkOuts.objects.all().order_by('-id')[:5] or None
+    return render(request, 'dagbok/dashboard.html', {
+    #~ 'workouts': workouts,
+    })
 
 def header(request):
     return render(request, 'dagbok/header.html')

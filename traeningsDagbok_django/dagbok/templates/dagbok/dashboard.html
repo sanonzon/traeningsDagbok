@@ -10,7 +10,11 @@
     <option value="fastWorkoutStyrke">Styrkelyftning</option>
   </select>
   <div id="fast-workout-wrapper">
+
     <div id="fastWorkoutRunning" class="fast-workout-sections">
+      <form method="POST" action="{% url "dashboard" %}">
+      {% csrf_token %}
+      <input type="hidden" value="running" name="workoutType">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
@@ -49,7 +53,12 @@
         </div>
       </div>
     </div>
+    </form>
+    
     <div id="fastWorkoutSwimming" class="fast-workout-sections">
+        <form method="POST" action="{% url "dashboard" %}">
+        {% csrf_token %}
+      <input type="hidden" value="swimming" name="workoutType">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
@@ -88,8 +97,50 @@
         </div>
       </div>
     </div>
+    </form>
     <div id="fastWorkoutStyrke" class="fast-workout-sections">
-      Styrketräning
+    <form method="POST" action="{% url "dashboard" %}">
+    {% csrf_token %}
+       <input type="hidden" value="weightlifting" name="workoutType">
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control" placeholder="T.ex. 500" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">meter</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Känsla:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-default">Lägg till träning</button>
+        </div>
+      </div>
+    
+    </form>
     </div>
   </div>
 </div>
