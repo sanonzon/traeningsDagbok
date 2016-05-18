@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
@@ -9,32 +9,46 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
 from . import models
 
-from .forms import CreateAccountForm
+import json
+from .forms import CreateAccountForm, LoginAccountForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'dagbok/index.html')
-
-#~ def register(request):
-    #~ return HttpResponse("REGISTRERA SIG")
+    register_form = CreateAccountForm(request.POST)
+    login_form = LoginAccountForm(request.POST)
+    return render(
+        request,
+        'dagbok/index.html',
+        {
+            'register_form': register_form,
+            'login_form': login_form,
+        })
 
 def login_user(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            #~ return render(request, 'dagbok/dashboard.html')
-            return redirect('/dashboard')
-            # Redirect to a success page.
-        else:
-            return HttpResponse("Disabled account.")
-            # Return a 'disabled account' error message
-    else:
-        return HttpResponse("Invalid login.")
-        # Return an 'invalid login' error message.
+    print request.POST
+    form = LoginAccountForm(request.POST)
 
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                #~ return render(request, 'dagbok/dashboard.html')
+                return redirect('/dashboard')
+                # Redirect to a success page.
+            else:
+                return redirect('/')
+                # Return a 'disabled account' error message
+        else:
+            return redirect('/')
+            # Return an 'invalid login' error message.
+    else:
+        return redirect('/')
+        
 def logout_user(request):
     logout(request)
     return redirect('/')
@@ -60,6 +74,7 @@ def profile(request):
 
 def register(request):
     if request.method == 'POST':
+        form = CreateAccountForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
 
@@ -70,31 +85,24 @@ def register(request):
             login(request, user)
             return redirect('/dashboard')
 
-            #~ return render(request, 'dagbok/dashboard.html')
-            #~ return HttpResponse("REGISTRERAD fixa annan forward eller nåt<a href='/'>TIllbaka</a>")
+        if form.is_valid():
+            print "Form is valid."
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = User(username=username)
+            user.set_password(password)
+            user.is_active = True
+            user.save()
+
+            login(request, authenticate(username=username, password=password))
+            return redirect('/dashboard')
+        else:
+            print "form is not valid"
+            errors = form.errors
+            return redirect('/')
     else:
         return redirect('/')
 
-def create_user(request):
-    #~ if request.user.is_authenticated():
-        #~ return redirect('bank-login')
 
-    form = CreateAccountForm(request.POST)
 
-    if form.is_valid():
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        user = User(username=username)
-        user.set_password(password)
-        user.is_active = True
-        user.save()
 
-        login(request, authenticate(username=username, password=password))
-        return redirect('/dashboard')
-    else:
-        return render(
-            request,
-            'dagbok/index.html',
-            {
-                'form': form,
-            })
