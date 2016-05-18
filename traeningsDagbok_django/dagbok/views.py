@@ -5,8 +5,6 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
-# from django.template import RequestContext
-from django.shortcuts import render_to_response
 from . import models
 
 import json
@@ -31,7 +29,7 @@ def login_user(request):
     if form.is_valid():
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
-        
+
         user = authenticate(username=username, password=password)
 
         if user is not None:
@@ -48,7 +46,7 @@ def login_user(request):
             # Return an 'invalid login' error message.
     else:
         return redirect('/')
-        
+
 def logout_user(request):
     logout(request)
     return redirect('/')
@@ -58,7 +56,7 @@ def dashboard(request):
     # context = RequestContext(request)
     swimmingFastWork = models.Swimming.objects.all()
     workouts = models.WorkOuts.objects.all().order_by('-id')[:5]
-    return render_to_response('dagbok/dashboard.html', {'workouts': workouts})
+    return render(request, 'dagbok/dashboard.html', {'workouts': workouts})
 
 def header(request):
     return render(request, 'dagbok/header.html')
