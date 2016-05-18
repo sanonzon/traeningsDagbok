@@ -13,3 +13,8 @@ class SwimmingAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(models.Swimming, SwimmingAdmin)
+
+class WorkOutsAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(models.WorkOuts, WorkOutsAdmin)

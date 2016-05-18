@@ -97,33 +97,32 @@
 <div class="chart-rect">
   <h4 class="widget-header"><i class="fa fa-heartbeat"></i><span class="icon-padding">Dina senaste pass</span></h4>
 
+{% if workouts %}
   <table class="table table-striped table-hover">
     <tr>
       <th>
         Datum
       </th>
       <th>
-        Sträcka
-      </th>
-      <th>
-        Tid
+        Sport
       </th>
       <th>
         Känsla
       </th>
     </tr>
-    {% if swimmingFastWork %}
-    {% for field in swimmingFastWork %}
+    {% for field in workouts %}
     <tr>
-      <td>{{ field.swimdate }}</td>
-      <td>{{ field.swimrange }}m</td>
-      <td>{{ field.swimtime }}min</td>
-      <td>{{ field.swimfeel }}</td>
+      <td>{{ field.workoutDateNow }}</td>
+      <td>{{ field.workoutSport }}</td>
+      <td>{{ field.workoutFeel }}</td>
     </tr>
     {% endfor %}
-    {% else %}
-    {% endif %}
   </table>
+  {% else %}
+    <p>
+      Vi hittade inga träningspass!
+    </p>
+  {% endif %}
 </div>
 <!-- <div class="chart-rect">
   Här placeras en chart
