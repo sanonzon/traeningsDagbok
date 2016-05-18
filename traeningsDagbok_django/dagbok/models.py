@@ -19,3 +19,13 @@ class Swimming(models.Model):
     swimrange = models.IntegerField(default=0)
     swimtime = models.IntegerField(default=0)
     swimfeel = models.CharField(max_length=100)
+
+class WorkOuts(models.Model):
+    workoutDateNow = models.DateTimeField(auto_now_add=True)
+    workoutSport = models.CharField(max_length=100)
+    workoutRange = models.IntegerField(default=0)
+    workoutTime = models.IntegerField(default=0)
+    workoutFeel = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.workoutSport

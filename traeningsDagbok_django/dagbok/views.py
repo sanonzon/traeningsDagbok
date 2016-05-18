@@ -43,7 +43,8 @@ def logout_user(request):
 def dashboard(request):
     # context = RequestContext(request)
     swimmingFastWork = models.Swimming.objects.all()
-    return render_to_response('dagbok/dashboard.html', {'swimmingFastWork': swimmingFastWork})
+    workouts = models.WorkOuts.objects.all().order_by('-id')[:5]
+    return render_to_response('dagbok/dashboard.html', {'workouts': workouts})
 
 def header(request):
     return render(request, 'dagbok/header.html')
