@@ -96,13 +96,11 @@
 
 <div class="chart-rect">
   <h4 class="widget-header"><i class="fa fa-heartbeat"></i><span class="icon-padding">Dina senaste pass</span></h4>
+
   <table class="table table-striped table-hover">
     <tr>
       <th>
         Datum
-      </th>
-      <th>
-        Sport
       </th>
       <th>
         Sträcka
@@ -110,31 +108,21 @@
       <th>
         Tid
       </th>
+      <th>
+        Känsla
+      </th>
     </tr>
+    {% if swimmingFastWork %}
+    {% for field in swimmingFastWork %}
     <tr>
-      <td>26/6</td>
-      <td>Simning</td>
-      <td>500m</td>
-      <td>30m 40s</td>
+      <td>{{ field.swimdate }}</td>
+      <td>{{ field.swimrange }}m</td>
+      <td>{{ field.swimtime }}min</td>
+      <td>{{ field.swimfeel }}</td>
     </tr>
-    <tr>
-      <td>26/6</td>
-      <td>Löpning</td>
-      <td>1.5km</td>
-      <td>20m 45s</td>
-    </tr>
-    <tr>
-      <td>26/6</td>
-      <td>Löpning</td>
-      <td>1.5km</td>
-      <td>20m 45s</td>
-    </tr>
-    <tr>
-      <td>26/6</td>
-      <td>Löpning</td>
-      <td>1.5km</td>
-      <td>20m 45s</td>
-    </tr>
+    {% endfor %}
+    {% else %}
+    {% endif %}
   </table>
 </div>
 <!-- <div class="chart-rect">

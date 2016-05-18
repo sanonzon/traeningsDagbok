@@ -5,6 +5,9 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
+# from django.template import RequestContext
+from django.shortcuts import render_to_response
+from . import models
 
 import json
 from .forms import CreateAccountForm, LoginAccountForm
@@ -52,23 +55,20 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
-    #~ return redirect('/dashboard')
-    return render(request, 'dagbok/dashboard.html')
+    # context = RequestContext(request)
+    swimmingFastWork = models.Swimming.objects.all()
+    return render_to_response('dagbok/dashboard.html', {'swimmingFastWork': swimmingFastWork})
 
 def header(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/header.html')
 
 def footer(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/footer.html')
 
 def calendar(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/calendar.html')
 
 def profile(request):
-    #~ return redirect('/dashboard')
     return render(request, 'dagbok/profile.html')
 
 def register(request):
