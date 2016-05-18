@@ -5,7 +5,7 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
-from django.template import RequestContext
+# from django.template import RequestContext
 from django.shortcuts import render_to_response
 from . import models
 
@@ -41,6 +41,7 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
+    # context = RequestContext(request)
     swimmingFastWork = models.Swimming.objects.all()
     return render_to_response('dagbok/dashboard.html', {'swimmingFastWork': swimmingFastWork})
 
