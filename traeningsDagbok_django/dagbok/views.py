@@ -41,7 +41,6 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
-    context = RequestContext(request)
     swimmingFastWork = models.Swimming.objects.all()
     return render_to_response('dagbok/dashboard.html', {'swimmingFastWork': swimmingFastWork})
 
