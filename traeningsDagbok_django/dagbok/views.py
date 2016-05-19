@@ -78,7 +78,7 @@ def dashboard(request):
 
     return render(request, 'dagbok/dashboard.html', {
             'WRF': WRF,
-            'workouts': WorkOuts.objects.all()
+            'workouts': WorkOuts.objects.filter().order_by('-workoutDateNow')[:5]
         })
 
 def header(request):
