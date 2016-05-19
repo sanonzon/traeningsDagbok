@@ -161,11 +161,15 @@
       </th>
     </tr>
     {% for field in workouts %}
-      <tr>
-        <td>{{ field.workoutDateNow.date }}</td>
-        <td>{{ field.workoutSport }}</td>
-        <td>{{ field.workoutFeel }}</td>
-      </tr>
+
+          <tr class="showDetails" id="{{field.id}}" data-toggle="modal" data-target="#detailModal{{field.id}}">
+            <td>{{ field.workoutDateNow.date }}</td>
+            <td>{{ field.workoutSport }}</td>
+            <td>{{ field.workoutFeel }}</td>
+            <td class="hidden">{{ field.id }}</td>
+            
+          </tr>
+      
     {% endfor %}
   </table>
   {% else %}
@@ -174,6 +178,34 @@
     </p>
   {% endif %}
 </div>
+
+
+{% if workouts %}
+    {% for workout in workouts %}
+    
+    <div id="detailModal{{workout.id}}" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Register Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ workout.workoutSport }}</h4>
+              </div>
+              <div class="modal-body">
+                
+                  <p>{{ workout.workoutDateNow }}</p>
+                  <p>{{ workout.workoutSport }}</p>
+                  <p>{{ workout.workoutFeel }}</p>
+                  <p>{{ workout.workoutStretch }}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="register-button" data-dismiss="modal">Stäng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+{% endif %}
 <!-- <div class="chart-rect">
   Här placeras en chart
 </div>

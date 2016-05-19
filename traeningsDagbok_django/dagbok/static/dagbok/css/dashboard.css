@@ -226,3 +226,10 @@ body {
 .btn-success:hover {
   background-color: #36bd6f !important;
 }
+
+
+.showDetails:hover {
+  cursor:pointer;
+  background-color:#ebebeb !important;
+}
+

@@ -99,3 +99,4 @@ $('#login-form').on('submit', function(e) {
     });
   
 //~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
+
