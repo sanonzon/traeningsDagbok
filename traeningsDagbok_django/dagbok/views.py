@@ -80,38 +80,18 @@ def calendar(request):
 def profile(request):
     return render(request, 'dagbok/profile.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = CreateAccountForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
+def create_user(request):
+    form = CreateAccountForm(request.POST)
 
-        if username and password:
-            User.objects.create_user(username, 'null@null.com', password)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = User(username=username)
+        user.set_password(password)
+        user.is_active = True
+        user.save()
 
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('/dashboard')
-
-        if form.is_valid():
-            print "Form is valid."
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = User(username=username)
-            user.set_password(password)
-            user.is_active = True
-            user.save()
-
-            login(request, authenticate(username=username, password=password))
-            return redirect('/dashboard')
-        else:
-            print "form is not valid"
-            errors = form.errors
-            return redirect('/')
+        login(request, authenticate(username=username, password=password))
+        return redirect('/dashboard')
     else:
         return redirect('/')
-
-
-
-def create_user(request):
-    pass
