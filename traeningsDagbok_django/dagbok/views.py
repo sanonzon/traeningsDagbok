@@ -57,26 +57,25 @@ def dashboard(request):
     WorkOut = WorkOuts()
 
     if request.POST:
-        print request.POST
-
-        if request.POST['workoutType'] == 'weightlifting':
-            WorkOut.workoutFeel = request.POST['feeling']
-            WorkOut.workoutUser = request.user.id
-            WorkOut.workoutSport = u"Styrketraening"
-            WorkOut.save()
-        elif request.POST['workoutType'] == 'swimming':
-            WorkOut.workoutFeel = request.POST['feeling']
-            WorkOut.workoutUser = request.user.id
-            WorkOut.workoutSport = u"Simning"
-            WorkOut.save()
-        elif request.POST['workoutType'] == 'running':
-            WorkOut.workoutFeel = request.POST['feeling']
-            WorkOut.workoutUser = request.user.id
-            WorkOut.workoutSport = u"Loepning"
-            WorkOut.save()
-
+        if len(request.POST['stretch']) > 0 or len(request.POST['time']):
+            if request.POST['workoutType'] == 'weightlifting':
+                WorkOut.workoutFeel = request.POST['feeling']
+                WorkOut.workoutUser = request.user.id
+                WorkOut.workoutSport = u"Styrketraening"
+                WorkOut.save()
+            elif request.POST['workoutType'] == 'swimming':
+                WorkOut.workoutFeel = request.POST['feeling']
+                WorkOut.workoutUser = request.user.id
+                WorkOut.workoutSport = u"Simning"
+                WorkOut.save()
+            elif request.POST['workoutType'] == 'running':
+                WorkOut.workoutFeel = request.POST['feeling']
+                WorkOut.workoutUser = request.user.id
+                WorkOut.workoutSport = u"Loepning"
+                WorkOut.save()
+    
     return render(request, 'dagbok/dashboard.html', {
-            'WRF': WRF,
+            'WRF': WorkoutRegisterForm(),
             'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
         })
 
