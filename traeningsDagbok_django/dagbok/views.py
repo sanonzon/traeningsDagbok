@@ -60,16 +60,22 @@ def dashboard(request):
         if len(request.POST['stretch']) > 0 or len(request.POST['time']):
             if request.POST['workoutType'] == 'weightlifting':
                 WorkOut.workoutFeel = request.POST['feeling']
+                WorkOut.workoutStretch = request.POST['stretch']
+                WorkOut.workoutTime = request.POST['time']
                 WorkOut.workoutUser = request.user.id
                 WorkOut.workoutSport = u"Styrketraening"
                 WorkOut.save()
             elif request.POST['workoutType'] == 'swimming':
                 WorkOut.workoutFeel = request.POST['feeling']
+                WorkOut.workoutStretch = request.POST['stretch']
+                WorkOut.workoutTime = request.POST['time']
                 WorkOut.workoutUser = request.user.id
                 WorkOut.workoutSport = u"Simning"
                 WorkOut.save()
             elif request.POST['workoutType'] == 'running':
                 WorkOut.workoutFeel = request.POST['feeling']
+                WorkOut.workoutStretch = request.POST['stretch']
+                WorkOut.workoutTime = request.POST['time']
                 WorkOut.workoutUser = request.user.id
                 WorkOut.workoutSport = u"Loepning"
                 WorkOut.save()

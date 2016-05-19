@@ -14,7 +14,8 @@ class WorkOuts(models.Model):
     workoutSport = models.CharField(max_length=100)
     workoutFeel = models.CharField(max_length=100)
     workoutUser = models.IntegerField()
-    #~ workoutDetails = models.OneToOne
+    workoutStretch = models.IntegerField()
+    workoutTime = models.IntegerField()
     
     def __str__(self):
         return self.workoutSport
