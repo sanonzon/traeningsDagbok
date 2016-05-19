@@ -23,7 +23,6 @@ def index(request):
         })
 
 def login_user(request):
-    print request.POST
     form = LoginAccountForm(request.POST)
 
     if form.is_valid():
@@ -62,23 +61,23 @@ def dashboard(request):
 
         if request.POST['workoutType'] == 'weightlifting':
             WorkOut.workoutFeel = request.POST['feeling']
-            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutUser = request.user.id
             WorkOut.workoutSport = u"Styrketraening"
             WorkOut.save()
         elif request.POST['workoutType'] == 'swimming':
             WorkOut.workoutFeel = request.POST['feeling']
-            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutUser = request.user.id
             WorkOut.workoutSport = u"Simning"
             WorkOut.save()
         elif request.POST['workoutType'] == 'running':
             WorkOut.workoutFeel = request.POST['feeling']
-            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutUser = request.user.id
             WorkOut.workoutSport = u"Loepning"
             WorkOut.save()
 
     return render(request, 'dagbok/dashboard.html', {
             'WRF': WRF,
-            'workouts': WorkOuts.objects.filter().order_by('-workoutDateNow')[:5]
+            'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
         })
 
 def header(request):

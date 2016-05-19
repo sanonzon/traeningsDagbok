@@ -88,7 +88,7 @@ class WorkoutRegisterForm(forms.Form):
     stretch = forms.IntegerField(
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
-                'placeholder': 'T.ex. 500',
+                'placeholder': 'T.ex. 50',
                 'aria-describedby': 'basic-addon2',
             })
         )

@@ -15,7 +15,6 @@
       <form method="POST" action="{% url "dashboard" %}">
       {% csrf_token %}
       <input type="hidden" value="running" name="workoutType">
-      <input type="hidden" value="{{ user.id }}" name="user_id">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
@@ -60,7 +59,6 @@
         <form method="POST" action="{% url "dashboard" %}">
         {% csrf_token %}
       <input type="hidden" value="swimming" name="workoutType">
-      <input type="hidden" value="{{ user.id }}" name="user_id">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
@@ -104,7 +102,6 @@
     <form method="POST" action="{% url "dashboard" %}">
     {% csrf_token %}
        <input type="hidden" value="weightlifting" name="workoutType">
-       <input type="hidden" value="{{ user.id }}" name="user_id">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
@@ -164,13 +161,11 @@
       </th>
     </tr>
     {% for field in workouts %}
-      {% if field.workoutUser == user.id %}
-        <tr>
-          <td>{{ field.workoutDateNow.date }}</td>
-          <td>{{ field.workoutSport }}</td>
-          <td>{{ field.workoutFeel }}</td>
-        </tr>
-      {% endif %}
+      <tr>
+        <td>{{ field.workoutDateNow.date }}</td>
+        <td>{{ field.workoutSport }}</td>
+        <td>{{ field.workoutFeel }}</td>
+      </tr>
     {% endfor %}
   </table>
   {% else %}
