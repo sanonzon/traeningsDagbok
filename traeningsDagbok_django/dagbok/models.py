@@ -17,15 +17,3 @@ class WorkOuts(models.Model):
     workoutStretch = models.IntegerField()
     workoutTime = models.IntegerField()
     
-    def __str__(self):
-        return self.workoutSport
-
-class Workout_gym(models.Model):
-    gym_type = models.CharField(max_length=100)
-    gym_sets = models.IntegerField(default=0)
-    gym_reps = models.IntegerField(default=0)
-
-class Swimming(models.Model):
-    swimrange = models.IntegerField(default=0)
-    swimtime = models.IntegerField(default=0)
-
