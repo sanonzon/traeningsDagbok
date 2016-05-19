@@ -11,16 +11,29 @@ class CreateAccountForm(forms.Form):
     #      av engelska och svenska på sidan.
 
     username = forms.CharField(
-        min_length=2,
-        max_length=30)
+            min_length=2,
+            max_length=30,
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Anvaendarnamn',
+            })
+        )
 
     password = forms.CharField(
-        widget=forms.PasswordInput(),
-        min_length=4)
+            min_length=4,
+            widget=forms.PasswordInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Loesenord',
+            })
+        )
 
     passwordRepeat = forms.CharField(
-        widget=forms.PasswordInput(),
-        min_length=4)
+            min_length=4,
+            widget=forms.PasswordInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Loesenord igen',
+            })
+        )
 
     def clean_username(self):
         #Check if the username is already taken.
@@ -42,8 +55,19 @@ class CreateAccountForm(forms.Form):
 
 class LoginAccountForm(forms.Form):
 
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Anvaendarnamn',
+            })
+        )
+        
+    password = forms.CharField(
+            widget=forms.PasswordInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Loesenord',
+            })
+        )
 
     def clean_password(self):
         username = self.cleaned_data['username']
