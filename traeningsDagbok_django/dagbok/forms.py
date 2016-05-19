@@ -3,6 +3,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+#~ from .models import Workout_gym
 
 class CreateAccountForm(forms.Form):
     #TODO: Se om man kan ändra så att validation erroret som returneras 
@@ -57,3 +58,29 @@ class LoginAccountForm(forms.Form):
             raise forms.ValidationError(u"Fel inloggning.")
         
         return password
+        
+class WorkoutRegisterForm(forms.Form):
+    
+    stretch = forms.IntegerField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'T.ex. 500',
+                'aria-describedby': 'basic-addon2',
+            })
+        )
+ 
+    time = forms.IntegerField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'T.ex. 59:47',
+                'aria-describedby': 'basic-addon2',
+            })
+        )
+
+    feeling = forms.CharField(
+            max_length = 500, 
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control fastWorkoutFeeling',
+                'placeholder': 'Hur kaendes det?',
+            })
+        )

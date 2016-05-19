@@ -5,10 +5,10 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
-from . import models
 
 import json
-from .forms import CreateAccountForm, LoginAccountForm
+from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm
+from .models import WorkOuts
 
 # Create your views here.
 def index(request):
@@ -53,10 +53,33 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
-    # context = RequestContext(request)
-    swimmingFastWork = models.Swimming.objects.all()
-    workouts = models.WorkOuts.objects.all().order_by('-id')[:5]
-    return render(request, 'dagbok/dashboard.html', {'workouts': workouts})
+
+    WRF = WorkoutRegisterForm(request.POST)
+    WorkOut = WorkOuts()
+
+    if request.POST:
+        print request.POST
+
+        if request.POST['workoutType'] == 'weightlifting':
+            WorkOut.workoutFeel = request.POST['feeling']
+            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutSport = u"Styrketraening"
+            WorkOut.save()
+        elif request.POST['workoutType'] == 'swimming':
+            WorkOut.workoutFeel = request.POST['feeling']
+            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutSport = u"Simning"
+            WorkOut.save()
+        elif request.POST['workoutType'] == 'running':
+            WorkOut.workoutFeel = request.POST['feeling']
+            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutSport = u"Loepning"
+            WorkOut.save()
+
+    return render(request, 'dagbok/dashboard.html', {
+            'WRF': WRF,
+            'workouts': WorkOuts.objects.all()
+        })
 
 def header(request):
     return render(request, 'dagbok/header.html')
@@ -70,38 +93,18 @@ def calendar(request):
 def profile(request):
     return render(request, 'dagbok/profile.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = CreateAccountForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
+def create_user(request):
+    form = CreateAccountForm(request.POST)
 
-        if username and password:
-            User.objects.create_user(username, 'null@null.com', password)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = User(username=username)
+        user.set_password(password)
+        user.is_active = True
+        user.save()
 
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('/dashboard')
-
-        if form.is_valid():
-            print "Form is valid."
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = User(username=username)
-            user.set_password(password)
-            user.is_active = True
-            user.save()
-
-            login(request, authenticate(username=username, password=password))
-            return redirect('/dashboard')
-        else:
-            print "form is not valid"
-            errors = form.errors
-            return redirect('/')
+        login(request, authenticate(username=username, password=password))
+        return redirect('/dashboard')
     else:
         return redirect('/')
-
-
-
-def create_user(request):
-    pass
