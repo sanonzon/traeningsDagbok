@@ -5,10 +5,10 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
-from . import models
 
 import json
-from .forms import CreateAccountForm, LoginAccountForm
+from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm
+from .models import WorkOuts
 
 # Create your views here.
 def index(request):
@@ -53,20 +53,33 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
+
+    WRF = WorkoutRegisterForm(request.POST)
+    WorkOut = WorkOuts()
+
     if request.POST:
         print request.POST
+
         if request.POST['workoutType'] == 'weightlifting':
-            print "GYMFORMULÄRET ÄR POSTAT: DO STUFF"
+            WorkOut.workoutFeel = request.POST['feeling']
+            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutSport = u"Styrketraening"
+            WorkOut.save()
         elif request.POST['workoutType'] == 'swimming':
-            print "simma"
+            WorkOut.workoutFeel = request.POST['feeling']
+            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutSport = u"Simning"
+            WorkOut.save()
         elif request.POST['workoutType'] == 'running':
-            print "springa som fan"
-    # context = RequestContext(request)
-    #~ swimmingFastWork = models.Swimming.objects.all()
-    #~ workouts = models.WorkOuts.objects.all().order_by('-id')[:5] or None
+            WorkOut.workoutFeel = request.POST['feeling']
+            WorkOut.workoutUser = request.POST['user_id']
+            WorkOut.workoutSport = u"Loepning"
+            WorkOut.save()
+
     return render(request, 'dagbok/dashboard.html', {
-    #~ 'workouts': workouts,
-    })
+            'WRF': WRF,
+            'workouts': WorkOuts.objects.all()
+        })
 
 def header(request):
     return render(request, 'dagbok/header.html')

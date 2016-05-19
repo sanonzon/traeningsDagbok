@@ -14,18 +14,17 @@ class WorkOuts(models.Model):
     workoutSport = models.CharField(max_length=100)
     workoutFeel = models.CharField(max_length=100)
     workoutUser = models.IntegerField()
+    #~ workoutDetails = models.OneToOne
     
     def __str__(self):
         return self.workoutSport
 
-
-
-class Workout_gym(WorkOuts):
+class Workout_gym(models.Model):
     gym_type = models.CharField(max_length=100)
     gym_sets = models.IntegerField(default=0)
     gym_reps = models.IntegerField(default=0)
 
-class Swimming(WorkOuts):
+class Swimming(models.Model):
     swimrange = models.IntegerField(default=0)
     swimtime = models.IntegerField(default=0)
 

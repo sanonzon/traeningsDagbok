@@ -15,13 +15,14 @@
       <form method="POST" action="{% url "dashboard" %}">
       {% csrf_token %}
       <input type="hidden" value="running" name="workoutType">
+      <input type="hidden" value="{{ user.id }}" name="user_id">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control" placeholder="T.ex. 1.9" aria-describedby="basic-addon2">
+            {{ WRF.stretch }}
             <span class="input-group-addon" id="basic-addon2">km</span>
           </div>
         </div>
@@ -32,7 +33,7 @@
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+            {{ WRF.time }}
             <span class="input-group-addon" id="basic-addon2">min:sek</span>
           </div>
         </div>
@@ -43,7 +44,7 @@
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+            {{ WRF.feeling }}
           </div>
         </div>
       </div>
@@ -59,13 +60,14 @@
         <form method="POST" action="{% url "dashboard" %}">
         {% csrf_token %}
       <input type="hidden" value="swimming" name="workoutType">
+      <input type="hidden" value="{{ user.id }}" name="user_id">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control" placeholder="T.ex. 500" aria-describedby="basic-addon2">
+            {{ WRF.stretch }}
             <span class="input-group-addon" id="basic-addon2">meter</span>
           </div>
         </div>
@@ -76,7 +78,7 @@
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+            {{ WRF.time }}
             <span class="input-group-addon" id="basic-addon2">min:sek</span>
           </div>
         </div>
@@ -87,7 +89,7 @@
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+            {{ WRF.feeling }}
           </div>
         </div>
       </div>
@@ -102,13 +104,14 @@
     <form method="POST" action="{% url "dashboard" %}">
     {% csrf_token %}
        <input type="hidden" value="weightlifting" name="workoutType">
+       <input type="hidden" value="{{ user.id }}" name="user_id">
       <div class="row">
         <div class="col-2">
           <label class="fast-workout-label">Sträcka:</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control" placeholder="T.ex. 500" aria-describedby="basic-addon2">
+            {{ WRF.stretch }}
             <span class="input-group-addon" id="basic-addon2">meter</span>
           </div>
         </div>
@@ -119,7 +122,7 @@
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control" placeholder="T.ex. 59:47" aria-describedby="basic-addon2">
+            {{ WRF.time }}
             <span class="input-group-addon" id="basic-addon2">min:sek</span>
           </div>
         </div>
@@ -130,7 +133,7 @@
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            <input type="text" class="form-control fastWorkoutFeeling" placeholder="Hur kändes det?">
+            {{ WRF.feeling }}
           </div>
         </div>
       </div>
@@ -139,7 +142,6 @@
           <button type="submit" class="btn btn-default">Lägg till träning</button>
         </div>
       </div>
-    
     </form>
     </div>
   </div>
@@ -162,11 +164,13 @@
       </th>
     </tr>
     {% for field in workouts %}
-    <tr>
-      <td>{{ field.workoutDateNow.date }}</td>
-      <td>{{ field.workoutSport }}</td>
-      <td>{{ field.workoutFeel }}</td>
-    </tr>
+      {% if field.workoutUser == user.id %}
+        <tr>
+          <td>{{ field.workoutDateNow.date }}</td>
+          <td>{{ field.workoutSport }}</td>
+          <td>{{ field.workoutFeel }}</td>
+        </tr>
+      {% endif %}
     {% endfor %}
   </table>
   {% else %}
