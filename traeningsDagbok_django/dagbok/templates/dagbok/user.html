@@ -1,0 +1,16 @@
+{% include "dagbok/header.html" %}
+</div> <!-- Avslutar "dålig" div-->
+
+{% if user %}
+    <p>Namn: {{ user.username }}</p>
+    <p>Stad: {{ user.username }}</p>
+    <p>Info: {{ user.username }}</p>
+    <p>Info: {{ user.username }}</p>
+    <p>ID: {{ user.id }}</p>
+    {% else %}
+    DÅligt sökt
+{% endif %}
+
+
+<div>    
+{% include "dagbok/footer.html" %}
