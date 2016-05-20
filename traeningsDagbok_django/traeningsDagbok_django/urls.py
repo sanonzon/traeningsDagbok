@@ -1,3 +1,5 @@
+# coding=utf-8
+
 """traeningsDagbok_django URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -19,10 +21,12 @@ from dagbok import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^dashboard/', views.dashboard, name='dashboard'),
-    url(r'^calendar/', views.calendar, name='calendar'),
-    url(r'^profile/', views.profile, name='profile'),
-    #~ url(r'^profile/?P<user_profile>[\w\d]+/$', views.profile, name='profile'),
+    url(r'^dashboard/$', views.dashboard, name='dashboard'),
+    url(r'^calendar/$', views.calendar, name='calendar'),
+    url(r'^profile/$', views.profile, name='profile'),
+    #~ url(r'^user/$', views.profile, name='profile'),
+    url(r'^user/?[\w\d]+/$', views.user, name='user'),
+    url(r'^searched/$', views.searched, name='searched'),
     url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),
 ]

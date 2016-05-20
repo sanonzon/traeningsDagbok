@@ -5,10 +5,14 @@ from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
+from django.core.urlresolvers import reverse
 
 import json
+import re
+
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
 from .models import WorkOuts
+
 
 # Create your views here.
 def index(request):
@@ -98,10 +102,7 @@ def footer(request):
 def calendar(request):
     return render(request, 'dagbok/calendar.html')
 
-def profile(request, user_profile=None):
-    print user_profile
-    if user_profile:
-        pass
+def profile(request):
     if request.POST:
         return render(request, 'dagbok/profile.html', {
         'searchForm': SearchForm(),
@@ -112,6 +113,30 @@ def profile(request, user_profile=None):
     'searchForm': SearchForm(),
     })
 
+def user(request):
+    #~ GET '/user/axeasd22232l/'
+    print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
+    
+    match = re.search(r'/user/([\w\d]+)/', str(request)).group(1) or None
+    
+    if match:
+        user = User.objects.all().filter(username=match) or None
+        if user:
+            return render(request, 'dagbok/user.html', {'user':user})
+        else:
+            return HttpResponseRedirect('/dashboard')
+    else:
+        return HttpResponseRedirect('/dashboard')
+    
+def searched(request):
+    if request.POST:
+        if request.POST['search'] == '':
+            return HttpResponseRedirect('/dashboard')
+        #~ url = 'user/%s' % request.POST['search']
+        return HttpResponseRedirect('/user/%s' % request.POST['search'])
+    else:
+        return HttpResponseRedirect('/dashboard')
+        
 def create_user(request):
     form = CreateAccountForm(request.POST)
 

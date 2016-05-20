@@ -189,14 +189,14 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ workout.workoutSport }}</h4>
+                <h4 class="modal-title">Träningspass: {{ workout.workoutDateNow }}</h4>
               </div>
               <div class="modal-body">
 
-                  <p>{{ workout.workoutDateNow }}</p>
-                  <p>{{ workout.workoutSport }}</p>
-                  <p>{{ workout.workoutFeel }}</p>
-                  <p>{{ workout.workoutStretch }}</p>
+                  <p>Sport: {{ workout.workoutSport }}</p>
+                  <p>Feels: {{ workout.workoutFeel }}</p>
+                  <p>Stretch: {{ workout.workoutStretch }} (godtycklig längdenhet)</p>
+                  <p>Tid: {{ workout.workoutTime }} (min:sek)</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="register-button" data-dismiss="modal">Stäng</button>
