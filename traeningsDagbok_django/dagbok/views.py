@@ -1,13 +1,13 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template import loader
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 
 import json
-from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm
+from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
 from .models import WorkOuts
 
 # Create your views here.
@@ -52,39 +52,43 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
+    if request.user.is_authenticated():
+        WRF = WorkoutRegisterForm(request.POST)
+        WorkOut = WorkOuts()
 
-    WRF = WorkoutRegisterForm(request.POST)
-    WorkOut = WorkOuts()
-
-    if request.POST:
-        if len(request.POST['stretch']) > 0 or len(request.POST['time']):
-            if request.POST['workoutType'] == 'weightlifting':
-                WorkOut.workoutFeel = request.POST['feeling']
-                WorkOut.workoutStretch = request.POST['stretch']
-                WorkOut.workoutTime = request.POST['time']
-                WorkOut.workoutUser = request.user.id
-                WorkOut.workoutSport = u"Styrketraening"
-                WorkOut.save()
-            elif request.POST['workoutType'] == 'swimming':
-                WorkOut.workoutFeel = request.POST['feeling']
-                WorkOut.workoutStretch = request.POST['stretch']
-                WorkOut.workoutTime = request.POST['time']
-                WorkOut.workoutUser = request.user.id
-                WorkOut.workoutSport = u"Simning"
-                WorkOut.save()
-            elif request.POST['workoutType'] == 'running':
-                WorkOut.workoutFeel = request.POST['feeling']
-                WorkOut.workoutStretch = request.POST['stretch']
-                WorkOut.workoutTime = request.POST['time']
-                WorkOut.workoutUser = request.user.id
-                WorkOut.workoutSport = u"Loepning"
-                WorkOut.save()
-    
-    return render(request, 'dagbok/dashboard.html', {
-            'WRF': WorkoutRegisterForm(),
-            'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
-        })
-
+        if request.POST:
+            if len(request.POST['stretch']) > 0 or len(request.POST['time']):
+                if request.POST['workoutType'] == 'weightlifting':
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    WorkOut.workoutStretch = request.POST['stretch']
+                    WorkOut.workoutTime = request.POST['time']
+                    WorkOut.workoutUser = request.user.id
+                    WorkOut.workoutSport = u"Styrketraening"
+                    WorkOut.save()
+                elif request.POST['workoutType'] == 'swimming':
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    WorkOut.workoutStretch = request.POST['stretch']
+                    WorkOut.workoutTime = request.POST['time']
+                    WorkOut.workoutUser = request.user.id
+                    WorkOut.workoutSport = u"Simning"
+                    WorkOut.save()
+                elif request.POST['workoutType'] == 'running':
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    WorkOut.workoutStretch = request.POST['stretch']
+                    WorkOut.workoutTime = request.POST['time']
+                    WorkOut.workoutUser = request.user.id
+                    WorkOut.workoutSport = u"Loepning"
+                    WorkOut.save()
+                
+                return HttpResponseRedirect("/dashboard")
+        
+        return render(request, 'dagbok/dashboard.html', {
+                'WRF': WorkoutRegisterForm(),
+                'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
+            })
+    else:
+        return HttpResponseRedirect("/")
+        
 def header(request):
     return render(request, 'dagbok/header.html')
 
@@ -95,7 +99,14 @@ def calendar(request):
     return render(request, 'dagbok/calendar.html')
 
 def profile(request):
-    return render(request, 'dagbok/profile.html')
+    if request.POST:
+        return render(request, 'dagbok/profile.html', {
+        'searchForm': SearchForm(),
+        'results': User.objects.filter(username__contains=request.POST['search'])
+        })
+    return render(request, 'dagbok/profile.html', {
+    'searchForm': SearchForm(),
+    })
 
 def create_user(request):
     form = CreateAccountForm(request.POST)
