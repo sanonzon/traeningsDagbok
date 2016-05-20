@@ -233,3 +233,8 @@ body {
   background-color:#ebebeb !important;
 }
 
+.whateverbuttonofdoom{
+  background:  transparent;
+  border: none;
+  outline: none;
+}

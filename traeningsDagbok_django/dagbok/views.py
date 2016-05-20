@@ -98,12 +98,16 @@ def footer(request):
 def calendar(request):
     return render(request, 'dagbok/calendar.html')
 
-def profile(request):
+def profile(request, user_profile=None):
+    print user_profile
+    if user_profile:
+        pass
     if request.POST:
         return render(request, 'dagbok/profile.html', {
         'searchForm': SearchForm(),
         'results': User.objects.filter(username__contains=request.POST['search'])
         })
+        
     return render(request, 'dagbok/profile.html', {
     'searchForm': SearchForm(),
     })

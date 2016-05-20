@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^calendar/', views.calendar, name='calendar'),
     url(r'^profile/', views.profile, name='profile'),
+    #~ url(r'^profile/?P<user_profile>[\w\d]+/$', views.profile, name='profile'),
     url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),
 ]
