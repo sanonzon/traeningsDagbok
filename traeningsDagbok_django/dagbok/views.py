@@ -79,7 +79,7 @@ def dashboard(request):
                 WorkOut.workoutUser = request.user.id
                 WorkOut.workoutSport = u"Loepning"
                 WorkOut.save()
-    
+
     return render(request, 'dagbok/dashboard.html', {
             'WRF': WorkoutRegisterForm(),
             'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
