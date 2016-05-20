@@ -1,3 +1,4 @@
+{% load staticfiles %}
 {% include "dagbok/header.html" %}
 <!-- THINGS IN HERE -->
 
@@ -22,7 +23,7 @@
         <div class="col-10">
           <div class="input-group input-group-workout">
             {{ WRF.stretch }}
-            <span class="input-group-addon" id="basic-addon2">km</span>
+            <span class="input-group-addon" id="basic-addon2">meter</span>
           </div>
         </div>
       </div>
@@ -189,14 +190,102 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ workout.workoutSport }}</h4>
+
+                {% if workout.workoutSport == 'Loepning' %}
+                <img src="{% static "dagbok/img/running.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
               </div>
               <div class="modal-body">
 
-                  <p>{{ workout.workoutDateNow }}</p>
-                  <p>{{ workout.workoutSport }}</p>
-                  <p>{{ workout.workoutFeel }}</p>
-                  <p>{{ workout.workoutStretch }}</p>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutStretch }} meter</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutTime }} min:sek</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Känsla:</strong> {{ workout.workoutFeel }}
+                  </div>
+                </div>
+
+                {% elif workout.workoutSport == 'Simning' %}
+                <img src="{% static "dagbok/img/swimming.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutStretch }} meter</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutTime }} min:sek</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Känsla:</strong> {{ workout.workoutFeel }}
+                  </div>
+                </div>
+
+                {% elif workout.workoutSport == 'Styrketraening' %}
+                <img src="{% static "dagbok/img/dumbells.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="row">
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutStretch }} meter</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.workoutTime }} min:sek</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Känsla:</strong> {{ workout.workoutFeel }}
+                  </div>
+                </div>
+
+                {% endif %}
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="register-button" data-dismiss="modal">Stäng</button>

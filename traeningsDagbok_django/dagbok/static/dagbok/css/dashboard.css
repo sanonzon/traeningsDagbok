@@ -238,3 +238,19 @@ body {
   border: none;
   outline: none;
 }
+
+.workoutDetailsStyling {
+  margin-left: 10px;
+  padding-bottom: 2px;
+  font-weight: bold;
+  border-bottom: 3px solid #36bd6f;
+}
+
+.centered {
+  text-align: center;
+}
+
+.workoutDetails {
+  padding-left: 10px;
+  display: inline-block;
+}
