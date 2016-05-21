@@ -119,10 +119,20 @@ def user(request):
 
     match = re.search(r'/user/([\w\d]+)/', str(request)).group(1) or None
 
+
+    match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
+
+    print match
     if match:
-        user = User.objects.all().filter(username=match) or None
+        user = User.objects.all().filter(username=match.group(1)).get() or None
         if user:
-            return render(request, 'dagbok/user.html', {'user':user})
+            #finhack för hela namnet
+            if len(user.first_name) > 0 and len(user.last_name) > 0:
+                hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
+            else:
+                hack_dict = {'full_name': user.username}
+            print user.first_name
+            return render(request, 'dagbok/user.html', {'user':user, 'full_name':hack_dict})
         else:
             return HttpResponseRedirect('/dashboard')
     else:
@@ -130,10 +140,8 @@ def user(request):
 
 def searched(request):
     if request.POST:
-        if request.POST['search'] == '':
-            return HttpResponseRedirect('/dashboard')
-        #~ url = 'user/%s' % request.POST['search']
-        return HttpResponseRedirect('/user/%s' % request.POST['search'])
+        results =  User.objects.filter(username__contains=request.POST['search'])
+        return render(request, 'dagbok/profile.html', {'results': results})
     else:
         return HttpResponseRedirect('/dashboard')
 
