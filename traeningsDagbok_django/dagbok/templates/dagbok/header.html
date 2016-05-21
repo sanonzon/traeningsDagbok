@@ -96,7 +96,7 @@
               <div class="col-12" id="nav-header-fix">
                 <div class="pull-left">
                   <ul>
-                    <li id="welcome-name">Hej {{ user.get_username }}, välkommen till din dashboard!</li>
+                    <li id="welcome-name">Hej {{request.user.username}}, välkommen till din dashboard!</li>
                   </ul>
                 </div>
                 <ul class="pull-right">

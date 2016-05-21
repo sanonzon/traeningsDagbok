@@ -117,13 +117,13 @@ def user(request):
     #~ GET '/user/axeasd22232l/'
     print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
     
-    match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
+    match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
     
-    print match
     if match:
-        user = User.objects.all().filter(username=match.group(1)).get() or None
-        if user:
-            #finhack för hela namnet
+        print match.group(1)
+        if User.objects.filter(username=match.group(1)):
+            user = User.objects.filter(username=match.group(1)).get()
+        
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:
