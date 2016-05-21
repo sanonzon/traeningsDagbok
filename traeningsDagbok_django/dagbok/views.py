@@ -83,16 +83,16 @@ def dashboard(request):
                     WorkOut.workoutUser = request.user.id
                     WorkOut.workoutSport = u"Loepning"
                     WorkOut.save()
-                
+
                 return HttpResponseRedirect("/dashboard")
-        
+
         return render(request, 'dagbok/dashboard.html', {
                 'WRF': WorkoutRegisterForm(),
                 'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
             })
     else:
         return HttpResponseRedirect("/")
-        
+
 def header(request):
     return render(request, 'dagbok/header.html')
 
@@ -108,7 +108,7 @@ def profile(request):
         'searchForm': SearchForm(),
         'results': User.objects.filter(username__contains=request.POST['search'])
         })
-        
+
     return render(request, 'dagbok/profile.html', {
     'searchForm': SearchForm(),
     })
@@ -116,9 +116,9 @@ def profile(request):
 def user(request):
     #~ GET '/user/axeasd22232l/'
     print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
-    
+
     match = re.search(r'/user/([\w\d]+)/', str(request)).group(1) or None
-    
+
     if match:
         user = User.objects.all().filter(username=match) or None
         if user:
@@ -127,7 +127,7 @@ def user(request):
             return HttpResponseRedirect('/dashboard')
     else:
         return HttpResponseRedirect('/dashboard')
-    
+
 def searched(request):
     if request.POST:
         if request.POST['search'] == '':
@@ -136,7 +136,7 @@ def searched(request):
         return HttpResponseRedirect('/user/%s' % request.POST['search'])
     else:
         return HttpResponseRedirect('/dashboard')
-        
+
 def create_user(request):
     form = CreateAccountForm(request.POST)
 
