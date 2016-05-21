@@ -2,10 +2,11 @@
 </div> <!-- Avslutar "dålig" div-->
 
 {% if user %}
-    <p>Namn: {{ user.username }}</p>
-    <p>Stad: {{ user.username }}</p>
-    <p>Info: {{ user.username }}</p>
-    <p>Info: {{ user.username }}</p>
+<h1>{{user.username}}</h1>
+    <p>Namn: {{ full_name.full_name }}</p>
+    <p>Stad: måste utöka User models.Model om vi ska ha något sånt här</p>
+    <p>email: {{ user.email }}</p>
+    <p>Senast inloggad: {{ user.last_login }}</p>
     <p>ID: {{ user.id }}</p>
     {% else %}
     DÅligt sökt

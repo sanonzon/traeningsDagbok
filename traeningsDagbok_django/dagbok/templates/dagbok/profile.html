@@ -9,10 +9,10 @@
         Användarnamn
       </th>
     </tr>
-    {% for user in results %}
+    {% for result in results %}
 
           <tr>
-            <td><a href="{% url "user" %}{{user.username}}">{{user.username}}</a></td>
+            <td><a href="{% url "user" %}{{result.username}}">{{result.username}}</a></td>
           </tr>
           
 
