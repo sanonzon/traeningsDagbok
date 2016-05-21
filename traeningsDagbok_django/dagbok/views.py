@@ -117,8 +117,9 @@ def user(request):
     #~ GET '/user/axeasd22232l/'
     print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
     
-    match = re.search(r'/user/([\w\d]+)/', str(request)) or None
+    match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
     
+    print match
     if match:
         user = User.objects.all().filter(username=match.group(1)).get() or None
         if user:
