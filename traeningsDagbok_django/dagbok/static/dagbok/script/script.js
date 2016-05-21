@@ -7,7 +7,11 @@ $(document).ready(function () {
     });
 
     $('#calendar').fullCalendar({
-        
+        header: {
+            left: 'month,agendaWeek,agendaDay',
+            center: 'title',
+            right:  'today prev,next,prevYear,nextYear'
+        }
     });
 });
 
@@ -39,7 +43,7 @@ $('#register-form').on('submit', function(e) {
     var formData = $('#register-form').serialize();
     $.ajax({
         type: 'POST',
-        url: $(this).attr('action'),      
+        url: $(this).attr('action'),
         //~ dataType: "json",
         data: {
             formData,
@@ -55,10 +59,10 @@ $('#register-form').on('submit', function(e) {
              },
         });
     //~ return false;
-        
+
     });
-    
-      
+
+
      $("#contactbutton").click(function() {
       var formData = $("#contactform").serialize();
       $.ajax({
@@ -81,7 +85,7 @@ $('#login-form').on('submit', function(e) {
     var csrftoken = getCookie('csrftoken');
     $.ajax({
         type: 'POST',
-        url: $(this).attr('action'),      
+        url: $(this).attr('action'),
         dataType: "json",
         data: {
                 'csrfmiddlewaretoken': csrftoken,
@@ -95,8 +99,7 @@ $('#login-form').on('submit', function(e) {
             },
         });
     //~ return false;
-        
-    });
-  
-//~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
 
+    });
+
+//~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
