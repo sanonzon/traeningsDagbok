@@ -63,6 +63,8 @@ def dashboard(request):
         if request.POST:
             if len(request.POST['stretch']) > 0 or len(request.POST['time']):
                 if request.POST['workoutType'] == 'weightlifting':
+                    WorkOut.gym_type = request.POST['gym_type']
+                    WorkOut.gym_weight = request.POST['gym_weight']
                     WorkOut.workoutFeel = request.POST['feeling']
                     WorkOut.workoutStretch = request.POST['stretch']
                     WorkOut.workoutTime = request.POST['time']

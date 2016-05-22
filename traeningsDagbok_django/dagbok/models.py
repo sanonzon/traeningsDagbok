@@ -16,4 +16,7 @@ class WorkOuts(models.Model):
     workoutUser = models.IntegerField()
     workoutStretch = models.IntegerField()
     workoutTime = models.IntegerField()
+    gym_type = models.CharField(max_length=100)
+    gym_weight = models.CharField(max_length=100)
+    
     
