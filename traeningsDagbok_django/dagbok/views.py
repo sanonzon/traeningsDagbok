@@ -63,6 +63,8 @@ def dashboard(request):
         if request.POST:
             if len(request.POST['stretch']) > 0 or len(request.POST['time']):
                 if request.POST['workoutType'] == 'weightlifting':
+                    WorkOut.gym_type = request.POST['gym_type']
+                    WorkOut.gym_weight = request.POST['gym_weight']
                     WorkOut.workoutFeel = request.POST['feeling']
                     WorkOut.workoutStretch = request.POST['stretch']
                     WorkOut.workoutTime = request.POST['time']
@@ -120,10 +122,14 @@ def user(request):
     match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
 
     print match
+
+    match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
+    
     if match:
-        user = User.objects.all().filter(username=match.group(1)).get() or None
-        if user:
-            #finhack för hela namnet
+        print match.group(1)
+        if User.objects.filter(username=match.group(1)):
+            user = User.objects.filter(username=match.group(1)).get()
+
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:

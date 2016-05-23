@@ -96,7 +96,7 @@ class WorkoutRegisterForm(forms.Form):
     time = forms.IntegerField(
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
-                'placeholder': 'T.ex. 59:47',
+                'placeholder': 'T.ex. 3',
                 'aria-describedby': 'basic-addon2',
             })
         )
@@ -106,6 +106,21 @@ class WorkoutRegisterForm(forms.Form):
             widget=forms.TextInput(attrs = {
                 'class': 'form-control fastWorkoutFeeling',
                 'placeholder': 'Hur kaendes det?',
+            })
+        )
+    gym_weight = forms.CharField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'T.ex. 120.5',
+                'aria-describedby': 'basic-addon2',
+            })
+        )
+    gym_type = forms.CharField(
+            max_length = 100,
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'T.ex. Squats',
+                'aria-describedby': 'basic-addon2',
             })
         )
 

@@ -103,25 +103,45 @@
     <form method="POST" action="{% url "dashboard" %}">
     {% csrf_token %}
        <input type="hidden" value="weightlifting" name="workoutType">
+  
       <div class="row">
         <div class="col-2">
-          <label class="fast-workout-label">Sträcka:</label>
+          <label class="fast-workout-label">Övning</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            {{ WRF.stretch }}
-            <span class="input-group-addon" id="basic-addon2">meter</span>
+            {{ WRF.gym_type }}
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-2">
-          <label class="fast-workout-label">Tid:</label>
+          <label class="fast-workout-label">Vikt: </label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.gym_weight }}
+            <span class="input-group-addon" id="basic-addon2">kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Set:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.stretch }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Reps:</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
             {{ WRF.time }}
-            <span class="input-group-addon" id="basic-addon2">min:sek</span>
           </div>
         </div>
       </div>
@@ -254,7 +274,7 @@
                 </div>
 
                 {% elif workout.workoutSport == 'Styrketraening' %}
-                <img src="{% static "dagbok/img/dumbells.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
+                <img src="{% static "dagbok/img/dumbells.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.gym_type }}</h4>
               </div>
               <div class="modal-body">
 
@@ -265,16 +285,24 @@
                       <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
                     </div>
                   </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="centered">
+                      <img src="{% static "" %}" width="20px" alt="" />
+                      <span class="workoutDetailsStyling">{{ workout.gym_weight }} kg</span>
+                    </div>
+                  </div>
                   <div class="col-4">
                     <div class="centered">
                       <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
-                      <span class="workoutDetailsStyling">{{ workout.workoutStretch }} meter</span>
+                      <span class="workoutDetailsStyling">{{ workout.workoutStretch }} set</span>
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="centered">
                       <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
-                      <span class="workoutDetailsStyling">{{ workout.workoutTime }} min:sek</span>
+                      <span class="workoutDetailsStyling">{{ workout.workoutTime }} repetioner</span>
                     </div>
                   </div>
                 </div>
