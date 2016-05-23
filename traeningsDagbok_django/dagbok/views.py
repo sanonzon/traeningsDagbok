@@ -63,8 +63,8 @@ def dashboard(request):
 
         if request.POST:
             if len(request.POST['stretch']) > 0 or len(request.POST['time']):
-                if request.POST['stretch'].isdigit() and request.POST['time'].isdigit():
-                    if request.POST['workoutType'] == 'weightlifting':
+                if request.POST['workoutType'] == 'weightlifting':
+                    if request.POST['stretch'].isdigit() and request.POST['time'].isdigit():
                         WorkOut.gym_type = request.POST['gym_type']
                         WorkOut.gym_weight = request.POST['gym_weight']
                         WorkOut.workoutFeel = request.POST['feeling']
@@ -72,24 +72,36 @@ def dashboard(request):
                         WorkOut.workoutTime = request.POST['time']
                         WorkOut.workoutUser = request.user.id
                         WorkOut.workoutSport = u"Styrketraening"
+                        WorkOut.workoutSec = 0
                         WorkOut.save()
                     else:
                         return HttpResponseRedirect("/dashboard")
 
                 elif request.POST['workoutType'] == 'swimming':
-                    WorkOut.workoutFeel = request.POST['feeling']
-                    WorkOut.workoutStretch = request.POST['stretch']
-                    WorkOut.workoutTime = request.POST['time']
-                    WorkOut.workoutUser = request.user.id
-                    WorkOut.workoutSport = u"Simning"
-                    WorkOut.save()
+                    tiden = request.POST['time'].split(":")
+                    if tiden[0].isdigit() and tiden[1].isdigit():
+                        WorkOut.workoutTime = tiden[0]
+                        WorkOut.workoutSec = tiden[1]
+                        WorkOut.workoutFeel = request.POST['feeling']
+                        WorkOut.workoutStretch = request.POST['stretch']
+                        WorkOut.workoutUser = request.user.id
+                        WorkOut.workoutSport = u"Simning"
+                        WorkOut.save()
+                    else:
+                        return HttpResponseRedirect("/dashboard")
+
                 elif request.POST['workoutType'] == 'running':
-                    WorkOut.workoutFeel = request.POST['feeling']
-                    WorkOut.workoutStretch = request.POST['stretch']
-                    WorkOut.workoutTime = request.POST['time']
-                    WorkOut.workoutUser = request.user.id
-                    WorkOut.workoutSport = u"Loepning"
-                    WorkOut.save()
+                    tiden = request.POST['time'].split(":")
+                    if tiden[0].isdigit() and tiden[1].isdigit():
+                        WorkOut.workoutTime = tiden[0]
+                        WorkOut.workoutSec = tiden[1]
+                        WorkOut.workoutFeel = request.POST['feeling']
+                        WorkOut.workoutStretch = request.POST['stretch']
+                        WorkOut.workoutUser = request.user.id
+                        WorkOut.workoutSport = u"Loepning"
+                        WorkOut.save()
+                    else:
+                        return HttpResponseRedirect("/dashboard")
 
                 return HttpResponseRedirect("/dashboard")
             else:

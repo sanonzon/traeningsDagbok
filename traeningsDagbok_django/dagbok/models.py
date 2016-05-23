@@ -20,7 +20,8 @@ class WorkOuts(models.Model):
     gym_type = models.CharField(max_length=100)
     gym_weight = models.CharField(max_length=100)
     
-    
+    def __str__(self):
+        return "%s %s" % (self.workoutDateNow, self.workoutSport)
 
 class UserExtended(models.Model):
     user_id = models.ForeignKey(User)
