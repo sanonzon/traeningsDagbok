@@ -89,16 +89,17 @@ def dashboard(request):
                     WorkOut.workoutUser = request.user.id
                     WorkOut.workoutSport = u"Loepning"
                     WorkOut.save()
-                
+
                 return HttpResponseRedirect("/dashboard")
-           
+            else:
+                return HttpResponseRedirect("/dashboard")
         return render(request, 'dagbok/dashboard.html', {
                 'WRF': WorkoutRegisterForm(),
                 'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
             })
     else:
         return HttpResponseRedirect("/")
-        
+
 def header(request):
     return render(request, 'dagbok/header.html')
 
@@ -114,7 +115,7 @@ def profile(request):
         'searchForm': SearchForm(),
         'results': User.objects.filter(username__contains=request.POST['search'])
         })
-        
+
     return render(request, 'dagbok/profile.html', {
     'searchForm': SearchForm(),
     })
@@ -122,14 +123,18 @@ def profile(request):
 def user(request):
     #~ GET '/user/axeasd22232l/'
     print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
-    
+
+    match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
+
+    print match
+
     match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
     
     if match:
         print match.group(1)
         if User.objects.filter(username=match.group(1)):
             user = User.objects.filter(username=match.group(1)).get()
-        
+
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:
@@ -140,14 +145,14 @@ def user(request):
             return HttpResponseRedirect('/dashboard')
     else:
         return HttpResponseRedirect('/dashboard')
-    
+
 def searched(request):
     if request.POST:
         results =  User.objects.filter(username__contains=request.POST['search'])
         return render(request, 'dagbok/profile.html', {'results': results})
     else:
         return HttpResponseRedirect('/dashboard')
-        
+
 def create_user(request):
     form = CreateAccountForm(request.POST)
 
