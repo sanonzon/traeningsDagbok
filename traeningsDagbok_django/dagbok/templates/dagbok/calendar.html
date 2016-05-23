@@ -2,4 +2,15 @@
 
 <div id="calendar"></div>
 
+<script>
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'month,agendaWeek,agendaDay',
+            center: 'title',
+            right:  'today prev,next,prevYear,nextYear'
+        },
+        events: {{ workout_calendar|safe }}
+    });
+</script>
+
 {% include "dagbok/footer.html" %}

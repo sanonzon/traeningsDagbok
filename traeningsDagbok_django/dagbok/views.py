@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 
 import json
+import simplejson
 import re
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
@@ -102,7 +103,22 @@ def footer(request):
     return render(request, 'dagbok/footer.html')
 
 def calendar(request):
-    return render(request, 'dagbok/calendar.html')
+
+    events = WorkOuts.objects.filter(workoutUser = request.user.id).order_by('workoutDateNow')
+
+    if events:
+        calendar = []
+        
+        for event in events:
+            calendar.append({
+                'title': str(event.workoutSport),
+                'start': event.workoutDateNow.replace(microsecond = 0).isoformat(),
+                #~ 'end': event.workoutDateNow.replace(microsecond = 0).isoformat(),
+            })
+
+    return render(request, 'dagbok/calendar.html', {
+            'workout_calendar': simplejson.dumps(calendar)
+        })
 
 def profile(request):
     if request.POST:
