@@ -75,7 +75,7 @@ def dashboard(request):
                         WorkOut.save()
                     else:
                         return HttpResponseRedirect("/dashboard")
-                        
+
                 elif request.POST['workoutType'] == 'swimming':
                     WorkOut.workoutFeel = request.POST['feeling']
                     WorkOut.workoutStretch = request.POST['stretch']
@@ -133,22 +133,24 @@ def user(request):
     print match
 
     match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
-    
+
     if match:
         print match.group(1)
         if User.objects.filter(username=match.group(1)):
             user = User.objects.filter(username=match.group(1)).get()
-
+            
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:
                 hack_dict = {'full_name': user.username}
             print user.first_name
             return render(request, 'dagbok/user.html', {
-            'user':user, 
-            'full_name':hack_dict, 
-            'extended': user_extended,
-            })
+                'user': user,
+                'full_name': hack_dict,
+                'total_workouts': len(WorkOuts.objects.filter(workoutUser = request.user.id)),
+                'extended': user_extended,
+                'sports':str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
+                })
         else:
             return HttpResponseRedirect('/dashboard')
     else:
@@ -179,11 +181,24 @@ def create_user(request):
 
 def update_user(request):
     #~ firstname        lastname        email        new_password        new_password_repeat        current_password
-    if request.POST:
+    if request.POST:        
         user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
-        
-        if user.is_authenticated:
+   
+        if authenticate(username=request.POST['username'], password=request.POST['current_password']):
+            user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
             extended = UserExtended.objects.filter(user_id=user.id).get()
+            
+            sports = ""
+            if "swim" in request.POST:
+                sports += "swim,"
+            
+            if "gym" in request.POST:
+                sports += "gym,"
+            
+            if "run" in request.POST:
+                sports += "run,"
+            
+     
             
             if len(request.POST['firstname']) > 0:
                 user.first_name = request.POST['firstname']
@@ -193,8 +208,8 @@ def update_user(request):
                 user.email = request.POST['email']
             if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
                 user.set_password(request.POST['new_password'])
-            if len(request.POST['favorite_sport']) > 0:
-                extended.favorite_sport = request.POST['favorite_sport']
+            if len(sports) > 0:
+                extended.favorite_sport = sports
             if len(request.POST['city']) > 0:
                 extended.city = request.POST['city']
             

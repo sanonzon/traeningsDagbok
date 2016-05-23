@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 body {
   background-color: #f5f9fa !important;
   height: 100vh !important;
@@ -255,7 +257,50 @@ body {
   text-align: center;
 }
 
+.centered-profile {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
 .workoutDetails {
   padding-left: 10px;
   display: inline-block;
 }
+
+.img-center {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 1px solid #bcbcbc;
+  background-color: #fff;
+}
+
+.full-name-profile {
+  text-transform: capitalize;
+  font-size: 18px;
+}
+
+.profile-details ul li {
+  list-style: none;
+  padding: 5px;
+}
+
+.profile-favorite-sports img {
+  margin: 10px;
+}
+
+.favorite-sports {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.change_stuff [type="checkbox"]{
+    display: block;
+}
+
