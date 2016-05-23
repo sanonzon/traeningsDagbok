@@ -14,18 +14,56 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="profil">
-      <div class="col-12">
-        <img src="{% static "dagbok/img/profilepic.png" %}" width="150px" alt="Profilbild" />
-        <h1>{{user.username}}</h1>
-            <p>Namn: {{ full_name.full_name }}</p>
-            <p>Stad: måste utöka User models.Model om vi ska ha något sånt här</p>
-            <p>email: {{ user.email }}</p>
-            <p>Senast inloggad: {{ user.last_login }}</p>
-            <p>ID: {{ user.id }}</p>
+      <div class="row">
+        <div class="col-3">
+          <img src="{% static "dagbok/img/profilepic.png" %}" class="img-center" width="150px" alt="Profilbild" />
+        </div>
+        <div class="col-3">
+          <!-- <h1>{{user.username}}</h1> -->
+          <div class="centered-profile">
+            <img src="{% static "dagbok/img/calendar2.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{ total_workouts }} pass</span>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="centered-profile">
+            <img src="{% static "dagbok/img/time-passing.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"><!-- Räkna ut total tid här -->tid spenderad</span>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="centered-profile">
+            <img src="{% static "dagbok/img/distance.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"><!-- Räkna ut total sträcka här --> km avverkad</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 profile-details">
+          <p class="full-name-profile">{{ full_name.full_name }}</p>
+          <ul>
+            <li>
+              <i class="fa fa-map-marker"></i> <span>Stad här</span>
+            </li>
+            <li>
+              <i class="fa fa-envelope"></i> <span>{{ user.email }}</span>
+            </li>
+            <li>
+              <strong>Senast inloggad:</strong> {{ user.last_login }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-8 profile-favorite-sports">
+          <h4 class="centered">Favoritsporter</h4>
+          <div class="favorite-sports">
+            <img src="{% static "dagbok/img/swimming.svg" %}" width="80px" alt="Simning" />
+            <img src="{% static "dagbok/img/running.svg" %}" width="80px" alt="Löpning" />
+            <img src="{% static "dagbok/img/dumbells.svg" %}" width="80px" alt="Styrkelyftning" />
+          </div>
+        </div>
       </div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="changeProfile">
-      TEST ÄNDRA DIN PROFIL
+      <div class="col-12">
+        Put things here
+      </div>
     </div>
   </div>
 

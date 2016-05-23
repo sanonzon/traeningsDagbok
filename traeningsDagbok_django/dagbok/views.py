@@ -74,7 +74,7 @@ def dashboard(request):
                         WorkOut.save()
                     else:
                         return HttpResponseRedirect("/dashboard")
-                        
+
                 elif request.POST['workoutType'] == 'swimming':
                     WorkOut.workoutFeel = request.POST['feeling']
                     WorkOut.workoutStretch = request.POST['stretch']
@@ -129,7 +129,7 @@ def user(request):
     print match
 
     match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
-    
+
     if match:
         print match.group(1)
         if User.objects.filter(username=match.group(1)):
@@ -140,7 +140,11 @@ def user(request):
             else:
                 hack_dict = {'full_name': user.username}
             print user.first_name
-            return render(request, 'dagbok/user.html', {'user':user, 'full_name':hack_dict})
+            return render(request, 'dagbok/user.html', {
+                    'user': user,
+                    'full_name': hack_dict,
+                    'total_workouts': len(WorkOuts.objects.filter(workoutUser = request.user.id))
+                })
         else:
             return HttpResponseRedirect('/dashboard')
     else:
