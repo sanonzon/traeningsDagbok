@@ -115,8 +115,9 @@ def calendar(request):
     if workout:
         workout = workout[0]
 
+    calendar = []
+    
     if events:
-        calendar = []
         
         for event in events:
             calendar.append({
@@ -127,9 +128,7 @@ def calendar(request):
             })
 
     if request.is_ajax():
-        print "ajax som fan"
         html = loader.render_to_string('dagbok/workoutmodal.html', {
-                'workout_calendar': simplejson.dumps(calendar),
                 'workout': workout,
             })
         return HttpResponse(html)
