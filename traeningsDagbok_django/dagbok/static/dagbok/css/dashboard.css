@@ -186,6 +186,11 @@ body {
   padding: 10px;
 }
 
+.chart-rect.full-rect {
+  width: 90%;
+  margin: 20px auto;
+}
+
 .widget-header {
   border-bottom: 1px solid #d4d4d4;
   padding-bottom: 10px;
