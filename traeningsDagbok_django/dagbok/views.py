@@ -62,15 +62,19 @@ def dashboard(request):
 
         if request.POST:
             if len(request.POST['stretch']) > 0 or len(request.POST['time']):
-                if request.POST['workoutType'] == 'weightlifting':
-                    WorkOut.gym_type = request.POST['gym_type']
-                    WorkOut.gym_weight = request.POST['gym_weight']
-                    WorkOut.workoutFeel = request.POST['feeling']
-                    WorkOut.workoutStretch = request.POST['stretch']
-                    WorkOut.workoutTime = request.POST['time']
-                    WorkOut.workoutUser = request.user.id
-                    WorkOut.workoutSport = u"Styrketraening"
-                    WorkOut.save()
+                if request.POST['stretch'].isdigit() and request.POST['time'].isdigit():
+                    if request.POST['workoutType'] == 'weightlifting':
+                        WorkOut.gym_type = request.POST['gym_type']
+                        WorkOut.gym_weight = request.POST['gym_weight']
+                        WorkOut.workoutFeel = request.POST['feeling']
+                        WorkOut.workoutStretch = request.POST['stretch']
+                        WorkOut.workoutTime = request.POST['time']
+                        WorkOut.workoutUser = request.user.id
+                        WorkOut.workoutSport = u"Styrketraening"
+                        WorkOut.save()
+                    else:
+                        return HttpResponseRedirect("/dashboard")
+                        
                 elif request.POST['workoutType'] == 'swimming':
                     WorkOut.workoutFeel = request.POST['feeling']
                     WorkOut.workoutStretch = request.POST['stretch']
@@ -87,7 +91,8 @@ def dashboard(request):
                     WorkOut.save()
 
                 return HttpResponseRedirect("/dashboard")
-
+            else:
+                return HttpResponseRedirect("/dashboard")
         return render(request, 'dagbok/dashboard.html', {
                 'WRF': WorkoutRegisterForm(),
                 'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
