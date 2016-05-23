@@ -135,33 +135,45 @@ def profile(request):
 
 def user(request):
     #~ GET '/user/axeasd22232l/'
-    user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
-    
-
-    print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
-
-    match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
-
-    print match
-
     match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
 
+
     if match:
-        print match.group(1)
+        #~ print match.group(1)
         if User.objects.filter(username=match.group(1)):
             user = User.objects.filter(username=match.group(1)).get()
+            url_user_id = User.objects.filter(id=user.id).values_list('id', flat=True)[0]
+            print ("url_user_id : %s") % url_user_id
+            
+            if UserExtended.objects.filter(user_id=url_user_id):
+                user_extended = UserExtended.objects.filter(user_id=url_user_id).get()
+            else:
+                user_extended = None
+                
+            print ("url_user_id : %s") % user_extended
+            
             
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:
                 hack_dict = {'full_name': user.username}
-            print user.first_name
-            return render(request, 'dagbok/user.html', {
+            #~ print user.first_name
+            
+            if user_extended:            
+                return render(request, 'dagbok/user.html', {
+                    'user': user,
+                    'full_name': hack_dict,
+                    'total_workouts': len(WorkOuts.objects.filter(workoutUser = request.user.id)),
+                    'extended': user_extended,
+                    'sports': str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
+                    })
+            else:
+                return render(request, 'dagbok/user.html', {
                 'user': user,
                 'full_name': hack_dict,
-                'total_workouts': len(WorkOuts.objects.filter(workoutUser = request.user.id)),
-                'extended': user_extended,
-                'sports':str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
+                'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
+                'extended': None,
+                'sports': None
                 })
         else:
             return HttpResponseRedirect('/dashboard')
