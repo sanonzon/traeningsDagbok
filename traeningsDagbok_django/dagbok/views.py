@@ -104,21 +104,39 @@ def footer(request):
 
 def calendar(request):
 
+    given_id = None
+    
+    if request.POST:
+        given_id = request.POST['given_id']
+
     events = WorkOuts.objects.filter(workoutUser = request.user.id).order_by('workoutDateNow')
+    workout = WorkOuts.objects.filter(id = given_id)
+        
+    if workout:
+        workout = workout[0]
 
     if events:
         calendar = []
         
         for event in events:
             calendar.append({
+                'id': str(event.id),
                 'title': str(event.workoutSport),
                 'start': event.workoutDateNow.replace(microsecond = 0).isoformat(),
                 #~ 'end': event.workoutDateNow.replace(microsecond = 0).isoformat(),
             })
 
-    return render(request, 'dagbok/calendar.html', {
-            'workout_calendar': simplejson.dumps(calendar)
-        })
+    if request.is_ajax():
+        print "ajax som fan"
+        html = loader.render_to_string('dagbok/workoutmodal.html', {
+                'workout_calendar': simplejson.dumps(calendar),
+                'workout': workout,
+            })
+        return HttpResponse(html)
+    else:
+        return render(request, 'dagbok/calendar.html', {
+                'workout_calendar': simplejson.dumps(calendar),
+            })
 
 def profile(request):
     if request.POST:
