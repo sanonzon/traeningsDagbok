@@ -159,11 +159,13 @@ def user(request):
                 hack_dict = {'full_name': user.username}
             #~ print user.first_name
             
+            print WorkOuts.objects.filter(workoutUser = url_user_id)
+            
             if user_extended:            
                 return render(request, 'dagbok/user.html', {
                     'user': user,
                     'full_name': hack_dict,
-                    'total_workouts': len(WorkOuts.objects.filter(workoutUser = request.user.id)),
+                    'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
                     'extended': user_extended,
                     'sports': str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
                     })
