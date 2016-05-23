@@ -210,7 +210,12 @@ def update_user(request):
    
         if authenticate(username=request.POST['username'], password=request.POST['current_password']):
             user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
-            extended = UserExtended.objects.filter(user_id=user.id).get()
+            
+            if UserExtended.objects.filter(user_id=user.id):
+                extended = UserExtended.objects.filter(user_id=user.id).get()
+            else:
+                extended = UserExtended()
+                extended.user_id = User.objects.filter(id=user.id).get()
             
             sports = ""
             if "swim" in request.POST:
