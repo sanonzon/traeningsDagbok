@@ -14,13 +14,15 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="profil">
-      <img src="{% static "dagbok/img/profilepic.png" %}" width="150px" alt="Profilbild" />
-      <h1>{{user.username}}</h1>
-          <p>Namn: {{ full_name.full_name }}</p>
-          <p>Stad: måste utöka User models.Model om vi ska ha något sånt här</p>
-          <p>email: {{ user.email }}</p>
-          <p>Senast inloggad: {{ user.last_login }}</p>
-          <p>ID: {{ user.id }}</p>
+      <div class="col-12">
+        <img src="{% static "dagbok/img/profilepic.png" %}" width="150px" alt="Profilbild" />
+        <h1>{{user.username}}</h1>
+            <p>Namn: {{ full_name.full_name }}</p>
+            <p>Stad: måste utöka User models.Model om vi ska ha något sånt här</p>
+            <p>email: {{ user.email }}</p>
+            <p>Senast inloggad: {{ user.last_login }}</p>
+            <p>ID: {{ user.id }}</p>
+      </div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="changeProfile">
       TEST ÄNDRA DIN PROFIL
