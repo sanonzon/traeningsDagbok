@@ -11,7 +11,7 @@ import json
 import re
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
-from .models import WorkOuts
+from .models import WorkOuts, UserExtended
 
 
 # Create your views here.
@@ -60,6 +60,7 @@ def dashboard(request):
         WRF = WorkoutRegisterForm(request.POST)
         WorkOut = WorkOuts()
 
+
         if request.POST:
             if len(request.POST['stretch']) > 0 or len(request.POST['time']):
                 if request.POST['stretch'].isdigit() and request.POST['time'].isdigit():
@@ -95,7 +96,7 @@ def dashboard(request):
                 return HttpResponseRedirect("/dashboard")
         return render(request, 'dagbok/dashboard.html', {
                 'WRF': WorkoutRegisterForm(),
-                'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5]
+                'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5],
             })
     else:
         return HttpResponseRedirect("/")
@@ -122,6 +123,9 @@ def profile(request):
 
 def user(request):
     #~ GET '/user/axeasd22232l/'
+    user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+    
+
     print "DENNA STRÄNGEN JOBBAR VI MED: %s" %str(request)
 
     match = re.search(r'GET \'\/user\/([\w\d]+)\'', str(request))
@@ -140,7 +144,11 @@ def user(request):
             else:
                 hack_dict = {'full_name': user.username}
             print user.first_name
-            return render(request, 'dagbok/user.html', {'user':user, 'full_name':hack_dict})
+            return render(request, 'dagbok/user.html', {
+            'user':user, 
+            'full_name':hack_dict, 
+            'extended': user_extended,
+            })
         else:
             return HttpResponseRedirect('/dashboard')
     else:
@@ -168,3 +176,35 @@ def create_user(request):
         return redirect('/dashboard')
     else:
         return redirect('/')
+
+def update_user(request):
+    #~ firstname        lastname        email        new_password        new_password_repeat        current_password
+    if request.POST:
+        user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
+        
+        if user.is_authenticated:
+            extended = UserExtended.objects.filter(user_id=user.id).get()
+            
+            if len(request.POST['firstname']) > 0:
+                user.first_name = request.POST['firstname']
+            if len(request.POST['lastname']) > 0:
+                user.last_name = request.POST['lastname']
+            if len(request.POST['email']) > 0:
+                user.email = request.POST['email']
+            if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
+                user.set_password(request.POST['new_password'])
+            if len(request.POST['favorite_sport']) > 0:
+                extended.favorite_sport = request.POST['favorite_sport']
+            if len(request.POST['city']) > 0:
+                extended.city = request.POST['city']
+            
+            extended.save()
+            user.save()
+            return redirect("/dashboard")
+        else:
+            return redirect("/")
+        
+    else:
+        return redirect("/")
+
+        

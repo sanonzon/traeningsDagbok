@@ -21,3 +21,9 @@ class WorkOuts(models.Model):
     gym_weight = models.CharField(max_length=100)
     
     
+
+class UserExtended(models.Model):
+    user_id = models.ForeignKey(User)
+    city = models.CharField(max_length=100)
+    favorite_sport = models.CharField(max_length=100)
+    

@@ -21,11 +21,29 @@
             <p>Stad: måste utöka User models.Model om vi ska ha något sånt här</p>
             <p>email: {{ user.email }}</p>
             <p>Senast inloggad: {{ user.last_login }}</p>
-            <p>ID: {{ user.id }}</p>
+    
+            <p>Stad: {{ extended.city }}</p>
+            <p>Sport: {{ extended.favorite_sport }}</p>
+            
+            
       </div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="changeProfile">
-      TEST ÄNDRA DIN PROFIL
+        <form method="POST" action="{% url "update_user" %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{user.username}}" name="username">
+        <p>Förnamn:<input value="{{user.first_name}}" name="firstname"></p>
+        <p>Efternamn:<input value="{{user.last_name}}" name="lastname"></p>
+        <p>Email:<input value="{{user.email}}" name="email"></p>
+        
+        <p>FavoritSport:<input value="{{ extended.favorite_sport}}" name="favorite_sport"></p>
+        <p>Stad:<input value="{{ extended.city}}" name="city"></p>
+
+        <p>Nytt lösenord:<input name="new_password"></p>
+        <p>Repetera lösenord:<input name="new_password_repeat"></p>
+        <p>Nuvarande Lösenord:<input name="current_password"></p>
+        <button type="submit" class="btn btn-success">Lägg till träning</button>
+      </form>
     </div>
   </div>
 
