@@ -70,7 +70,7 @@ def dashboard(request):
                         WorkOut.workoutFeel = request.POST['feeling']
                         WorkOut.workoutStretch = request.POST['stretch']
                         WorkOut.workoutTime = request.POST['time']
-                        WorkOut.workoutUser = request.user.id
+                        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                         WorkOut.workoutSport = u"Styrketraening"
                         WorkOut.workoutSec = 0
                         WorkOut.save()
@@ -84,7 +84,7 @@ def dashboard(request):
                         WorkOut.workoutSec = tiden[1]
                         WorkOut.workoutFeel = request.POST['feeling']
                         WorkOut.workoutStretch = request.POST['stretch']
-                        WorkOut.workoutUser = request.user.id
+                        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                         WorkOut.workoutSport = u"Simning"
                         WorkOut.save()
                     else:
@@ -97,7 +97,7 @@ def dashboard(request):
                         WorkOut.workoutSec = tiden[1]
                         WorkOut.workoutFeel = request.POST['feeling']
                         WorkOut.workoutStretch = request.POST['stretch']
-                        WorkOut.workoutUser = request.user.id
+                        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                         WorkOut.workoutSport = u"Loepning"
                         WorkOut.save()
                     else:
