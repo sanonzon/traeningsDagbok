@@ -78,12 +78,18 @@ def dashboard(request):
                         return HttpResponseRedirect("/dashboard")
 
                 elif request.POST['workoutType'] == 'swimming':
+                    streckan_fixed = ""
+                    for c in request.POST['stretch']:
+                        if c == ",":
+                            streckan_fixed += "."
+                        else:
+                            streckan_fixed += c
                     tiden = request.POST['time'].split(":")
                     if tiden[0].isdigit() and tiden[1].isdigit():
                         WorkOut.workoutTime = tiden[0]
                         WorkOut.workoutSec = tiden[1]
                         WorkOut.workoutFeel = request.POST['feeling']
-                        WorkOut.workoutStretch = request.POST['stretch']
+                        WorkOut.workoutStretch = streckan_fixed
                         WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                         WorkOut.workoutSport = u"Simning"
                         WorkOut.save()
@@ -91,12 +97,18 @@ def dashboard(request):
                         return HttpResponseRedirect("/dashboard")
 
                 elif request.POST['workoutType'] == 'running':
+                    streckan_fixed = ""
+                    for c in request.POST['stretch']:
+                        if c == ",":
+                            streckan_fixed += "."
+                        else:
+                            streckan_fixed += c
                     tiden = request.POST['time'].split(":")
                     if tiden[0].isdigit() and tiden[1].isdigit():
                         WorkOut.workoutTime = tiden[0]
                         WorkOut.workoutSec = tiden[1]
                         WorkOut.workoutFeel = request.POST['feeling']
-                        WorkOut.workoutStretch = request.POST['stretch']
+                        WorkOut.workoutStretch = streckan_fixed
                         WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                         WorkOut.workoutSport = u"Loepning"
                         WorkOut.save()
@@ -150,7 +162,7 @@ def user(request):
             else:
                 user_extended = None
                 
-            print ("url_user_id : %s") % user_extended
+            print ("user_extended object finns?: %s") % user_extended
             
             
             if len(user.first_name) > 0 and len(user.last_name) > 0:

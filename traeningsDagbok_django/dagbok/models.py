@@ -14,7 +14,7 @@ class WorkOuts(models.Model):
     workoutSport = models.CharField(max_length=100)
     workoutFeel = models.CharField(max_length=100)
     workoutUser = models.ForeignKey(User)
-    workoutStretch = models.IntegerField()
+    workoutStretch = models.FloatField()
     workoutTime = models.IntegerField()
     workoutSec = models.IntegerField()
     gym_type = models.CharField(max_length=100)
