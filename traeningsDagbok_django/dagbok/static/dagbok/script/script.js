@@ -5,14 +5,6 @@ $(document).ready(function () {
         $('.fast-workout-sections').hide();
         $('#'+$(this).val()).show();
     });
-
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'month,agendaWeek,agendaDay',
-            center: 'title',
-            right:  'today prev,next,prevYear,nextYear'
-        }
-    });
 });
 
 document.getElementById('toggleButton').onclick = function() {

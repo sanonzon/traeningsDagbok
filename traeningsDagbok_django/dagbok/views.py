@@ -132,7 +132,39 @@ def footer(request):
     return render(request, 'dagbok/footer.html')
 
 def calendar(request):
-    return render(request, 'dagbok/calendar.html')
+
+    given_id = None
+    
+    if request.POST:
+        given_id = request.POST['given_id']
+
+    events = WorkOuts.objects.filter(workoutUser = request.user.id).order_by('workoutDateNow')
+    workout = WorkOuts.objects.filter(id = given_id)
+        
+    if workout:
+        workout = workout[0]
+
+    calendar = []
+    
+    if events:
+        
+        for event in events:
+            calendar.append({
+                'id': str(event.id),
+                'title': str(event.workoutSport),
+                'start': event.workoutDateNow.replace(microsecond = 0).isoformat(),
+                #~ 'end': event.workoutDateNow.replace(microsecond = 0).isoformat(),
+            })
+
+    if request.is_ajax():
+        html = loader.render_to_string('dagbok/workoutmodal.html', {
+                'workout': workout,
+            })
+        return HttpResponse(html)
+    else:
+        return render(request, 'dagbok/calendar.html', {
+                'workout_calendar': json.dumps(calendar),
+            })
 
 def profile(request):
     if request.POST:
