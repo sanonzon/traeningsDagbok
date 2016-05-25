@@ -13,7 +13,6 @@ import re
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
 from .models import WorkOuts, UserExtended
 
-
 # Create your views here.
 def index(request):
     register_form = CreateAccountForm(request.POST)
@@ -190,7 +189,6 @@ def user(request):
     #~ GET '/user/axeasd22232l/'
     match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
 
-
     if match:
         #~ print match.group(1)
         if User.objects.filter(username=match.group(1)):
@@ -282,8 +280,6 @@ def update_user(request):
             if "run" in request.POST:
                 sports += "run,"
             
-     
-            
             if len(request.POST['firstname']) > 0:
                 user.first_name = request.POST['firstname']
             if len(request.POST['lastname']) > 0:
@@ -305,5 +301,3 @@ def update_user(request):
         
     else:
         return redirect("/")
-
-        
