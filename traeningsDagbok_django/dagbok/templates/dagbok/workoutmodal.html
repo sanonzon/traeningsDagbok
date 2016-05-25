@@ -1,7 +1,8 @@
 {% load staticfiles %}
+
 <div id="detailModal{{workout.id}}" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <!-- Modal content-->
+    <!-- Register Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -21,13 +22,13 @@
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutStretch }} meter</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutStretch }} km</span>
             </div>
           </div>
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutTime }} min:sek</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutTime }} min : {{ workout.workoutSec }} sek</span>
             </div>
           </div>
         </div>
@@ -52,13 +53,13 @@
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutStretch }} meter</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutStretch }} km</span>
             </div>
           </div>
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutTime }} min:sek</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutTime }} min : {{ workout.workoutSec }} sek</span>
             </div>
           </div>
         </div>
