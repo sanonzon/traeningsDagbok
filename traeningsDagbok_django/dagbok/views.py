@@ -60,60 +60,70 @@ def dashboard(request):
         WRF = WorkoutRegisterForm(request.POST)
         WorkOut = WorkOuts()
 
-
         if request.POST:
-            if len(request.POST['stretch']) > 0 or len(request.POST['time']):
+            stretch = request.POST['stretch']
+            if (len(stretch) > 0 and stretch.isdigit()) or len(request.POST['time']):
+
+                if not len(stretch) > 0:
+                    streckan_fixed = "0"
+                else:
+                    streckan_fixed = ""
+                    for c in stretch:
+                        if (c == "," or c == ".") and not "." in streckan_fixed:
+                            streckan_fixed += "."
+                        elif c.isdigit():
+                            streckan_fixed += c
+                        
+                if not len(streckan_fixed) > 0:
+                    streckand_fixed = "0"
+                
                 if request.POST['workoutType'] == 'weightlifting':
-                    if request.POST['stretch'].isdigit() and request.POST['time'].isdigit():
+                    if request.POST['time'].isdigit():
                         WorkOut.gym_type = request.POST['gym_type']
                         WorkOut.gym_weight = request.POST['gym_weight']
                         WorkOut.workoutFeel = request.POST['feeling']
-                        WorkOut.workoutStretch = request.POST['stretch']
+                        WorkOut.workoutStretch = stretch
                         WorkOut.workoutTime = request.POST['time']
                         WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                        WorkOut.workoutSport = u"Styrketr\xC3\xA4ning"
+                        WorkOut.workoutSport = u"Styrketraening"
                         WorkOut.workoutSec = 0
                         WorkOut.save()
                     else:
                         return HttpResponseRedirect("/dashboard")
 
                 elif request.POST['workoutType'] == 'swimming':
-                    streckan_fixed = ""
-                    for c in request.POST['stretch']:
-                        if c == ",":
-                            streckan_fixed += "."
-                        else:
-                            streckan_fixed += c
                     tiden = request.POST['time'].split(":")
-                    if tiden[0].isdigit() and tiden[1].isdigit():
-                        WorkOut.workoutTime = tiden[0]
-                        WorkOut.workoutSec = tiden[1]
-                        WorkOut.workoutFeel = request.POST['feeling']
-                        WorkOut.workoutStretch = streckan_fixed
-                        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                        WorkOut.workoutSport = u"Simning"
-                        WorkOut.save()
+
+                    if tiden[0].isdigit() and (len(tiden) == 1 or tiden[1].isdigit()):
+                        if len(tiden) == 1:
+                            tiden.append(0)
                     else:
-                        return HttpResponseRedirect("/dashboard")
+                        tiden = [0, 0]
+
+                    WorkOut.workoutTime = tiden[0]
+                    WorkOut.workoutSec = tiden[1]
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    WorkOut.workoutStretch = streckan_fixed
+                    WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+                    WorkOut.workoutSport = u"Simning"
+                    WorkOut.save()
 
                 elif request.POST['workoutType'] == 'running':
-                    streckan_fixed = ""
-                    for c in request.POST['stretch']:
-                        if c == ",":
-                            streckan_fixed += "."
-                        else:
-                            streckan_fixed += c
                     tiden = request.POST['time'].split(":")
-                    if tiden[0].isdigit() and tiden[1].isdigit():
-                        WorkOut.workoutTime = tiden[0]
-                        WorkOut.workoutSec = tiden[1]
-                        WorkOut.workoutFeel = request.POST['feeling']
-                        WorkOut.workoutStretch = streckan_fixed
-                        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                        WorkOut.workoutSport = u"L\xC3\xB6pning"
-                        WorkOut.save()
+
+                    if tiden[0].isdigit() and (len(tiden) == 1 or tiden[1].isdigit()):
+                        if len(tiden) == 1:
+                            tiden.append(0)
                     else:
-                        return HttpResponseRedirect("/dashboard")
+                        tiden = [0, 0]
+                        
+                    WorkOut.workoutTime = tiden[0]
+                    WorkOut.workoutSec = tiden[1]
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    WorkOut.workoutStretch = streckan_fixed
+                    WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+                    WorkOut.workoutSport = u"Loepning"
+                    WorkOut.save()
 
                 return HttpResponseRedirect("/dashboard")
             else:
@@ -147,11 +157,10 @@ def calendar(request):
     calendar = []
     
     if events:
-        
         for event in events:
             calendar.append({
-                'id': str(event.id),
-                'title': str(event.workoutSport),
+                'id': event.id,
+                'title': event.workoutSport,
                 'start': event.workoutDateNow.replace(microsecond = 0).isoformat(),
                 #~ 'end': event.workoutDateNow.replace(microsecond = 0).isoformat(),
             })

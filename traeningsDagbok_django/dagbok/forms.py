@@ -93,8 +93,8 @@ class WorkoutRegisterForm(forms.Form):
             })
         )
  
-    time = forms.IntegerField(
-            widget=forms.TextInput(attrs = {
+    time = forms.CharField(
+            widget=forms.TimeInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'T.ex. 3',
                 'aria-describedby': 'basic-addon2',
@@ -108,6 +108,7 @@ class WorkoutRegisterForm(forms.Form):
                 'placeholder': 'Hur k\xC3\xA4ndes det?',
             })
         )
+
     gym_weight = forms.CharField(
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
@@ -115,6 +116,7 @@ class WorkoutRegisterForm(forms.Form):
                 'aria-describedby': 'basic-addon2',
             })
         )
+
     gym_type = forms.CharField(
             max_length = 100,
             widget=forms.TextInput(attrs = {
@@ -124,6 +126,20 @@ class WorkoutRegisterForm(forms.Form):
             })
         )
 
+    #~ def clean_time(self):
+        #~ time = self.cleaned_data['time'].split(':')
+        #~ 
+        #~ if len(time) == 1:
+            #~ if time[0].isdigit():
+                #~ time.append(0)
+            #~ else:
+                #~ forms.ValidationError(u'Felaktig inmatning.')
+        #~ elif len(time) == 2:
+            #~ if not time[0].isdigit() and not time[1].isdigit():
+                #~ forms.ValidationError(u'Felaktig inmatning.')
+#~ 
+        #~ return time
+    
 class SearchForm(forms.Form):
     search = forms.CharField(
             max_length = 100,
