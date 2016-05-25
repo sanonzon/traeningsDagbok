@@ -1,6 +1,7 @@
 #~ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import widgets
 
 # Create your models here.
 
@@ -11,7 +12,16 @@ from django.db import models
 
 class WorkOuts(models.Model):
     workoutDateNow = models.DateTimeField(auto_now_add=True)
-    workoutSport = models.CharField(max_length=100)
+    
+    workoutSport = models.CharField(
+        max_length=100, 
+        choices=(
+            ('Loepning', 'Loepning'), 
+            ('Simning', 'Simning'), 
+            ('Styrketraening', 'Styrketraening')
+        ),
+    )
+    
     workoutFeel = models.CharField(max_length=100)
     workoutUser = models.ForeignKey(User)
     workoutStretch = models.FloatField()
