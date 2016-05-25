@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 
 import json
-import simplejson
 import re
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
@@ -134,7 +133,7 @@ def calendar(request):
         return HttpResponse(html)
     else:
         return render(request, 'dagbok/calendar.html', {
-                'workout_calendar': simplejson.dumps(calendar),
+                'workout_calendar': json.dumps(calendar),
             })
 
 def profile(request):
