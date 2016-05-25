@@ -13,10 +13,18 @@ class WorkOuts(models.Model):
     workoutDateNow = models.DateTimeField(auto_now_add=True)
     workoutSport = models.CharField(max_length=100)
     workoutFeel = models.CharField(max_length=100)
-    workoutUser = models.IntegerField()
-    workoutStretch = models.IntegerField()
+    workoutUser = models.ForeignKey(User)
+    workoutStretch = models.FloatField()
     workoutTime = models.IntegerField()
+    workoutSec = models.IntegerField()
     gym_type = models.CharField(max_length=100)
     gym_weight = models.CharField(max_length=100)
     
+    def __str__(self):
+        return "%s - %s - %s" % (str(self.workoutDateNow)[:16], self.workoutSport, self.workoutUser.username)
+
+class UserExtended(models.Model):
+    user_id = models.ForeignKey(User)
+    city = models.CharField(max_length=100)
+    favorite_sport = models.CharField(max_length=100)
     

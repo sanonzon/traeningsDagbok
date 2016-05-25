@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^searched/$', views.searched, name='searched'),
     url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),
+    url(r'^update_user/$', views.update_user, name='update_user'),
 ]
