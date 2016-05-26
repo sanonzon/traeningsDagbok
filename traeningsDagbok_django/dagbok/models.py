@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#~ from __future__ import unicode_literals
+from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -33,7 +33,7 @@ class WorkOuts(models.Model):
     workoutStretch = models.FloatField()
     workoutTime = models.IntegerField()
     workoutSec = models.IntegerField()
-    gym_type = models.ForeignKey('GymWorkout')
+    gym_type = models.CharField(max_length=100)
     gym_weight = models.CharField(max_length=100)
     
     def __str__(self):
@@ -48,9 +48,9 @@ class UserExtended(models.Model):
     def __str__(self):
         return self.user_id.username
     
-@python_2_unicode_compatible
-class GymWorkout(models.Model):
-    title = models.CharField(max_length=100)
+#~ @python_2_unicode_compatible
+#~ class GymWorkout(models.Model):
+    #~ title = models.CharField(max_length=100)
     
-    def __str__(self):
-        return self.title
+    #~ def __str__(self):
+        #~ return self.title
