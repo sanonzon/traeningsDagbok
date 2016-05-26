@@ -1,0 +1,143 @@
+{% load staticfiles %}
+{% include "dagbok/header.html" %}
+
+<div class="col-12 chart-rect-wrapper">
+
+  <div class="chart-rect">
+    <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Gå ner i vikt</span></h4>
+    <p>
+      Skriv in ditt viktmål nedan och din senaste vägning så kan du se resultatet genom att klicka på framsteg i menyn.
+    </p>
+    <form method="POST" action="">
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Viktmål:</label>
+        </div>
+        <div class="col-8">
+          <input class="form-control" value="" name="viktgoal">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Nuvarande vikt:</label>
+        </div>
+        <div class="col-8">
+          <input class="form-control" value="" name="viktnow">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="chart-rect">
+    <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Mål i löpning</span></h4>
+    <p>
+      Skriv in ditt mål i löpning, tex att klara 5km på 25 minuter.
+    </p>
+    <form method="POST" action="">
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-8">
+          <div class="input-group input-group-workout">
+            <input class="form-control" value="" name="loepningstretchgoal">
+            <span class="input-group-addon" id="basic-addon2">km</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-8">
+          <div class="input-group input-group-workout">
+            <input class="form-control" value="" name="loepningtimegoal">
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="chart-rect">
+    <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Mål i simning</span></h4>
+    <p>
+      Skriv in ditt mål i simning, tex att klara 3km på 1 timme.
+    </p>
+    <form method="POST" action="">
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-8">
+          <div class="input-group input-group-workout">
+            <input class="form-control" value="" name="simningstretchgoal">
+            <span class="input-group-addon" id="basic-addon2">km</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-8">
+          <div class="input-group input-group-workout">
+            <input class="form-control" value="" name="simningtimegoal">
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="chart-rect">
+    <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Mål i styrka</span></h4>
+    <p>
+      Skriv in ditt mål i styrkelyftning, tex klara av att ta din egen kroppsvikt i bänkpress.
+    </p>
+    <form method="POST" action="">
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-8">
+          <input class="form-control" value="" name="styrkeoevninggoal">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-8">
+          <div class="input-group input-group-workout">
+            <input class="form-control" value="" name="styrkeweightgoal">
+            <span class="input-group-addon" id="basic-addon2">kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+{% include "dagbok/footer.html" %}
