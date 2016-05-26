@@ -88,9 +88,18 @@ def dashboard(request):
                         WorkOut.workoutSec = 0
                         WorkOut.save()
 
-                        user_workouts = UserExtended.objects.filter(user_id=request.user.id).get()
-                        user_workouts.total_workouts += 1
-                        user_workouts.save()
+                        if UserExtended.objects.filter(user_id=request.user.id):
+                            user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+                        else:
+                            user_extended = UserExtended()
+                            user_extended.user_id = User.objects.filter(id=request.user.id).get()
+
+                        if (user_extended.total_workouts) or user_extended.total_workouts < 0:
+                            user_extended.total_workouts = len(WorkOuts.objects.filter(workoutUser = request.user.id))
+                        else:
+                            user_extended.total_workouts += 1
+                        
+                        user_extended.save()
 
                     else:
                         return HttpResponseRedirect("/dashboard")
@@ -112,9 +121,18 @@ def dashboard(request):
                     WorkOut.workoutSport = u"Simning"
                     WorkOut.save()
                     
-                    user_workouts = UserExtended.objects.filter(user_id=request.user.id).get()
-                    user_workouts.total_workouts += 1
-                    user_workouts.save()
+                    if UserExtended.objects.filter(user_id=request.user.id):
+                        user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+                    else:
+                        user_extended = UserExtended()
+                        user_extended.user_id = User.objects.filter(id=request.user.id).get()
+
+                    if (user_extended.total_workouts) or user_extended.total_workouts < 0:
+                        user_extended.total_workouts = len(WorkOuts.objects.filter(workoutUser = request.user.id))
+                    else:
+                        user_extended.total_workouts += 1
+                    
+                    user_extended.save()
 
                 elif request.POST['workoutType'] == 'running':
                     tiden = request.POST['time'].split(":")
@@ -133,9 +151,18 @@ def dashboard(request):
                     WorkOut.workoutSport = u"Loepning"
                     WorkOut.save()
 
-                    user_workouts = UserExtended.objects.filter(user_id=request.user.id).get()
-                    user_workouts.total_workouts += 1
-                    user_workouts.save()
+                    if UserExtended.objects.filter(user_id=request.user.id):
+                        user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+                    else:
+                        user_extended = UserExtended()
+                        user_extended.user_id = User.objects.filter(id=request.user.id).get()
+
+                    if (user_extended.total_workouts) or user_extended.total_workouts < 0:
+                        user_extended.total_workouts = len(WorkOuts.objects.filter(workoutUser = request.user.id))
+                    else:
+                        user_extended.total_workouts += 1
+                    
+                    user_extended.save()
 
                 return HttpResponseRedirect("/dashboard")
             else:
@@ -204,31 +231,26 @@ def user(request):
     match = re.search(r'GET \'\/user\/([\w\d]+)\/?\'', str(request))
 
     if match:
-        #~ print match.group(1)
         if User.objects.filter(username=match.group(1)):
             user = User.objects.filter(username=match.group(1)).get()
             url_user_id = User.objects.filter(id=user.id).values_list('id', flat=True)[0]
-            print ("url_user_id : %s") % url_user_id
 
             if UserExtended.objects.filter(user_id=url_user_id):
                 user_extended = UserExtended.objects.filter(user_id=url_user_id).get()
                 
-                if (not user_extended.total_workouts.isdigit()) or user_extended.total_workouts < 0:
-                    user_extended.total_workouts = len(WorkOuts.objects.filter(workoutUser = url_user_id))
-                    user_extend.save()
+                # The following code is only necessary if running on an database with 
+                # workouts stored on it before the UserExtended.total_workouts was added.
+                #~ if (not user_extended.total_workouts) or user_extended.total_workouts < 0:
+                    #~ user_extended.total_workouts = len(WorkOuts.objects.filter(workoutUser = url_user_id))
+                    #~ user_extend.save()
+                # End of unneseccary code.
             else:
                 user_extended = None
-
-            print ("user_extended object finns?: %s") % user_extended
-
 
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:
                 hack_dict = {'full_name': user.username}
-            #~ print user.first_name
-
-            print WorkOuts.objects.filter(workoutUser = url_user_id)
 
             if user_extended:
                 return render(request, 'dagbok/user.html', {
