@@ -26,12 +26,13 @@
             center: 'title',
             right:  'today prev,next,prevYear,nextYear'
         },
+        eventColor: '#27ae60',
         events: {{ workout_calendar|safe }},
         eventClick: function(calEvent) {
             $.ajax({
                 type: "POST",
                 url: "/calendar/",
-                data: { 
+                data: {
                     'given_id': calEvent.id,
                     'csrfmiddlewaretoken': csrftoken,
                 },

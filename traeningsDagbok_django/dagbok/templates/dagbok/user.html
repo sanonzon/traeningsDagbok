@@ -21,7 +21,6 @@
           <img src="{% static "dagbok/img/profilepic.png" %}" class="img-center" width="150px" alt="Profilbild" />
         </div>
         <div class="col-3">
-          <!-- <h1>{{user.username}}</h1> -->
           <div class="centered-profile">
             <img src="{% static "dagbok/img/calendar2.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{ total_workouts }} pass</span>
           </div>
@@ -60,7 +59,7 @@
               {% if sport == "gym" %}
             <img src="{% static "dagbok/img/dumbells.svg" %}" width="80px" alt="Styrkelyftning" />
             {% endif %}
-            {% if sport == "swim"%}  
+            {% if sport == "swim"%}
             <img src="{% static "dagbok/img/swimming.svg" %}" width="80px" alt="Simning" />
             {% endif %}
             {% if sport == "run" %}
@@ -72,32 +71,123 @@
       </div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="changeProfile">
-      <div class="col-12 change_stuff">
-       <form method="POST" action="{% url "update_user" %}">
-            {% csrf_token %}
-        <input type="hidden" value="{{user.username}}" name="username">
-        <p>Förnamn:<input value="{{user.first_name}}" name="firstname"></p>
-        <p>Efternamn:<input value="{{user.last_name}}" name="lastname"></p>
-        <p>Email:<input value="{{user.email}}" name="email"></p>
-        
-        <p>FavoritSport:</p>
-                
-        <input type="checkbox" name="gym" {% if "gym" in sports %}checked{% endif %}>Gym
-        <input type="checkbox" name="swim" {% if "swim" in sports %}checked{% endif %}>Simning
-        <input type="checkbox" name="run" {% if "run" in sports %}checked{% endif %}>Löpning
-        
-        
-        <p>Stad:<input value="{{ extended.city}}" name="city"></p>
+      <div class="row">
+        <div class="col-12 change_stuff">
+         <form class="form-horizontal" method="POST" action="{% url "update_user" %}">
+              {% csrf_token %}
+          <input type="hidden" value="{{user.username}}" name="username">
 
-        <p>Nytt lösenord:<input name="new_password"></p>
-        <p>Repetera lösenord:<input name="new_password_repeat"></p>
-        <p>Nuvarande Lösenord:<input name="current_password">Måste vara ifyllt om info skall sparas</p>
-        <button type="submit" class="btn btn-success">Ändra info</button>
-      </form>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Förnamn:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control" value="{{user.first_name}}" name="firstname">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Efternamn:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control" value="{{user.last_name}}" name="lastname">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Email:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control" value="{{user.email}}" name="email">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Favoritsport:</label>
+              </div>
+              <div class="col-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="gym" {% if "gym" in sports %}checked{% endif %}>
+                    Styrketräning
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="swim" {% if "swim" in sports %}checked{% endif %}>
+                    Simning
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="run" {% if "run" in sports %}checked{% endif %}>
+                    Löpning
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Stad:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control" value="{{ extended.city}}" name="city">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Nytt lösenord:</label>
+              </div>
+              <div class="col-10">
+                <input type="password" class="form-control" name="new_password">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Repetera lösenord:</label>
+              </div>
+              <div class="col-10">
+                <input type="password" class="form-control" name="new_password_repeat">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Nuvarande lösenord:</label>
+              </div>
+              <div class="col-10">
+                <input type="password" class="form-control" name="current_password">Måste vara ifyllt om info skall sparas
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success">Ändra info</button>
+        </form>
+        </div>
       </div>
-
     </div>
-  </div>
+  </div> <!-- END OF TAB-CONTENT -->
 
 </div>
 {% else %}
