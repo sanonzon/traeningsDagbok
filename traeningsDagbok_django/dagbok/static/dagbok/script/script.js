@@ -5,10 +5,6 @@ $(document).ready(function () {
         $('.fast-workout-sections').hide();
         $('#'+$(this).val()).show();
     });
-
-    $('#calendar').fullCalendar({
-        
-    });
 });
 
 document.getElementById('toggleButton').onclick = function() {
@@ -39,41 +35,41 @@ $('#register-form').on('submit', function(e) {
     var formData = $('#register-form').serialize();
     $.ajax({
         type: 'POST',
-        url: $(this).attr('action'),      
+        url: $(this).attr('action'),
         //~ dataType: "json",
         data: {
             formData,
             'csrfmiddlewaretoken': csrftoken,
-            },
+        },
         success: function(serverResponse) {
             console.log(serverResponse)
             console.log("OKLART SOM FAN, success ka det vara.");
-            },
+        },
         error: function(XMLHttpRequest) {
             console.log("FAIL");
-             $('#registerModal').modal('show');
-             },
-        });
+            $('#registerModal').modal('show');
+        },
+    });
     //~ return false;
-        
-    });
-    
-      
-     $("#contactbutton").click(function() {
-      var formData = $("#contactform").serialize();
-      $.ajax({
-          type: "POST",
-          url: "contact.php",
-          data: formData,
-          success: function(serverResponse) {
-              $("#message-sent").text(serverResponse);
-              $("#message-sent").show(500).delay(5000).hide(500);
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+});
+
+
+$("#contactbutton").click(function() {
+    var formData = $("#contactform").serialize();
+    $.ajax({
+        type: "POST",
+        url: "contact.php",
+        data: formData,
+        success: function(serverResponse) {
+            $("#message-sent").text(serverResponse);
+            $("#message-sent").show(500).delay(5000).hide(500);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("some error: " + textStatus + ", " + errorThrown);
-          }
-      });
+        }
     });
+});
 
 
 
@@ -81,22 +77,21 @@ $('#login-form').on('submit', function(e) {
     var csrftoken = getCookie('csrftoken');
     $.ajax({
         type: 'POST',
-        url: $(this).attr('action'),      
+        url: $(this).attr('action'),
         dataType: "json",
         data: {
                 'csrfmiddlewaretoken': csrftoken,
-            },
+        },
         success: function() {
                 console.log("OKLART SOM FAN, success ka det vara.");
-            },
+        },
         error: function() {
                 console.log("FAIL");
                 $('#loginModal').modal('show');
-            },
-        });
-    //~ return false;
-        
+        },
     });
-  
-//~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
+    //~ return false;
 
+});
+
+//~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit

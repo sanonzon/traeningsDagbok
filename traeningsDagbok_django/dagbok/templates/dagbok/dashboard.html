@@ -1,3 +1,4 @@
+{% load staticfiles %}
 {% include "dagbok/header.html" %}
 <!-- THINGS IN HERE -->
 
@@ -66,7 +67,7 @@
         <div class="col-10">
           <div class="input-group input-group-workout">
             {{ WRF.stretch }}
-            <span class="input-group-addon" id="basic-addon2">meter</span>
+            <span class="input-group-addon" id="basic-addon2">km</span>
           </div>
         </div>
       </div>
@@ -102,25 +103,45 @@
     <form method="POST" action="{% url "dashboard" %}">
     {% csrf_token %}
        <input type="hidden" value="weightlifting" name="workoutType">
+  
       <div class="row">
         <div class="col-2">
-          <label class="fast-workout-label">Sträcka:</label>
+          <label class="fast-workout-label">Övning</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
-            {{ WRF.stretch }}
-            <span class="input-group-addon" id="basic-addon2">meter</span>
+            {{ gym_type_form }}
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-2">
-          <label class="fast-workout-label">Tid:</label>
+          <label class="fast-workout-label">Vikt: </label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.gym_weight }}
+            <span class="input-group-addon" id="basic-addon2">kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Set:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.stretch }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Reps:</label>
         </div>
         <div class="col-10">
           <div class="input-group input-group-workout">
             {{ WRF.time }}
-            <span class="input-group-addon" id="basic-addon2">min:sek</span>
           </div>
         </div>
       </div>
@@ -182,28 +203,7 @@
 
 {% if workouts %}
     {% for workout in workouts %}
-
-    <div id="detailModal{{workout.id}}" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <!-- Register Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ workout.workoutSport }}</h4>
-              </div>
-              <div class="modal-body">
-
-                  <p>{{ workout.workoutDateNow }}</p>
-                  <p>{{ workout.workoutSport }}</p>
-                  <p>{{ workout.workoutFeel }}</p>
-                  <p>{{ workout.workoutStretch }}</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="register-button" data-dismiss="modal">Stäng</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% include "dagbok/workoutmodal.html" %}
     {% endfor %}
 {% endif %}
 <!-- <div class="chart-rect">

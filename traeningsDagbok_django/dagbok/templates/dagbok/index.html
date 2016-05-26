@@ -33,11 +33,6 @@
                     <label for="inputEmail3" class="control-label">Användarnamn:</label>
                   </div>
                   <div class="col-9">
-<!--
-                    <input type="text" class="form-control" name="username" id="inputEmailReg" placeholder="Användarnamn">
--->
-                    <!-- TODO: Need to give these Django generated fields
-                                some proper .css i suppose -->
                     {{ register_form.username }}
                     {{ register_form.username.errors }}
                   </div>
@@ -49,11 +44,6 @@
                     <label for="inputPassword3" class="control-label">Lösenord:</label>
                   </div>
                   <div class="col-9">
-<!--
-                    <input type="password" class="form-control" name="password" id="inputPasswordReg" placeholder="Lösenord">
--->
-                    <!-- TODO: Need to give these Django generated fields
-                                some proper .css i suppose -->
                     {{ register_form.password }}
                     {{ register_form.password.errors }}
                   </div>
@@ -65,11 +55,6 @@
                     <label for="inputPassword3" class="control-label">Lösenord igen:</label>
                   </div>
                   <div class="col-9">
-<!--
-                    <input type="password" class="form-control" name="repeatPassword" id="inputPasswordReg2" placeholder="Lösenord">
--->
-                    <!-- TODO: Need to give these Django generated fields
-                                some proper .css i suppose -->
                     {{ register_form.passwordRepeat }}
                     {{ register_form.passwordRepeat.errors }}
                   </div>
@@ -111,9 +96,6 @@
                     <label for="inputEmail3" class="control-label">Användarnamn:</label>
                   </div>
                   <div class="col-9">
-<!--
-                    <input type="text" class="form-control" name="username" id="inputEmailLog" placeholder="Användarnamn">
--->
                     {{ login_form.username }}
                   </div>
                 </div>
@@ -124,9 +106,6 @@
                     <label for="inputPassword3" class="control-label">Lösenord:</label>
                   </div>
                   <div class="col-9">
-<!--
-                    <input type="password" class="form-control" name="password" id="inputPasswordLog" placeholder="Lösenord">
--->
                     {{ login_form.password }}
                     {{ login_form.password.errors }}
                   </div>
@@ -169,8 +148,13 @@
         </div>
         <div class="col-10">
           <ul class="menu">
-            <li><a data-toggle="modal" data-target="#registerModal">Registrera dig</a></li>
-            <li><a data-toggle="modal" data-target="#loginModal">Logga in</a></li>
+            {% if user.is_authenticated %}              
+                <li><a href="{% url "dashboard" %}">Din Sida</a></li>
+                <li><a href="{% url "logout" %}">Logga ut</a></li>
+            {% else %}
+                <li><a data-toggle="modal" data-target="#registerModal">Registrera dig</a></li>
+                <li><a data-toggle="modal" data-target="#loginModal">Logga in</a></li>
+            {% endif %}
             <li><a href="#about-section">Om Träningsdojon</a></li>
             <li><a href="#contact-section">Kontakt</a></li>
             <li class="icon" id="toggleButton"><a>&#9776;</a>

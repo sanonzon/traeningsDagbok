@@ -8,3 +8,4 @@ class WorkOutsAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(models.WorkOuts, WorkOutsAdmin)
+admin.site.register(models.GymWorkout)

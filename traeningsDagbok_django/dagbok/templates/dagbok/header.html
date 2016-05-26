@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="shortcut icon" href="{% static "dagbok/img/sports.ico" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/style.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/dashboard.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/bootstrap.css" %}">
@@ -24,8 +25,17 @@
       <div class="row display-table-row">
         <div class="col-3 display-table-cell valign-top clearfix" id="dashboard-menu">
           <h1>Träningsdojon</h1>
-          <input type="text" id="header-search-field" placeholder="Sök efter något...">
-          <span id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <div id="searchForm">
+          <form method="post" action="{% url "searched" %}">
+          {% csrf_token %}
+
+             <input type="text" name="search" id="header-search-field" placeholder="Sök användare">
+             <button class="whateverbuttonofdoom" type="submit" > <span id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span></button>
+
+          </form>
+        </div>
+
+
           <ul>
             <li class="link">
               <a class="list-group-item" href="{% url "dashboard" %}">
@@ -68,7 +78,7 @@
             </ul>
 
             <li class="link">
-              <a class="list-group-item" href="{% url "profile" %}">
+              <a class="list-group-item" href="{% url "user" %}{{request.user.username}}">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Profil</span>
               </a>
@@ -87,7 +97,7 @@
               <div class="col-12" id="nav-header-fix">
                 <div class="pull-left">
                   <ul>
-                    <li id="welcome-name">Hej {{ user.get_username }}, välkommen till din dashboard!</li>
+                    <li id="welcome-name">Hej {{request.user.username}}, välkommen till din dashboard!</li>
                   </ul>
                 </div>
                 <ul class="pull-right">
