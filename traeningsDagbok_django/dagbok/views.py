@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 import json
 import re
 
-from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
+from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
 from .models import WorkOuts, UserExtended
 
 # Create your views here.
@@ -305,3 +305,57 @@ def update_user(request):
 
 
 
+def advanced_workout(request):
+    if request.POST:
+        WorkOut = WorkOuts()
+        #~ <QueryDict: {
+        #~ u'kalorier': [u'7'],
+         #~ u'stretch': [u'97'],
+          #~ u'snittpuls': [u'2'],
+           #~ u'workoutType': [u'running'],
+            #~ u'time': [u'7'], 
+            #~ u'minpuls': [u'77'], 
+            #~ u'csrfmiddlewaretoken': [u'Rr7D9DZiWbY4ky9t2bAQLFbb8E9pYmcM'],
+             #~ u'feeling': [u'7'],
+              #~ u'puls': [u'7']}>
+        if request.POST['workoutType'] == "running":
+            WorkOut.workoutSport = u"Loepning"
+        
+        elif request.POST['workoutType'] == "swimming":
+            WorkOut.workoutSport = u"Simning"
+        
+        elif request.POST['workoutType'] == "weightlifting":
+            WorkOut.workoutSport = u"Styrketraening"
+            WorkOut.gym_type = request.POST['gym_type']
+            WorkOut.gym_weight = request.POST['gym_weight']
+        else:
+            return redirect("/dashboard")
+        
+        
+        WorkOut.puls = request.POST['puls']
+        WorkOut.snittpuls = request.POST['snittpuls']
+        WorkOut.minpuls = request.POST['minpuls']        
+        WorkOut.kalorier = request.POST['kalorier']
+        
+        WorkOut.workoutFeel = request.POST['feeling']
+        WorkOut.workoutStretch = request.POST['stretch']
+
+        if len(request.POST['time']) > 0 and ":" in request.POST['time']:
+            tiden = request.POST['time'].split(":")
+            if tiden[0].isdigit() and (len(tiden) == 1 or tiden[1].isdigit()):
+                if len(tiden) == 1:
+                    tiden.append(0)
+                else:
+                    tiden = [0, 0]
+        else:
+            tiden = [0, 0]
+        WorkOut.workoutTime = tiden[0]
+        WorkOut.workoutSec = tiden[0]
+        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+        
+        WorkOut.save()
+
+        print request.POST
+        return redirect("/advanced_workout")
+    else:
+        return render(request, "dagbok/advanced_workout.html",{'advanced_workout_form':AdvancedWorkout(),'WRF': WorkoutRegisterForm()})

@@ -88,7 +88,7 @@ class LoginAccountForm(forms.Form):
         
 class WorkoutRegisterForm(forms.Form):
     
-    stretch = forms.IntegerField(
+    stretch = forms.IntegerField(label="Sträcka",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'T.ex. 50',
@@ -96,7 +96,7 @@ class WorkoutRegisterForm(forms.Form):
             })
         )
  
-    time = forms.CharField(
+    time = forms.CharField(label="Tid",
             widget=forms.TimeInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'T.ex. 3',
@@ -104,7 +104,7 @@ class WorkoutRegisterForm(forms.Form):
             })
         )
 
-    feeling = forms.CharField(
+    feeling = forms.CharField(label="Känsla",
             max_length = 500, 
             widget=forms.TextInput(attrs = {
                 'class': 'form-control fastWorkoutFeeling',
@@ -112,7 +112,7 @@ class WorkoutRegisterForm(forms.Form):
             })
         )
 
-    gym_weight = forms.CharField(
+    gym_weight = forms.CharField(label="Vikt",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'T.ex. 120.5',
@@ -120,7 +120,7 @@ class WorkoutRegisterForm(forms.Form):
             })
         )
 
-    gym_type = forms.CharField(
+    gym_type = forms.CharField(label="Övning",
             max_length = 100,
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
@@ -152,25 +152,25 @@ class SearchForm(forms.Form):
             }))
 
 class AdvancedWorkout(forms.Form):
-    puls = forms.IntegerField(
+    puls = forms.IntegerField(label="Maximal Puls",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'Maximal puls',
             }))
             
-    snittpuls = forms.FloatField(
+    snittpuls = forms.FloatField(label="Snittpuls",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'Snittpuls',
             }))
             
-    minpuls = forms.IntegerField(
+    minpuls = forms.IntegerField(label="Minimal puls",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'Minimal puls',
             }))
             
-    kalorier = forms.IntegerField(
+    kalorier = forms.IntegerField(label="Kalorier",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'Kalorier',
@@ -181,4 +181,4 @@ class AdvancedWorkout(forms.Form):
 
     
     
-    
+       

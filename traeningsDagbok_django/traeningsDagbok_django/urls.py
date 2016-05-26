@@ -30,4 +30,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),
     url(r'^update_user/$', views.update_user, name='update_user'),
+    url(r'^advanced_workout$', views.advanced_workout, name='advanced_workout'),
+    
 ]
