@@ -21,9 +21,9 @@
           <img src="{% static "dagbok/img/profilepic.png" %}" class="img-center" width="150px" alt="Profilbild" />
         </div>
         <div class="col-3">
-          <!-- <h1>{{user.username}}</h1> -->
+          <!-- <h1> dubbelmåsvingar user.username dubbelmåsvingar </h1> -->
           <div class="centered-profile">
-            <img src="{% static "dagbok/img/calendar2.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{ total_workouts }} pass</span>
+            <img src="{% static "dagbok/img/calendar2.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{ extended.total_workouts }} pass</span>
           </div>
         </div>
         <div class="col-3">
@@ -101,7 +101,7 @@
 
 </div>
 {% else %}
-  DÅligt sökt
+  Dåligt sökt
 {% endif %}
 
 

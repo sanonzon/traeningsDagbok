@@ -87,6 +87,11 @@ def dashboard(request):
                         WorkOut.workoutSport = u"Styrketraening"
                         WorkOut.workoutSec = 0
                         WorkOut.save()
+
+                        user_workouts = UserExtended.objects.filter(user_id=request.user.id).get()
+                        user_workouts.total_workouts += 1
+                        user_workouts.save()
+
                     else:
                         return HttpResponseRedirect("/dashboard")
 
@@ -106,6 +111,10 @@ def dashboard(request):
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                     WorkOut.workoutSport = u"Simning"
                     WorkOut.save()
+                    
+                    user_workouts = UserExtended.objects.filter(user_id=request.user.id).get()
+                    user_workouts.total_workouts += 1
+                    user_workouts.save()
 
                 elif request.POST['workoutType'] == 'running':
                     tiden = request.POST['time'].split(":")
@@ -123,6 +132,10 @@ def dashboard(request):
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                     WorkOut.workoutSport = u"Loepning"
                     WorkOut.save()
+
+                    user_workouts = UserExtended.objects.filter(user_id=request.user.id).get()
+                    user_workouts.total_workouts += 1
+                    user_workouts.save()
 
                 return HttpResponseRedirect("/dashboard")
             else:
@@ -199,6 +212,10 @@ def user(request):
 
             if UserExtended.objects.filter(user_id=url_user_id):
                 user_extended = UserExtended.objects.filter(user_id=url_user_id).get()
+                
+                if (not user_extended.total_workouts.isdigit()) or user_extended.total_workouts < 0:
+                    user_extended.total_workouts = len(WorkOuts.objects.filter(workoutUser = url_user_id))
+                    user_extend.save()
             else:
                 user_extended = None
 
@@ -217,7 +234,7 @@ def user(request):
                 return render(request, 'dagbok/user.html', {
                     'user': user,
                     'full_name': hack_dict,
-                    'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
+                    #~ 'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
                     'extended': user_extended,
                     'sports': str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
                     })
@@ -225,7 +242,7 @@ def user(request):
                 return render(request, 'dagbok/user.html', {
                 'user': user,
                 'full_name': hack_dict,
-                'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
+                #~ 'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
                 'extended': None,
                 'sports': None
                 })

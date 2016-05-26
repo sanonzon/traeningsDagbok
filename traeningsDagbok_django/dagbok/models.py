@@ -44,6 +44,7 @@ class UserExtended(models.Model):
     user_id = models.ForeignKey(User)
     city = models.CharField(max_length=100)
     favorite_sport = models.CharField(max_length=100)
+    total_workouts = models.IntegerField()
     
     def __str__(self):
         return self.user_id.username
