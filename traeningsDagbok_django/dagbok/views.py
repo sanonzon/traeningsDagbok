@@ -218,7 +218,7 @@ def user(request):
             if user_extended:
                 buddies = {}
                 for buddy in str(user_extended.buddies).split(","):
-                    if buddy not in buddies:
+                    if buddy not in buddies and len(buddy) > 0:
                         buddies[buddy] = buddy
                 return render(request, 'dagbok/user.html', {
                     'user': user,

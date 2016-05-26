@@ -52,15 +52,17 @@
             <li>
               <strong>Senast inloggad:</strong> {{ user.last_login }}
             </li>
+            <!-- KOMPISKNAPPEN -->
+           {% if not user.id == request.user.id%}
            <li>
-               {% if not user.id == request.user.id %}
-           <form method="post" action="{% url "add_buddy" %}">
-           {% csrf_token %}
-            <input type="hidden" value="{{user.username}}" name="get_buddy">
-            <button type="submit" class="btn btn-default">BLI KOMPIS</button>
-            </form>
-            {% endif %}
-        </li>
+             <form method="post" action="{% url "add_buddy" %}">
+               {% csrf_token %}
+                <input type="hidden" value="{{user.username}}" name="get_buddy">
+                <button type="submit" class="btn btn-default">BLI KOMPIS</button>
+              </form>
+            </li>
+           {% endif %}
+           <!-- KOMPISKNAPPEN END -->
           </ul>
         </div>
  
