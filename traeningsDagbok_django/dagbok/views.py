@@ -63,7 +63,6 @@ def dashboard(request):
         if request.POST:
             stretch = request.POST['stretch']
             if (len(stretch) > 0 and stretch.isdigit()) or len(request.POST['time']):
-
                 if not len(stretch) > 0:
                     streckan_fixed = "0"
                 else:
@@ -73,10 +72,10 @@ def dashboard(request):
                             streckan_fixed += "."
                         elif c.isdigit():
                             streckan_fixed += c
-                        
+
                 if not len(streckan_fixed) > 0:
                     streckand_fixed = "0"
-                
+
                 if request.POST['workoutType'] == 'weightlifting':
                     if request.POST['time'].isdigit():
                         WorkOut.gym_type = request.POST['gym_type']
@@ -116,7 +115,7 @@ def dashboard(request):
                             tiden.append(0)
                     else:
                         tiden = [0, 0]
-                        
+
                     WorkOut.workoutTime = tiden[0]
                     WorkOut.workoutSec = tiden[1]
                     WorkOut.workoutFeel = request.POST['feeling']
@@ -145,18 +144,18 @@ def footer(request):
 def calendar(request):
 
     given_id = None
-    
+
     if request.POST:
         given_id = request.POST['given_id']
 
     events = WorkOuts.objects.filter(workoutUser = request.user.id).order_by('workoutDateNow')
     workout = WorkOuts.objects.filter(id = given_id)
-        
+
     if workout:
         workout = workout[0]
 
     calendar = []
-    
+
     if events:
         for event in events:
             calendar.append({
@@ -197,24 +196,24 @@ def user(request):
             user = User.objects.filter(username=match.group(1)).get()
             url_user_id = User.objects.filter(id=user.id).values_list('id', flat=True)[0]
             print ("url_user_id : %s") % url_user_id
-            
+
             if UserExtended.objects.filter(user_id=url_user_id):
                 user_extended = UserExtended.objects.filter(user_id=url_user_id).get()
             else:
                 user_extended = None
-                
+
             print ("user_extended object finns?: %s") % user_extended
-            
-            
+
+
             if len(user.first_name) > 0 and len(user.last_name) > 0:
                 hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
             else:
                 hack_dict = {'full_name': user.username}
             #~ print user.first_name
-            
+
             print WorkOuts.objects.filter(workoutUser = url_user_id)
-            
-            if user_extended:            
+
+            if user_extended:
                 return render(request, 'dagbok/user.html', {
                     'user': user,
                     'full_name': hack_dict,
@@ -260,28 +259,28 @@ def create_user(request):
 
 def update_user(request):
     #~ firstname        lastname        email        new_password        new_password_repeat        current_password
-    if request.POST:        
+    if request.POST:
         user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
-   
+
         if authenticate(username=request.POST['username'], password=request.POST['current_password']):
             user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
-            
+
             if UserExtended.objects.filter(user_id=user.id):
                 extended = UserExtended.objects.filter(user_id=user.id).get()
             else:
                 extended = UserExtended()
                 extended.user_id = User.objects.filter(id=user.id).get()
-            
+
             sports = ""
             if "swim" in request.POST:
                 sports += "swim,"
-            
+
             if "gym" in request.POST:
                 sports += "gym,"
-            
+
             if "run" in request.POST:
                 sports += "run,"
-            
+
             if len(request.POST['firstname']) > 0:
                 user.first_name = request.POST['firstname']
             if len(request.POST['lastname']) > 0:
@@ -294,20 +293,20 @@ def update_user(request):
                 extended.favorite_sport = sports
             if len(request.POST['city']) > 0:
                 extended.city = request.POST['city']
-            
+
             extended.save()
             user.save()
             return redirect("/dashboard")
         else:
             return redirect("/")
-        
+
     else:
         return redirect("/")
 
 
 def gymtest(request):
     form = GymWorkoutForm()
-    
+
     return render(request, 'dagbok/gymtest.html', {
                     'form':form
                     })
