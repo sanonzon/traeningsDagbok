@@ -216,10 +216,14 @@ def user(request):
         
             
             if user_extended:
-                buddies = {}
+                tmp = []
                 for buddy in str(user_extended.buddies).split(","):
-                    if buddy not in buddies and len(buddy) > 0:
-                        buddies[buddy] = buddy
+                    if len(buddy) > 0 and buddy not in tmp:
+                        tmp += User.objects.values('username').filter(id=buddy)
+                print tmp
+                
+                buddies = [x['username'] for x in tmp]
+
                 return render(request, 'dagbok/user.html', {
                     'user': user,
                     'full_name': hack_dict,
@@ -379,7 +383,8 @@ def add_buddy(request):
         if user_extended.buddies == None:
             user_extended.buddies = request.POST['get_buddy'] + ","
         else:
-            user_extended.buddies = user_extended.buddies + request.POST['get_buddy'] + ","
+            if request.POST['get_buddy'] not in user_extended.buddies:
+                user_extended.buddies = user_extended.buddies + request.POST['get_buddy'] + ","
         
         
         user_extended.save()
