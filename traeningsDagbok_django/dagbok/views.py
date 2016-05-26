@@ -304,9 +304,4 @@ def update_user(request):
         return redirect("/")
 
 
-def gymtest(request):
-    form = GymWorkoutForm()
 
-    return render(request, 'dagbok/gymtest.html', {
-                    'form':form
-                    })

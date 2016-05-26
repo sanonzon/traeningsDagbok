@@ -150,6 +150,31 @@ class SearchForm(forms.Form):
                 'class': 'form-control',
                 'placeholder': 'S\xC3\xB6k anv\xC3\xA4ndarnamn',
             }))
+
+class AdvancedWorkout(forms.Form):
+    puls = forms.IntegerField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Maximal puls',
+            }))
+            
+    snittpuls = forms.FloatField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Snittpuls',
+            }))
+            
+    minpuls = forms.IntegerField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Minimal puls',
+            }))
+            
+    kalorier = forms.IntegerField(
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Kalorier',
+            }))
             
 #~ class GymWorkoutForm(forms.Form):
     #~ workouts = forms.ModelChoiceField(queryset=GymWorkout.objects.all())
