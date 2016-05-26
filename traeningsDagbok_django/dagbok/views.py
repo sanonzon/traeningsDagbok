@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 import json
 import re
 
-from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, GymWorkoutForm
+from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
 from .models import WorkOuts, UserExtended
 
 # Create your views here.
@@ -56,7 +56,7 @@ def logout_user(request):
 
 def dashboard(request):
     if request.user.is_authenticated():
-        gym_type_form = GymWorkoutForm()
+        #~ gym_type_form = GymWorkoutForm()
         WRF = WorkoutRegisterForm(request.POST)
         WorkOut = WorkOuts()
 
@@ -130,7 +130,7 @@ def dashboard(request):
         return render(request, 'dagbok/dashboard.html', {
                 'WRF': WorkoutRegisterForm(),
                 'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5],
-                'gym_type_form':gym_type_form,
+                
             })
     else:
         return HttpResponseRedirect("/")
