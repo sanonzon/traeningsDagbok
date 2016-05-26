@@ -94,19 +94,6 @@ li.icon {
   margin-top: 50px;
 }
 
-.circle-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 40px;
-}
-
 .register-page {
   min-height: 100vh;
 }
@@ -123,56 +110,18 @@ li.icon {
   margin-top: 30px;
 }
 
-.register-circle {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 5px solid #57caff;
-  position: relative;
-  display: inline-block;
-  margin: 10px;
+.form-control {
+  width: 80% !important;
 }
 
-.login-circle {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 5px solid #ff488d;
-  position: relative;
-  display: inline-block;
-  margin: 10px;
-}
-
-.register-circle:hover {
-  border: 5px solid #333;
-}
-
-.register-circle span {
-  font-size: 14px;
-  font-weight: 600;
-  text-trans§: uppercase;
-  letter-spacing: 1px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-.login-circle:hover {
-  border: 5px solid #333;
-}
-
-.login-circle span {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+.nice-border {
+  border-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(112,112,112,1) 50%,rgba(255,255,255,1) 100%) 1 round;
+  border-top: 0;
+  border-right: 0;
+  border-left: 3px;
+  border-bottom: 0;
+  margin-top: 40px;
+  padding: 40px;
 }
 
 /* ABOUT US */
