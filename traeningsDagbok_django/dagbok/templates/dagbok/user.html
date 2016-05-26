@@ -10,6 +10,8 @@
     <li role="presentation" class="active"><a href="#profil" aria-controls="profil" role="tab" data-toggle="tab">Profil</a></li>
     {% if user.id == request.user.id %}
     <li role="presentation"><a href="#changeProfile" aria-controls="changeProfile" role="tab" data-toggle="tab">Ändra din profil</a></li>
+    <li role="presentation"><a href="#viewFriends" aria-controls="viewFriends" role="tab" data-toggle="tab">Kompisar</a></li>
+    
     {% endif %}
   </ul>
 
@@ -38,7 +40,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4 profile-details">
+        <div class="col-4 profile-details"> 
           <p class="full-name-profile">{{ full_name.full_name }}</p>
           <ul>
             <li>
@@ -50,9 +52,18 @@
             <li>
               <strong>Senast inloggad:</strong> {{ user.last_login }}
             </li>
-
+           <li>
+               {% if not user.id == request.user.id %}
+           <form method="post" action="{% url "add_buddy" %}">
+           {% csrf_token %}
+            <input type="hidden" value="{{user.username}}" name="get_buddy">
+            <button type="submit" class="btn btn-default">BLI KOMPIS</button>
+            </form>
+            {% endif %}
+        </li>
           </ul>
         </div>
+ 
         <div class="col-8 profile-favorite-sports">
           <h4 class="centered">Favoritsporter</h4>
           <div class="favorite-sports">
@@ -95,7 +106,18 @@
         <button type="submit" class="btn btn-success">Ändra info</button>
       </form>
       </div>
-
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="viewFriends">
+         {% if extended.buddies %} 
+         <ul>
+         {% for buddy in buddies %}
+            <li><a href="{% url "user" %}{{buddy}}">{{buddy}}</a></li>
+         {% endfor %}
+         </ul>
+         {% else%}
+         Du har inga kompisar :(
+         {% endif %}
+    
     </div>
   </div>
 

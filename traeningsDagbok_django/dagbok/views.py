@@ -195,14 +195,14 @@ def user(request):
         if User.objects.filter(username=match.group(1)):
             user = User.objects.filter(username=match.group(1)).get()
             url_user_id = User.objects.filter(id=user.id).values_list('id', flat=True)[0]
-            print ("url_user_id : %s") % url_user_id
+            #~ print ("url_user_id : %s") % url_user_id
 
             if UserExtended.objects.filter(user_id=url_user_id):
                 user_extended = UserExtended.objects.filter(user_id=url_user_id).get()
             else:
                 user_extended = None
 
-            print ("user_extended object finns?: %s") % user_extended
+            #~ print ("user_extended object finns?: %s") % user_extended
 
 
             if len(user.first_name) > 0 and len(user.last_name) > 0:
@@ -211,15 +211,22 @@ def user(request):
                 hack_dict = {'full_name': user.username}
             #~ print user.first_name
 
-            print WorkOuts.objects.filter(workoutUser = url_user_id)
+            #~ print WorkOuts.objects.filter(workoutUser = url_user_id)
 
+        
+            
             if user_extended:
+                buddies = {}
+                for buddy in str(user_extended.buddies).split(","):
+                    if buddy not in buddies:
+                        buddies[buddy] = buddy
                 return render(request, 'dagbok/user.html', {
                     'user': user,
                     'full_name': hack_dict,
                     'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
                     'extended': user_extended,
-                    'sports': str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
+                    'sports': str(user_extended.favorite_sport).lower().replace(" ", "").split(","),
+                    'buddies': buddies,
                     })
             else:
                 return render(request, 'dagbok/user.html', {
@@ -227,7 +234,8 @@ def user(request):
                 'full_name': hack_dict,
                 'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
                 'extended': None,
-                'sports': None
+                'sports': None,
+                'buddies': None,
                 })
         else:
             return HttpResponseRedirect('/dashboard')
@@ -359,3 +367,28 @@ def advanced_workout(request):
         return redirect("/advanced_workout")
     else:
         return render(request, "dagbok/advanced_workout.html",{'advanced_workout_form':AdvancedWorkout(),'WRF': WorkoutRegisterForm()})
+
+def add_buddy(request):
+    if request.POST:
+        if UserExtended.objects.filter(user_id=request.user.id):
+            user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+        else:
+            user_extended = UserExtended.objects.all().get()
+            user_extended.user_id = request.user.id
+        
+        if user_extended.buddies == None:
+            user_extended.buddies = request.POST['get_buddy'] + ","
+        else:
+            user_extended.buddies = user_extended.buddies + request.POST['get_buddy'] + ","
+        
+        
+        user_extended.save()
+        return redirect("/dashboard")
+        
+    else:
+        return redirect("/dashboard")
+        
+        
+        
+        
+
