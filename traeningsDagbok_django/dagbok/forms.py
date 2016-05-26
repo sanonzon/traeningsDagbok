@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms import ModelForm
-from .models import GymWorkout
+#~ from .models import GymWorkout
 
 #~ from .models import Workout_gym
 
@@ -151,8 +151,8 @@ class SearchForm(forms.Form):
                 'placeholder': 'S\xC3\xB6k anv\xC3\xA4ndarnamn',
             }))
             
-class GymWorkoutForm(forms.Form):
-    workouts = forms.ModelChoiceField(queryset=GymWorkout.objects.all())
+#~ class GymWorkoutForm(forms.Form):
+    #~ workouts = forms.ModelChoiceField(queryset=GymWorkout.objects.all())
 
     
     
