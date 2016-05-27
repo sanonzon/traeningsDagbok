@@ -53,7 +53,7 @@
               <strong>Senast inloggad:</strong> {{ user.last_login }}
             </li>
             <!-- KOMPISKNAPPEN -->
-           {% if not user.id == request.user.id%}
+           {% if buddy_button %}
            <li>
              <form method="post" action="{% url "add_buddy" %}">
                {% csrf_token %}

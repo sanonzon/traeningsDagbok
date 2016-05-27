@@ -56,7 +56,7 @@ class UserExtended(models.Model):
     buddies = models.CharField(max_length=256,default="")
     
     def __str__(self):
-        return self.user_id.username
+        return "%s - %s" %(self.user_id.username, self.user_id.id)
     
 #~ @python_2_unicode_compatible
 #~ class GymWorkout(models.Model):
