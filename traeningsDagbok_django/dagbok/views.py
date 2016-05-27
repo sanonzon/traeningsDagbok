@@ -266,7 +266,8 @@ def create_user(request):
         user.is_active = True
         user.save()
         
-        create_extended_user(request,user)
+        UserExtended(user_id=user).save()
+        #~ create_extended_user(request,user)
         
         login(request, authenticate(username=username, password=password))
         return redirect('/dashboard')
@@ -290,8 +291,7 @@ def update_user(request):
     if request.POST:
         user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
 
-        if authenticate(username=request.POST['username'], password=request.POST['current_password']):
-            user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
+        if user:
 
             if UserExtended.objects.filter(user_id=user.id):
                 extended = UserExtended.objects.filter(user_id=user.id).get()
