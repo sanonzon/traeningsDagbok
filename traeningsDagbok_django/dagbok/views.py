@@ -280,20 +280,15 @@ def update_user(request):
             if "run" in request.POST:
                 sports += "run,"
 
-            if len(request.POST['firstname']) > 0:
-                user.first_name = request.POST['firstname']
-            if len(request.POST['lastname']) > 0:
-                user.last_name = request.POST['lastname']
-            if len(request.POST['email']) > 0:
-                user.email = request.POST['email']
-            if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
-                user.set_password(request.POST['new_password'])
-            if len(sports) > 0:
-                extended.favorite_sport = sports
-            if len(request.POST['city']) > 0:
-                extended.city = request.POST['city']
-            
+            user.first_name = request.POST['firstname']
+            user.last_name = request.POST['lastname']
+            user.email = request.POST['email']
             extended.picture=request.POST['picture']
+            extended.favorite_sport = sports
+            extended.city = request.POST['city']
+        
+            if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
+                user.set_password(request.POST['new_password'])            
             
             extended.save()
             user.save()

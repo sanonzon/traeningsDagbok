@@ -74,7 +74,8 @@ WSGI_APPLICATION = 'traeningsDagbok_django.wsgi.application'
 
 #~ # Database
 #~ # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-#~ 
+
+#~
 #~ DATABASES = {
     #~ 'default': {
         #~ 'ENGINE': 'django.db.backends.sqlite3',
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'traeningsDagbok_django.wsgi.application'
 #~ }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'traeningsdojon',
         'USER': 'traeningsdojon',
         'PASSWORD': 'Q6bSMNA3TWVzdjry',
