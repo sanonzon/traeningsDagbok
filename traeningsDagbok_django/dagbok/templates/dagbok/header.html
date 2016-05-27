@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static "dagbok/css/font-awesome.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/normalize.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/fullcalendar.css" %}">
+    <link rel="stylesheet" href="{% static "dagbok/css/fullcalendar-customize.css" %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "dagbok/script/script.js" %}"></script>
     <script src="{% static "dagbok/script/lib/jquery.min.js" %}"></script>
@@ -70,7 +71,7 @@
                 </a>
               </li>
               <li>
-                <a class="list-group-item list-group-item-collapsed" href="#">
+                <a class="list-group-item list-group-item-collapsed" href="{% url "goals" %}">
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <span>Mål</span>
                 </a>
@@ -117,4 +118,4 @@
               </div>
             </header>
 
-            <div class="col-12 chart-rect-wrapper">
+            <div class="col-12">

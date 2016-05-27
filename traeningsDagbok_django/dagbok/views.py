@@ -136,7 +136,7 @@ def dashboard(request):
         return render(request, 'dagbok/dashboard.html', {
                 'WRF': WorkoutRegisterForm(),
                 'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-workoutDateNow')[:5],
-                
+
             })
     else:
         return HttpResponseRedirect("/")
@@ -341,3 +341,6 @@ def gymtest(request):
     return render(request, 'dagbok/gymtest.html', {
                     'form':form
                     })
+
+def goals(request):
+    return render(request, 'dagbok/goals.html')

@@ -304,3 +304,6 @@ body {
     display: block;
 }
 
+.user-form {
+  width: 50% !important;
+}
