@@ -401,7 +401,7 @@ def add_buddy(request):
         
         
         user_extended.save()
-        return redirect("/user/"+request.user.username+)
+        return redirect("/user/"+request.user.username)
         
     else:
         return redirect("/dashboard")
