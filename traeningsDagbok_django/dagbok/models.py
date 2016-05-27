@@ -51,9 +51,9 @@ class WorkOuts(models.Model):
 @python_2_unicode_compatible
 class UserExtended(models.Model):
     user_id = models.ForeignKey(User)
-    city = models.CharField(max_length=100,blank=True,null=True)
-    favorite_sport = models.CharField(max_length=100,blank=True,null=True)
-    buddies = models.CharField(max_length=256,blank=True,null=True)
+    city = models.CharField(max_length=100,default="")
+    favorite_sport = models.CharField(max_length=100,default="")
+    buddies = models.CharField(max_length=256,default="")
     
     def __str__(self):
         return self.user_id.username

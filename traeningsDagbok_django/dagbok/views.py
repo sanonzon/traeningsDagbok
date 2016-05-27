@@ -36,6 +36,7 @@ def login_user(request):
 
         if user is not None:
             if user.is_active:
+                create_extended_user(request,user)
                 login(request, user)
                 #~ return render(request, 'dagbok/dashboard.html')
                 return redirect('/dashboard')
@@ -218,11 +219,12 @@ def user(request):
             if user_extended:
                 tmp = []
                 for buddy in str(user_extended.buddies).split(","):
-                    if len(buddy) > 0 and buddy not in tmp:
+                    if buddy.isdigit():
                         tmp += User.objects.values('username').filter(id=buddy)
                 print tmp
                 
                 buddies = [x['username'] for x in tmp]
+                #~ buddies = None
 
                 return render(request, 'dagbok/user.html', {
                     'user': user,
@@ -263,12 +265,26 @@ def create_user(request):
         user.set_password(password)
         user.is_active = True
         user.save()
-
+        
+        create_extended_user(request,user)
+        
         login(request, authenticate(username=username, password=password))
         return redirect('/dashboard')
     else:
         return redirect('/')
-
+        
+def create_extended_user(request, user):
+    if UserExtended.objects.filter(user_id=user.id):
+        pass
+    else:
+        user_extended = UserExtended()
+        user_extended.user_id=User.objects.filter(id=user.id).get()
+        user_extended.city=""
+        user_extended.favorite_sport=""
+        user_extended.buddies=""
+        user_extended.save()
+    return
+    
 def update_user(request):
     #~ firstname        lastname        email        new_password        new_password_repeat        current_password
     if request.POST:
@@ -373,18 +389,15 @@ def advanced_workout(request):
         return render(request, "dagbok/advanced_workout.html",{'advanced_workout_form':AdvancedWorkout(),'WRF': WorkoutRegisterForm()})
 
 def add_buddy(request):
-    if request.POST:
-        if UserExtended.objects.filter(user_id=request.user.id):
-            user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
-        else:
-            user_extended = UserExtended.objects.all().get()
-            user_extended.user_id = request.user.id
-        
-        if user_extended.buddies == None:
-            user_extended.buddies = request.POST['get_buddy'] + ","
-        else:
+    if request.POST:        
+        user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+
+        if len(user_extended.buddies) > 0:
             if request.POST['get_buddy'] not in user_extended.buddies:
                 user_extended.buddies = user_extended.buddies + request.POST['get_buddy'] + ","
+        else:
+            user_extended.buddies = request.POST['get_buddy'] + ","
+            
         
         
         user_extended.save()
