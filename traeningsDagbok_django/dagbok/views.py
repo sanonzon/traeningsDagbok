@@ -17,13 +17,19 @@ from .models import WorkOuts, UserExtended
 def index(request):
     register_form = CreateAccountForm(request.POST)
     login_form = LoginAccountForm(request.POST)
-    return render(
-        request,
-        'dagbok/index.html',
-        {
-            'register_form': register_form,
-            'login_form': login_form,
-        })
+
+    if register_form.is_valid():
+        return create_user(request)
+    elif login_form.is_valid():
+        return login_user(request)
+    else:
+        return render(
+            request,
+            'dagbok/index.html',
+            {
+                'register_form': register_form,
+                'login_form': login_form,
+            })
 
 def login_user(request):
     form = LoginAccountForm(request.POST)
@@ -255,7 +261,32 @@ def create_user(request):
         login(request, authenticate(username=username, password=password))
         return redirect('/dashboard')
     else:
-        return redirect('/')
+        return render(
+                request,
+                'dagbok/index.html', {
+                'register_form': form,
+            })
+        #~ 
+        #~ return redirect('/#register-section', {'register_form': form})
+        #~ if request.is_ajax() and not form.is_valid():
+        #~ html = loader.render_to_string('dagbok/index.html', {
+                #~ 'register_form': form,
+            #~ })
+        #~ return HttpResponse(html)
+        #~ elif request.is_ajax() and form.is_valid():
+            #~ print "return true"
+            #~ return True
+            #~ username = form.cleaned_data['username']
+            #~ password = form.cleaned_data['password']
+            #~ user = User(username=username)
+            #~ user.set_password(password)
+            #~ user.is_active = True
+            #~ user.save()
+#~ 
+            #~ login(request, authenticate(username=username, password=password))
+            #~ return redirect('/dashboard')
+        #~ else:
+            #~ return redirect('/')
 
 def update_user(request):
     #~ firstname        lastname        email        new_password        new_password_repeat        current_password
