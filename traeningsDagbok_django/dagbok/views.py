@@ -292,7 +292,9 @@ def update_user(request):
                 extended.favorite_sport = sports
             if len(request.POST['city']) > 0:
                 extended.city = request.POST['city']
-
+            
+            extended.picture=request.POST['picture']
+            
             extended.save()
             user.save()
             return redirect("/dashboard")

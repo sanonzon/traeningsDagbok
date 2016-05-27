@@ -20,7 +20,11 @@
     <div role="tabpanel" class="tab-pane fade in active" id="profil">
       <div class="row">
         <div class="col-3">
+            {% if extended.picture %}
+          <img src="{{extended.picture}}" class="img-center" width="150px" alt="Profilbild" />
+          {% else %}
           <img src="{% static "dagbok/img/profilepic.png" %}" class="img-center" width="150px" alt="Profilbild" />
+          {% endif %}
         </div>
         <div class="col-3">
           <!-- <h1>{{user.username}}</h1> -->
@@ -92,6 +96,7 @@
         <p>Förnamn:<input value="{{user.first_name}}" name="firstname"></p>
         <p>Efternamn:<input value="{{user.last_name}}" name="lastname"></p>
         <p>Email:<input value="{{user.email}}" name="email"></p>
+        <p>Bild:<input value="{{extended.picture}}" name="picture"></p>
         
         <p>FavoritSport:</p>
                 
