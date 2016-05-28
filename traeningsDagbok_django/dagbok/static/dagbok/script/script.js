@@ -27,31 +27,29 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-var csrftoken = getCookie('csrftoken');
+//~ var csrftoken = getCookie('csrftoken');
 
 
-$('#register-form').on('submit', function(e) {
-    var csrftoken = getCookie('csrftoken');
-    var formData = $('#register-form').serialize();
-    $.ajax({
-        type: 'POST',
-        url: $(this).attr('action'),
-        //~ dataType: "json",
-        data: {
-            formData,
-            'csrfmiddlewaretoken': csrftoken,
-        },
-        success: function(serverResponse) {
-            console.log(serverResponse)
-            console.log("OKLART SOM FAN, success ka det vara.");
-        },
-        error: function(XMLHttpRequest) {
-            console.log("FAIL");
-            $('#registerModal').modal('show');
-        },
-    });
-    //~ return false;
-
+//~ $('#register-form').on('submit', function(e) {
+    //~ var csrftoken = getCookie('csrftoken');
+    //~ var formData = $('#register-form').serialize();
+    //~ $.ajax({
+        //~ type: 'POST',
+        //~ // url: $(this).attr('action'),
+        //~ url: '/register/',
+        //~ data: {
+            //~ formData,
+            //~ 'csrfmiddlewaretoken': csrftoken,
+        //~ },
+        //~ success: function(serverResponse) {
+            //~ console.log(serverResponse)
+            //~ console.log("OKLART SOM FAN, success ka det vara.");
+        //~ },
+        //~ error: function(newData) {
+            //~ console.log("FAIL");
+            //~ $('#register-area').html(newData);
+        //~ },
+    //~ });
 });
 
 

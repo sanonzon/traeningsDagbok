@@ -46,87 +46,12 @@
             </p>
 
             <div class="row">
-              <div class="col-6">
-                <h3>Registrera dig!</h3>
-                <form class="form-horizontal" id="register-form" action="{% url 'register' %}" method="POST">
-                    {% csrf_token %}
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-3">
-                        <label for="inputEmail3" class="control-label">Användarnamn:</label>
-                      </div>
-                      <div class="col-9">
-                        {{ register_form.username }}
-                        {{ register_form.username.errors }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-3">
-                        <label for="inputPassword3" class="control-label">Lösenord:</label>
-                      </div>
-                      <div class="col-9">
-                        {{ register_form.password }}
-                        {{ register_form.password.errors }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-3">
-                        <label for="inputPassword3" class="control-label">Lösenord igen:</label>
-                      </div>
-                      <div class="col-9">
-                        {{ register_form.passwordRepeat }}
-                        {{ register_form.passwordRepeat.errors }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-12">
-
-                        <button type="submit" class="btn btn-default">Registrera</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+              <div class="col-6" id="register-area">
+                  {% include "dagbok/registersection.html" %}
               </div>
 
-              <div class="col-6 nice-border">
-                <h3>Redan medlem?</h3>
-                <form class="form-horizontal" id="login-form" action="{% url 'login' %}" method="POST">
-                    {% csrf_token %}
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-3">
-                        <label for="inputEmail3" class="control-label">Användarnamn:</label>
-                      </div>
-                      <div class="col-9">
-                        {{ login_form.username }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-3">
-                        <label for="inputPassword3" class="control-label">Lösenord:</label>
-                      </div>
-                      <div class="col-9">
-                        {{ login_form.password }}
-                        {{ login_form.password.errors }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-12">
-                        <button type="submit" class="btn btn-success">Logga in</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+              <div class="col-6 nice-border" id="login-area">
+                  {% include "dagbok/loginsection.html" %}
               </div>
 
             </div>
