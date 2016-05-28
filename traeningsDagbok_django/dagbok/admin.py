@@ -9,4 +9,5 @@ class WorkOutsAdmin(admin.ModelAdmin):
 
 admin.site.register(models.WorkOuts, WorkOutsAdmin)
 admin.site.register(models.UserExtended)
+admin.site.register(models.TotalWorkouts)
 #~ admin.site.register(models.GymWorkout)

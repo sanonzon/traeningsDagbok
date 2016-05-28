@@ -11,7 +11,7 @@ import json
 import re
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
-from .models import WorkOuts, UserExtended
+from .models import WorkOuts, UserExtended, TotalWorkouts
 
 # Create your views here.
 def index(request):
@@ -87,6 +87,7 @@ def dashboard(request):
                         WorkOut.workoutSport = u"Styrketraening"
                         WorkOut.workoutSec = 0
                         WorkOut.save()
+                        TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
                     else:
                         return HttpResponseRedirect("/dashboard")
 
@@ -106,6 +107,8 @@ def dashboard(request):
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                     WorkOut.workoutSport = u"Simning"
                     WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+
 
                 elif request.POST['workoutType'] == 'running':
                     tiden = request.POST['time'].split(":")
@@ -123,6 +126,8 @@ def dashboard(request):
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                     WorkOut.workoutSport = u"Loepning"
                     WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+
 
                 return HttpResponseRedirect("/dashboard")
             else:
@@ -220,7 +225,7 @@ def user(request):
             return render(request, 'dagbok/user.html', {
                 'user': url_user,
                 'full_name': hack_dict,
-                'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user.id)),
+                'total_workouts': TotalWorkouts.objects.filter(user_id=url_user.id).values_list('total_workouts',flat=True)[0],
                 'extended': url_user_extended,
                 'sports': str(url_user_extended.favorite_sport).lower().replace(" ", "").split(","),
                 'buddies': buddies,
@@ -250,6 +255,7 @@ def create_user(request):
         user.save()
         
         UserExtended(user_id=user).save()
+        TotalWorkouts(user_id=user).save()
         
         login(request, authenticate(username=username, password=password))
         return redirect('/dashboard')
@@ -340,6 +346,7 @@ def advanced_workout(request):
         WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
         
         WorkOut.save()
+        TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
         print request.POST
         return redirect("/advanced_workout")
@@ -367,3 +374,18 @@ def add_buddy(request):
         
 
 
+#~ def FIX(request):
+    #~ u = User.objects.all()
+    
+    #~ for user in u:
+        #~ workouts = len(WorkOuts.objects.filter(workoutUser=user)) - 1
+        #~ TotalWorkouts(user_id=user,total_workouts=workouts).save()
+    
+    #~ return HttpResponse("Klart, kolla databasen")
+    
+    
+    
+def testlol(request):
+    
+    
+    return HttpResponse()

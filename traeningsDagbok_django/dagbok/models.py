@@ -55,10 +55,23 @@ class UserExtended(models.Model):
     favorite_sport = models.CharField(max_length=100,default="")
     buddies = models.CharField(max_length=255,default="")
     picture = models.CharField(max_length=255,default="")
-    total_workouts = models.IntegerField(default=0)
+    
     
     def __str__(self):
         return "%s - %s" %(self.user_id.username, self.user_id.id)
+        
+@python_2_unicode_compatible
+class TotalWorkouts(models.Model):
+    user_id = models.ForeignKey(User)
+    total_workouts = models.IntegerField(default=-1)
+    
+    def save(self):
+        self.total_workouts += 1
+        super(TotalWorkouts, self).save()
+        
+    def __str__(self):
+        return "%s - %s" %(self.user_id.username, self.total_workouts)
+    
     
 #~ @python_2_unicode_compatible
 #~ class GymWorkout(models.Model):
