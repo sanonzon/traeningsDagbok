@@ -372,20 +372,3 @@ def add_buddy(request):
         return redirect("/dashboard")
         
         
-
-
-#~ def FIX(request):
-    #~ u = User.objects.all()
-    
-    #~ for user in u:
-        #~ workouts = len(WorkOuts.objects.filter(workoutUser=user)) - 1
-        #~ TotalWorkouts(user_id=user,total_workouts=workouts).save()
-    
-    #~ return HttpResponse("Klart, kolla databasen")
-    
-    
-    
-def testlol(request):
-    
-    
-    return HttpResponse()
