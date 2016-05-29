@@ -347,3 +347,6 @@ def goals(request):
 
 def progress(request):
     return render(request, 'dagbok/progress.html')
+
+def settings(request):
+    return render(request, 'dagbok/settings.html')

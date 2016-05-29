@@ -1,0 +1,136 @@
+{% load staticfiles %}
+{% include "dagbok/header.html" %}
+
+<div class="chart-rect full-rect">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    {% if user.id == request.user.id %}
+    <li role="presentation"><a href="#changeProfile" aria-controls="changeProfile" role="tab" data-toggle="tab">Ändra din profil</a></li>
+    {% endif %}
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="changeProfile">
+      <div class="row">
+        <div class="col-12 change_stuff">
+         <form class="form-horizontal" method="POST" action="{% url "update_user" %}">
+              {% csrf_token %}
+          <input type="hidden" value="{{user.username}}" name="username">
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Förnamn:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control user-form" value="{{user.first_name}}" name="firstname">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Efternamn:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control user-form" value="{{user.last_name}}" name="lastname">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Email:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control user-form" value="{{user.email}}" name="email">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Favoritsport:</label>
+              </div>
+              <div class="col-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="gym" {% if "gym" in sports %}checked{% endif %}>
+                    Styrketräning
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="swim" {% if "swim" in sports %}checked{% endif %}>
+                    Simning
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="run" {% if "run" in sports %}checked{% endif %}>
+                    Löpning
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Stad:</label>
+              </div>
+              <div class="col-10">
+                <input class="form-control user-form" value="{{ extended.city}}" name="city">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Nytt lösenord:</label>
+              </div>
+              <div class="col-10">
+                <input type="password" class="form-control user-form" name="new_password">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Repetera lösenord:</label>
+              </div>
+              <div class="col-10">
+                <input type="password" class="form-control user-form" name="new_password_repeat">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Nuvarande lösenord:</label>
+              </div>
+              <div class="col-10">
+                <input type="password" class="form-control user-form" name="current_password">Måste vara ifyllt om info skall sparas
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success">Ändra info</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div> <!-- END OF TAB-CONTENT -->
+
+</div>
+
+{% include "dagbok/footer.html" %}
