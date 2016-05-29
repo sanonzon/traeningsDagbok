@@ -266,7 +266,7 @@ def create_user(request):
                 'dagbok/index.html', {
                 'register_form': form,
             })
-        #~ 
+        #~
         #~ return redirect('/#register-section', {'register_form': form})
         #~ if request.is_ajax() and not form.is_valid():
         #~ html = loader.render_to_string('dagbok/index.html', {
@@ -282,7 +282,7 @@ def create_user(request):
             #~ user.set_password(password)
             #~ user.is_active = True
             #~ user.save()
-#~ 
+#~
             #~ login(request, authenticate(username=username, password=password))
             #~ return redirect('/dashboard')
         #~ else:
@@ -344,3 +344,6 @@ def gymtest(request):
 
 def goals(request):
     return render(request, 'dagbok/goals.html')
+
+def progress(request):
+    return render(request, 'dagbok/progress.html')

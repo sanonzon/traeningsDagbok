@@ -27,6 +27,7 @@ urlpatterns = [
     #~ url(r'^user/(?P<variabel>[a-z]+)$', views.profile, name='profile'),
     url(r'^user/', views.user, name='user'),
     url(r'^goals/', views.goals, name='goals'),
+    url(r'^progress/', views.progress, name='progress'),
     url(r'^searched/$', views.searched, name='searched'),
     url(r'^admin/', admin.site.urls),
     url(r'^dagbok/', include('dagbok.urls')),

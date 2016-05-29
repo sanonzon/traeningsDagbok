@@ -50,7 +50,7 @@ function getCookie(name) {
             //~ $('#register-area').html(newData);
         //~ },
     //~ });
-});
+// });
 
 
 $("#contactbutton").click(function() {
