@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Forum</title>
+ 
+  </head>
+  <body>
+    <a href="/forum/category/{{category}}">Tillbaka till kategorin {{category }}</a>
+{% if post %}
+
+    {% for p in post %}
+    <div>
+        <h1>{{p.title}} {{p.date}}
+        {{p.author}}
+        {{p.text}}</h1>
+    </div>
+        
+    
+    {% endfor %}
+    
+    {% for c in comments %}
+    <div>
+        {{c.date }}
+        {{c.author }}
+        {{c.text }}
+        
+    </div>
+    {% endfor %}
+
+
+
+    {% if form %}
+    <form action="/forum/new_comment/" method="POST">
+        {% csrf_token %}
+
+       <h2>Kommentera på inlägget</h2>
+    <!--
+        <input type="hidden" name="user" value="{{request.user.id}}">
+    -->
+        <input type="hidden" name="parent" value="{{post_id}}">
+
+        {{form.as_p}}
+        
+        <button type="submit">Lägg till</button>
+    </form>
+    {% else %}
+        Finns inga Inlägg än.
+    {% endif %}
+{% endif %}
+
+</body>
+</html>

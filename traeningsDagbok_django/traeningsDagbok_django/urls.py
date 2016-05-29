@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^update_user/$', views.update_user, name='update_user'),
     url(r'^advanced_workout$', views.advanced_workout, name='advanced_workout'),
     url(r'^add_buddy$', views.add_buddy, name='add_buddy'),
+    url(r'^forum/', include('forum.urls'), name='forum'),
    
 ]
