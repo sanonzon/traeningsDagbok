@@ -307,3 +307,36 @@ body {
 .user-form {
   width: 50% !important;
 }
+.bigger-fa {
+  font-size: 30px !important;
+  font-weight: bold;
+}
+
+.forum-subjects {
+  background-color: #455A64;
+  color: #fefefe;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+}
+
+.forum-categories {
+  border-bottom: 1px solid #d4d4d4;
+  border-left: 1px solid #d4d4d4;
+  border-right: 1px solid #d4d4d4;
+}
+
+.category-fa {
+  margin-right: 10px;
+}
+
+#forum-description {
+  padding: 20px;
+  color: #6f6f6f;
+}
+
+.subjects-fa {
+  font-size: 15px !important;
+  font-weight: bold !important;
+  margin-right: 10px;
+}

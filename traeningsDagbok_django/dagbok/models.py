@@ -61,3 +61,16 @@ class TotalWorkouts(models.Model):
 
     def __str__(self):
         return "%s - %s" %(self.user_id.username, self.total_workouts)
+        
+        
+@python_2_unicode_compatible
+class Goals(models.Model):
+    user_id = models.ForeignKey(User)
+    workoutDateNow = models.DateTimeField()
+    goalWeight = models.FloatField(default=0)
+    currentWeight = models.FloatField(default=0)
+    
+    def __str__(self):
+        return "%s - %s - %s" % (self.user_id.username,self.goalWeight,self.currentWeight)
+    
+    
