@@ -9,7 +9,7 @@ from django.forms import ModelForm
 #~ from .models import Workout_gym
 
 class CreateAccountForm(forms.Form):
-    #TODO: Se om man kan ändra så att validation erroret som returneras 
+    #TODO: Se om man kan ändra så att validation erroret som returneras
     #      från forms.CharField kan stå på svenska för att undvika en blandning
     #      av engelska och svenska på sidan.
 
@@ -64,7 +64,7 @@ class LoginAccountForm(forms.Form):
                 'placeholder': 'Anv\xC3\xA4ndarnamn',
             })
         )
-        
+
     password = forms.CharField(
             widget=forms.PasswordInput(attrs = {
                 'class': 'form-control',
@@ -75,7 +75,7 @@ class LoginAccountForm(forms.Form):
     def clean_password(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
-        
+
         user = authenticate(username=username, password=password)
 
         if user is not None:
@@ -83,11 +83,11 @@ class LoginAccountForm(forms.Form):
                 raise forms.ValidationError(u"Ditt konto \xC3\xA4r avaktiverat.")
         else:
             raise forms.ValidationError(u"Fel inloggning.")
-        
+
         return password
-        
+
 class WorkoutRegisterForm(forms.Form):
-    
+
     stretch = forms.IntegerField(
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
@@ -95,7 +95,7 @@ class WorkoutRegisterForm(forms.Form):
                 'aria-describedby': 'basic-addon2',
             })
         )
- 
+
     time = forms.CharField(
             widget=forms.TimeInput(attrs = {
                 'class': 'form-control',
@@ -105,7 +105,7 @@ class WorkoutRegisterForm(forms.Form):
         )
 
     feeling = forms.CharField(
-            max_length = 500, 
+            max_length = 500,
             widget=forms.TextInput(attrs = {
                 'class': 'form-control fastWorkoutFeeling',
                 'placeholder': 'Hur k\xC3\xA4ndes det?',
@@ -131,7 +131,7 @@ class WorkoutRegisterForm(forms.Form):
 
     #~ def clean_time(self):
         #~ time = self.cleaned_data['time'].split(':')
-        #~ 
+        #~
         #~ if len(time) == 1:
             #~ if time[0].isdigit():
                 #~ time.append(0)
@@ -140,9 +140,9 @@ class WorkoutRegisterForm(forms.Form):
         #~ elif len(time) == 2:
             #~ if not time[0].isdigit() and not time[1].isdigit():
                 #~ forms.ValidationError(u'Felaktig inmatning.')
-#~ 
+#~
         #~ return time
-    
+
 class SearchForm(forms.Form):
     search = forms.CharField(
             max_length = 100,
@@ -150,10 +150,6 @@ class SearchForm(forms.Form):
                 'class': 'form-control',
                 'placeholder': 'S\xC3\xB6k anv\xC3\xA4ndarnamn',
             }))
-            
+
 #~ class GymWorkoutForm(forms.Form):
     #~ workouts = forms.ModelChoiceField(queryset=GymWorkout.objects.all())
-
-    
-    
-    
