@@ -1,29 +1,57 @@
 {% load staticfiles %}
 {% include "dagbok/header.html" %}
 
-    <a href="/forum/">Tillbaka till Kategorier</a>
-{% if posts %}
-<ul>
-    {% for c in posts %}
-        <li><a href="/forum/post/{{c.id}}">{{c.title}}</a></li>
+<div class="col-12 chart-rect-wrapper">
 
-    {% endfor %}
-</ul>
-{% else %}
-    FInns inget här än.
-{% endif %}
+    <div class="chart-rect full-rect">
+        <div class="row">
+            <div class="col-12">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i> <a href="/forum/">Tillbaka till Kategorier</a>
+            </div> <!-- END col-12 -->
+        </div> <!-- END row -->
+        <div class="row">
+            <div class="col-12 forum-subjects">
+                <span>{{category}}</span>
+            </div> <!-- END col-12 -->
+        </div> <!-- END row -->
 
-{% if form %}
-<h1>Gör en ny tråd nedanför för Kategorin {{category}}</h1>
-<form action="/forum/new_post/" method="post">
-     {% csrf_token %}
+        {% if posts %}
+        {% for c in posts %}
+        <div class="row forum-categories">
+            <div class="col-12">
+                <i class="fa fa-comment-o category-fa" aria-hidden="true"></i> <a href="/forum/post/{{c.id}}">{{c.title}}</a>
+            </div> <!-- END col-12 -->
+        </div><!-- END row -->
+        {% endfor %}
+        {% else %}
+            Finns inget här än.
+        {% endif %}
 
-    <input type="hidden" name="category" value="{{category}}">
+        {% if form %}
+        <h3>Skapa en ny tråd i {{category}}</h3>
+        <form action="/forum/new_post/" method="POST">
+             {% csrf_token %}
+            <input type="hidden" name="category" value="{{category}}">
+            <div class="row">
+                <div class="col-2">
+                    <label class="fast-workout-label">Titel:</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control input-group input-group-workout" name="title">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label class="fast-workout-label">Text:</label>
+                </div>
+                <div class="col-10">
+                    <textarea class="form-control input-group-workout" rows="10" name="text"></textarea>
+                </div>
+            </div>
+        <button type="submit" class="btn btn-success">Skapa</button>
+        </form>
+        {% endif %}
+    </div> <!-- END chart-rect full-rect -->
+</div> <!-- END chart-rect-wrapper -->
 
-{{form.as_p}}
-<button type="submit" >Skapa</button>
-</form>
-{% endif %}
-
-url: forum/category
 {% include "dagbok/footer.html" %}

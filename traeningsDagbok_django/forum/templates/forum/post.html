@@ -1,47 +1,68 @@
 {% load staticfiles %}
 {% include "dagbok/header.html" %}
 
-    <a href="/forum/category/{{category}}">Tillbaka till kategorin {{category }}</a>
-{% if post %}
+<div class="col-12 chart-rect-wrapper">
+    <div class="chart-rect full-rect">
+        <div class="row">
+            <div class="col-12">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i> <a href="/forum/category/{{category}}">Tillbaka till kategorin {{category }}</a>
+            </div> <!-- END col-12 -->
+        </div> <!-- END row -->
+        {% if post %}
+        {% for p in post %}
+        <div class="row">
+            <div class="col-12 forum-subjects">
+                <span>{{ p.title }}</span>
+            </div>
+        </div>
+        <div class="row forum-categories">
+            <div class="col-3">
+                <span>{{p.author}}</span>
+                <p>
+                    {{p.date}}
+                </p>
+            </div>
+            <div class="col-9">
+                <span>{{p.text}}</span>
+            </div>
+        </div>
+        {% endfor %}
+        {% for c in comments %}
+        <div class="row forum-categories">
+            <div class="col-3">
+                <span>{{c.author }}</span>
+                <p>
+                    {{c.date }}
+                </p>
+            </div>
+            <div class="col-9">
+                <p>
+                    {{c.text }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
 
-    {% for p in post %}
-    <div>
-        <h1>{{p.title}} {{p.date}}
-        {{p.author}}
-        {{p.text}}</h1>
-    </div>
-
-
-    {% endfor %}
-
-    {% for c in comments %}
-    <div>
-        {{c.date }}
-        {{c.author }}
-        {{c.text }}
-
-    </div>
-    {% endfor %}
-
-
-
-    {% if form %}
-    <form action="/forum/new_comment/" method="POST">
-        {% csrf_token %}
-
-       <h2>Kommentera på inlägget</h2>
-    <!--
-        <input type="hidden" name="user" value="{{request.user.id}}">
-    -->
-        <input type="hidden" name="parent" value="{{post_id}}">
-
-        {{form.as_p}}
-
-        <button type="submit">Lägg till</button>
-    </form>
-    {% else %}
-        Finns inga Inlägg än.
+        {% if form %}
+        <h3>Kommentera på inlägget</h3>
+        <form action="/forum/new_comment/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="parent" value="{{post_id}}">
+            <div class="row">
+                <div class="col-2">
+                    <label class="fast-workout-label">Text:</label>
+                </div>
+                <div class="col-10">
+                    <textarea class="form-control input-group-workout" rows="10" name="text"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Lägg till</button>
+        </form>
+        {% else %}
+            Finns inga Inlägg än.
+        {% endif %}
     {% endif %}
-{% endif %}
+    </div> <!-- END chart-rect full-rect -->
+</div> <!-- END chart-rect-wrapper -->
 
 {% include "dagbok/footer.html" %}

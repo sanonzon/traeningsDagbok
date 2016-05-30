@@ -1,17 +1,33 @@
 {% load staticfiles %}
 {% include "dagbok/header.html" %}
 
-<div class="chart-rect full-rect">
-    {% if category %}
-    <ul>
-        {% for c in category %}
-        <li><a href="category/{{c}}">{{c}}</a></li>
+<div class="col-12 chart-rect-wrapper">
 
+    <div class="chart-rect full-rect">
+        <h4 class="widget-header"><i class="fa fa-comments-o bigger-fa"></i><span class="icon-padding">Träningsdojons forum</span></h4>
+        <p id="forum-description">
+            Träningsdojons forum är en plats för alla medlemmar där man kan diskutera allt mellan himmel och jord men framförallt träning. Håll en god ton och behandla andra så som du själv vill bli behandlad.
+        </p>
+        {% if category %}
+        <div class="row">
+            <div class="col-12 forum-subjects">
+                <span>Ämnen</span>
+            </div> <!-- END col-12 -->
+        </div> <!-- END row -->
+
+        {% for c in category %}
+        <div class="row forum-categories">
+            <div class="col-12">
+                <i class="fa fa-comment-o category-fa" aria-hidden="true"></i> <a href="category/{{c}}">{{c}}</a>
+            </div> <!-- END col-12 -->
+        </div><!-- END row -->
         {% endfor %}
-    </ul>
-    {% else %}
-        FInns inget här än.
-    {% endif %}
-</div>
+
+        {% else %}
+            FInns inget här än.
+        {% endif %}
+
+    </div> <!-- END chart-rect full-rect -->
+</div> <!-- END chart-rect-wrapper -->
 
 {% include "dagbok/footer.html" %}
