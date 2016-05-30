@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 
 import json
 import re
+import numbers
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
 from .models import WorkOuts, UserExtended, TotalWorkouts
@@ -412,3 +413,14 @@ def add_buddy(request):
 
     else:
         return redirect("/dashboard")
+        
+def test_integer(x):
+    return isinstance(x, numbers.Integral)
+
+        
+def test_float(x):
+    return isinstance(x, float)
+    
+def test_string(x):
+    return len(x) <= 255
+
