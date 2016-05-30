@@ -17,8 +17,13 @@
         </div>
         <div class="row forum-categories">
             <div class="col-3">
+            
+                {% if p.author.id in picture %}                
+                <img src="{{picture.p.author.id}}" width="100px" class="profile-image-forum">
+                {% else %}
                 <img src="{% static "dagbok/img/profilepic.png" %}" width="100px" class="profile-image-forum">
-                <span class="author-forum">{{p.author}}</span>
+                {% endif %}
+                <span class="author-forum"><a href="/user/{{p.author }}">{{p.author }}</a></span>
                 <p class="date-forum">
                     {{p.date}}
                 </p>
@@ -28,11 +33,17 @@
             </div>
         </div>
         {% endfor %}
+        
         {% for c in comments %}
         <div class="row forum-categories">
             <div class="col-3">
+                {% if c.author.id in picture %}
+                <img src="{{picture.5}}" width="100px" class="profile-image-forum">
+                {% else %}
                 <img src="{% static "dagbok/img/profilepic.png" %}" width="100px" class="profile-image-forum">
-                <span class="author-forum">{{c.author }}</span>
+                {% endif %}
+           
+                <span class="author-forum"><a href="/user/{{c.author }}">{{c.author }}</a></span>
                 <p class="date-forum">
                     {{c.date }}
                 </p>
@@ -43,7 +54,8 @@
                 </p>
             </div>
         </div>
-        {% endfor %}
+         {% endfor %}
+     
 
         {% if form %}
         <h3>Kommentera på inlägget</h3>

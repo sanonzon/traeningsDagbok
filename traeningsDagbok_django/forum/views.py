@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 
 from .forms import PostForm, CommentForm
 from .models import Post, Comment, Category
+from dagbok.models import UserExtended
 
 # Create your views here.
 
@@ -33,8 +34,15 @@ def post(request, post):
         p = Post.objects.filter(id=post)
         c = Comment.objects.filter(postParent=post)
         cf = CommentForm()
+        userPicture = {}
         
-        return render(request, "forum/post.html", {'post_id':post, 'post':p, 'form':cf, 'comments':c, 'category':p.get().category})
+        
+        for user in User.objects.all():
+            if len(UserExtended.objects.filter(user_id=user.id).get().picture) > 0:
+                userPicture[user.id] = UserExtended.objects.filter(user_id=user.id).get().picture
+                
+        print userPicture
+        return render(request, "forum/post.html", {'post_id':post, 'post':p, 'form':cf, 'comments':c, 'category':p.get().category, 'picture':userPicture})
     else:
         return redirect("/")
     
@@ -61,3 +69,4 @@ def new_comment(request):
         return redirect("/forum/post/"+request.POST['parent'])
     else:
         return redirect("/")
+        
