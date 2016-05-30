@@ -6,9 +6,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 import json
 import re
+import datetime
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
 from .models import WorkOuts, UserExtended, TotalWorkouts, Goals
@@ -61,7 +63,6 @@ def logout_user(request):
     #~ return render(request, 'dagbok/index.html')
 
 def dashboard(request):
-
     if request.user.is_authenticated():
         #~ gym_type_form = GymWorkoutForm()
         WRF = WorkoutRegisterForm(request.POST)
@@ -299,6 +300,7 @@ def update_user(request):
 
 def goals(request):
     if request.POST:
+        timezone.now()
         if test_float(request.POST['viktgoal']) and test_float(request.POST['viktnow']):
                 Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
                 currentWeight=request.POST['viktnow']).save()
@@ -321,9 +323,10 @@ def progress(request):
     return render(request, 'dagbok/progress.html')
 
 def settings(request):
+    sports = str(UserExtended.objects.filter(user_id=request.user.id).get().favorite_sport).lower().replace(" ", "").split(",")
     extended = UserExtended.objects.filter(user_id=request.user.id).get()
     
-    return render(request, 'dagbok/settings.html',{})
+    return render(request, 'dagbok/settings.html',{'sports':sports, 'extended':extended})
 
 def advanced_workout(request):
     if request.POST:
@@ -427,4 +430,4 @@ def test_time(x):
 
 
         
-        
+

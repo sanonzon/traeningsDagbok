@@ -7,11 +7,14 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.forms import widgets
 
+import datetime
+from django.utils import timezone
+
 
 
 @python_2_unicode_compatible
 class WorkOuts(models.Model):
-    workoutDateNow = models.DateTimeField()
+    workoutDateNow = models.DateTimeField(default=timezone.now)
 
     workoutSport = models.CharField(
         max_length=100,
@@ -66,7 +69,7 @@ class TotalWorkouts(models.Model):
 @python_2_unicode_compatible
 class Goals(models.Model):
     user_id = models.ForeignKey(User)
-    workoutDateNow = models.DateTimeField()
+    workoutDateNow = models.DateTimeField(default=timezone.now)
     goalWeight = models.FloatField(default=0)
     currentWeight = models.FloatField(default=0)
     
