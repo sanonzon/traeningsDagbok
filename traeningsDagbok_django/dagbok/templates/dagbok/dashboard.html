@@ -82,6 +82,27 @@
               {{ WRF.time }}
               <span class="input-group-addon" id="basic-addon2">min:sek</span>
             </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till träning</button>
+        </div>
+      </div>
+    </div>
+    </form>
+    <div id="fastWorkoutStyrke" class="fast-workout-sections">
+    <form method="POST" action="{% url "dashboard" %}">
+    {% csrf_token %}
+       <input type="hidden" value="weightlifting" name="workoutType">
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Övning</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.gym_type }}
           </div>
         </div>
         <div class="row">

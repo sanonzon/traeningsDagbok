@@ -1,0 +1,276 @@
+{% load staticfiles %}
+{% include "dagbok/header.html" %}
+
+{% if user %}
+
+<div class="row">
+    <div class="col-12">
+<form method="POST" action="{% url "advanced_workout" %}">
+  <select id="selectFastWorkout" class="form-control">
+    <option value="option0">Välj träning</option>
+    <option value="fastWorkoutRunning">Löpning</option>
+    <option value="fastWorkoutSwimming">Simning</option>
+    <option value="fastWorkoutStyrke">Styrkelyftning</option>
+  </select>
+  <div id="fast-workout-wrapper">
+
+    <div id="fastWorkoutRunning" class="fast-workout-sections">
+      <form method="POST" action="{% url "dashboard" %}">
+      {% csrf_token %}
+      <input type="hidden" value="running" name="workoutType">
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.stretch }}
+            <span class="input-group-addon" id="basic-addon2">km</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.time }}
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Känsla:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.feeling }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Puls:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.puls}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Minpuls:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.minpuls}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Snittpuls:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.snittpuls}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Kalorier brända:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.kalorier}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till träning</button>
+        </div>
+      </div>
+    </div>
+    </form>
+
+    <div id="fastWorkoutSwimming" class="fast-workout-sections">
+        <form method="POST" action="{% url "dashboard" %}">
+        {% csrf_token %}
+      <input type="hidden" value="swimming" name="workoutType">
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Sträcka:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.stretch }}
+            <span class="input-group-addon" id="basic-addon2">km</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Tid:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.time }}
+            <span class="input-group-addon" id="basic-addon2">min:sek</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Känsla:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.feeling }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Puls:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.puls}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Minpuls:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.minpuls}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Snittpuls:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.snittpuls}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Kalorier brända:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{advanced_workout_form.kalorier}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till träning</button>
+        </div>
+      </div>
+    </div>
+    </form>
+    <div id="fastWorkoutStyrke" class="fast-workout-sections">
+    <form method="POST" action="{% url "dashboard" %}">
+    {% csrf_token %}
+       <input type="hidden" value="weightlifting" name="workoutType">
+  
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Övning: </label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            <div class="input-group input-group-workout">
+                {{ WRF.gym_type }}
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Vikt: </label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.gym_weight }}
+            <span class="input-group-addon" id="basic-addon2">kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Set:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.stretch }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Reps:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.time }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label class="fast-workout-label">Känsla:</label>
+        </div>
+        <div class="col-10">
+          <div class="input-group input-group-workout">
+            {{ WRF.feeling }}
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Lägg till träning</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% else %}
+  DÅligt sökt
+{% endif %}
+
+
+{% include "dagbok/footer.html" %}
+

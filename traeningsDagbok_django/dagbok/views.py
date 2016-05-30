@@ -10,8 +10,8 @@ from django.core.urlresolvers import reverse
 import json
 import re
 
-from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm
-from .models import WorkOuts, UserExtended
+from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
+from .models import WorkOuts, UserExtended, TotalWorkouts
 
 # Create your views here.
 def index(request):
@@ -93,6 +93,7 @@ def dashboard(request):
                         WorkOut.workoutSport = u"Styrketraening"
                         WorkOut.workoutSec = 0
                         WorkOut.save()
+                        TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
                     else:
                         return HttpResponseRedirect("/dashboard")
 
@@ -112,6 +113,8 @@ def dashboard(request):
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                     WorkOut.workoutSport = u"Simning"
                     WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+
 
                 elif request.POST['workoutType'] == 'running':
                     tiden = request.POST['time'].split(":")
@@ -129,6 +132,8 @@ def dashboard(request):
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
                     WorkOut.workoutSport = u"Loepning"
                     WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+
 
                 return HttpResponseRedirect("/dashboard")
             else:
@@ -199,41 +204,38 @@ def user(request):
     if match:
         #~ print match.group(1)
         if User.objects.filter(username=match.group(1)):
-            user = User.objects.filter(username=match.group(1)).get()
-            url_user_id = User.objects.filter(id=user.id).values_list('id', flat=True)[0]
-            print ("url_user_id : %s") % url_user_id
+            url_user = User.objects.filter(username=match.group(1)).get()
+            url_user_extended = UserExtended.objects.filter(user_id=url_user.id).get()
 
-            if UserExtended.objects.filter(user_id=url_user_id):
-                user_extended = UserExtended.objects.filter(user_id=url_user_id).get()
+            if len(url_user.first_name) > 0 and len(url_user.last_name) > 0:
+                hack_dict = {'full_name': " ".join([url_user.first_name, url_user.last_name])}
             else:
-                user_extended = None
+                hack_dict = {'full_name': url_user.username}
 
-            print ("user_extended object finns?: %s") % user_extended
+            logged_in_user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
 
-
-            if len(user.first_name) > 0 and len(user.last_name) > 0:
-                hack_dict = {'full_name': " ".join([user.first_name, user.last_name])}
+            buddy_ids = []
+            tmp = []
+            for buddy in str(logged_in_user_extended.buddies).split(","):
+                if buddy.isdigit():
+                    tmp += User.objects.values('username').filter(id=buddy)
+                    buddy_ids.append(int(buddy))
+            buddies = [x['username'] for x in tmp]
+            if url_user.id == request.user.id:
+                buddy_button = None
+            elif url_user.id in buddy_ids:
+                buddy_button = None
             else:
-                hack_dict = {'full_name': user.username}
-            #~ print user.first_name
+                buddy_button = True
 
-            print WorkOuts.objects.filter(workoutUser = url_user_id)
-
-            if user_extended:
-                return render(request, 'dagbok/user.html', {
-                    'user': user,
-                    'full_name': hack_dict,
-                    'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
-                    'extended': user_extended,
-                    'sports': str(user_extended.favorite_sport).lower().replace(" ", "").split(",")
-                    })
-            else:
-                return render(request, 'dagbok/user.html', {
-                'user': user,
+            return render(request, 'dagbok/user.html', {
+                'user': url_user,
                 'full_name': hack_dict,
-                'total_workouts': len(WorkOuts.objects.filter(workoutUser = url_user_id)),
-                'extended': None,
-                'sports': None
+                'total_workouts': TotalWorkouts.objects.filter(user_id=url_user.id).values_list('total_workouts',flat=True)[0],
+                'extended': url_user_extended,
+                'sports': str(url_user_extended.favorite_sport).lower().replace(" ", "").split(","),
+                'buddies': buddies,
+                'buddy_button': buddy_button,
                 })
         else:
             return HttpResponseRedirect('/dashboard')
@@ -257,6 +259,9 @@ def create_user(request):
         user.set_password(password)
         user.is_active = True
         user.save()
+
+        UserExtended(user_id=user).save()
+        TotalWorkouts(user_id=user).save()
 
         login(request, authenticate(username=username, password=password))
         return redirect('/dashboard')
@@ -293,8 +298,7 @@ def update_user(request):
     if request.POST:
         user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
 
-        if authenticate(username=request.POST['username'], password=request.POST['current_password']):
-            user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
+        if user:
 
             if UserExtended.objects.filter(user_id=user.id):
                 extended = UserExtended.objects.filter(user_id=user.id).get()
@@ -312,18 +316,15 @@ def update_user(request):
             if "run" in request.POST:
                 sports += "run,"
 
-            if len(request.POST['firstname']) > 0:
-                user.first_name = request.POST['firstname']
-            if len(request.POST['lastname']) > 0:
-                user.last_name = request.POST['lastname']
-            if len(request.POST['email']) > 0:
-                user.email = request.POST['email']
+            user.first_name = request.POST['firstname']
+            user.last_name = request.POST['lastname']
+            user.email = request.POST['email']
+            extended.picture=request.POST['picture']
+            extended.favorite_sport = sports
+            extended.city = request.POST['city']
+
             if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
                 user.set_password(request.POST['new_password'])
-            if len(sports) > 0:
-                extended.favorite_sport = sports
-            if len(request.POST['city']) > 0:
-                extended.city = request.POST['city']
 
             extended.save()
             user.save()
@@ -334,9 +335,6 @@ def update_user(request):
     else:
         return redirect("/")
 
-
-def gymtest(request):
-    form = GymWorkoutForm()
 
     return render(request, 'dagbok/gymtest.html', {
                     'form':form
@@ -350,3 +348,67 @@ def progress(request):
 
 def settings(request):
     return render(request, 'dagbok/settings.html')
+
+def advanced_workout(request):
+    if request.POST:
+        WorkOut = WorkOuts()
+
+        if request.POST['workoutType'] == "running":
+            WorkOut.workoutSport = u"Loepning"
+
+        elif request.POST['workoutType'] == "swimming":
+            WorkOut.workoutSport = u"Simning"
+
+        elif request.POST['workoutType'] == "weightlifting":
+            WorkOut.workoutSport = u"Styrketraening"
+            WorkOut.gym_type = request.POST['gym_type']
+            WorkOut.gym_weight = request.POST['gym_weight']
+        else:
+            return redirect("/dashboard")
+
+        WorkOut.puls = request.POST['puls']
+        WorkOut.snittpuls = request.POST['snittpuls']
+        WorkOut.minpuls = request.POST['minpuls']
+        WorkOut.kalorier = request.POST['kalorier']
+
+        WorkOut.workoutFeel = request.POST['feeling']
+        WorkOut.workoutStretch = request.POST['stretch']
+
+        if len(request.POST['time']) > 0 and ":" in request.POST['time']:
+            tiden = request.POST['time'].split(":")
+            if tiden[0].isdigit() and (len(tiden) == 1 or tiden[1].isdigit()):
+                if len(tiden) == 1:
+                    tiden.append(0)
+                else:
+                    tiden = [0, 0]
+        else:
+            tiden = [0, 0]
+        WorkOut.workoutTime = tiden[0]
+        WorkOut.workoutSec = tiden[0]
+        WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+
+        WorkOut.save()
+        TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+
+        print request.POST
+        return redirect("/advanced_workout")
+    else:
+        return render(request, "dagbok/advanced_workout.html",{'advanced_workout_form':AdvancedWorkout(),'WRF': WorkoutRegisterForm()})
+
+def add_buddy(request):
+    if request.POST:
+        user_extended = UserExtended.objects.filter(user_id=request.user.id).get()
+
+        if len(user_extended.buddies) > 0:
+            if request.POST['get_buddy'] not in user_extended.buddies:
+                user_extended.buddies = user_extended.buddies + request.POST['get_buddy'] + ","
+        else:
+            user_extended.buddies = request.POST['get_buddy'] + ","
+
+
+
+        user_extended.save()
+        return redirect("/user/"+request.user.username)
+
+    else:
+        return redirect("/dashboard")

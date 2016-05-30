@@ -1,4 +1,7 @@
 traeningsDagbok/traeningsDagbok_django/dagbok/migrations/*.*
+traeningsDagbok/traeningsDagbok_django/dagbok/migrations/
+traeningsDagbok/traeningsDagbok_django/forum/migrations/*.*
+traeningsDagbok/traeningsDagbok_django/forum/migrations/
 *.pyc
 *.geanyprj
 *.sqlite3
