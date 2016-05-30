@@ -344,6 +344,9 @@ def update_user(request):
 def goals(request):
     return render(request, 'dagbok/goals.html')
 
+def forum(request):
+    return render(request, 'dagbok/forum.html')
+
 def progress(request):
     return render(request, 'dagbok/progress.html')
 
@@ -413,14 +416,13 @@ def add_buddy(request):
 
     else:
         return redirect("/dashboard")
-        
+
 def test_integer(x):
     return isinstance(x, numbers.Integral)
 
-        
+
 def test_float(x):
     return isinstance(x, float)
-    
+
 def test_string(x):
     return len(x) <= 255
-
