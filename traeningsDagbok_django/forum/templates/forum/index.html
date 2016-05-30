@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Forum</title>
- 
-  </head>
-  <body>
-    
+{% load staticfiles %}
+{% include "dagbok/header.html" %}
+
 {% if category %}
 <ul>
     {% for c in category %}
@@ -18,6 +12,4 @@
     FInns inget här än.
 {% endif %}
 
-
-</body>
-</html>
+{% include "dagbok/footer.html" %}

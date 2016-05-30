@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Forum</title>
- 
-  </head>
-  <body>
+{% load staticfiles %}
+{% include "dagbok/header.html" %}
+
     <a href="/forum/">Tillbaka till Kategorier</a>
 {% if posts %}
 <ul>
@@ -31,5 +26,4 @@
 {% endif %}
 
 url: forum/category
-</body>
-</html>
+{% include "dagbok/footer.html" %}

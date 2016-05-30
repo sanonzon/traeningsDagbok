@@ -9,7 +9,6 @@ from django.core.urlresolvers import reverse
 
 import json
 import re
-import numbers
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
 from .models import WorkOuts, UserExtended, TotalWorkouts
@@ -272,27 +271,6 @@ def create_user(request):
                 'dagbok/index.html', {
                 'register_form': form,
             })
-        #~
-        #~ return redirect('/#register-section', {'register_form': form})
-        #~ if request.is_ajax() and not form.is_valid():
-        #~ html = loader.render_to_string('dagbok/index.html', {
-                #~ 'register_form': form,
-            #~ })
-        #~ return HttpResponse(html)
-        #~ elif request.is_ajax() and form.is_valid():
-            #~ print "return true"
-            #~ return True
-            #~ username = form.cleaned_data['username']
-            #~ password = form.cleaned_data['password']
-            #~ user = User(username=username)
-            #~ user.set_password(password)
-            #~ user.is_active = True
-            #~ user.save()
-#~
-            #~ login(request, authenticate(username=username, password=password))
-            #~ return redirect('/dashboard')
-        #~ else:
-            #~ return redirect('/')
 
 def update_user(request):
     #~ firstname        lastname        email        new_password        new_password_repeat        current_password
@@ -363,36 +341,37 @@ def advanced_workout(request):
         elif request.POST['workoutType'] == "weightlifting":
             WorkOut.workoutSport = u"Styrketraening"
             WorkOut.gym_type = request.POST['gym_type']
-            WorkOut.gym_weight = request.POST['gym_weight']
+            if test_integer(request.POST['gym_weight']) or test_float(request.POST['gym_weight']):
+                WorkOut.gym_weight = request.POST['gym_weight']
         else:
             return redirect("/dashboard")
+            
 
-        WorkOut.puls = request.POST['puls']
-        WorkOut.snittpuls = request.POST['snittpuls']
-        WorkOut.minpuls = request.POST['minpuls']
-        WorkOut.kalorier = request.POST['kalorier']
-
+        
+        if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
+            WorkOut.puls = int(request.POST['puls'])
+        if len(str(request.POST['snittpuls'])) > 0 and test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls']):
+            WorkOut.snittpuls = float(request.POST['snittpuls'])
+        if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
+            WorkOut.minpuls = int(request.POST['minpuls'])
+        if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
+            WorkOut.kalorier = int(request.POST['kalorier'])
+            
         WorkOut.workoutFeel = request.POST['feeling']
         WorkOut.workoutStretch = request.POST['stretch']
 
-        if len(request.POST['time']) > 0 and ":" in request.POST['time']:
-            tiden = request.POST['time'].split(":")
-            if tiden[0].isdigit() and (len(tiden) == 1 or tiden[1].isdigit()):
-                if len(tiden) == 1:
-                    tiden.append(0)
-                else:
-                    tiden = [0, 0]
-        else:
-            tiden = [0, 0]
-        WorkOut.workoutTime = tiden[0]
-        WorkOut.workoutSec = tiden[0]
+
+        tiden = test_time(request.POST['time'])    
+        if tiden is not None:
+            WorkOut.workoutTime = tiden[0]
+            WorkOut.workoutSec = tiden[1]
+
         WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
 
         WorkOut.save()
         TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
-        print request.POST
-        return redirect("/advanced_workout")
+        return redirect("/dashboard")
     else:
         return render(request, "dagbok/advanced_workout.html",{'advanced_workout_form':AdvancedWorkout(),'WRF': WorkoutRegisterForm()})
 
@@ -415,12 +394,38 @@ def add_buddy(request):
         return redirect("/dashboard")
         
 def test_integer(x):
-    return isinstance(x, numbers.Integral)
-
+    try:
+        int(x)
+        return True
+    except ValueError:
+        return False
         
 def test_float(x):
-    return isinstance(x, float)
+    try:
+        float(x)
+        return True
+    except ValueError:
+        return False
     
 def test_string(x):
     return len(x) <= 255
 
+def test_time(x):
+    fixed = []
+    if ":" in str(x):
+        s = x.split(":")
+        if len(s) > 2:
+            return None
+        
+        for d in s:
+            if d.isdigit():
+                fixed.append(int(d))
+            else:
+                fixed.append(0)
+        
+        return fixed
+            
+    else:
+        return [0,0]
+        
+    

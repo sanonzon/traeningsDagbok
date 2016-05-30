@@ -27,10 +27,10 @@ class WorkOuts(models.Model):
     workoutStretch = models.FloatField(blank=True,null=True)
     workoutTime = models.IntegerField(blank=True,null=True)
     workoutSec = models.IntegerField(blank=True,null=True)
-    gym_type = models.CharField(max_length=100)
-    gym_weight = models.CharField(max_length=100)
+    gym_type = models.CharField(blank=True,max_length=100)
+    gym_weight = models.CharField(blank=True,max_length=100)
     puls = models.IntegerField(blank=True,null=True)
-    snittpuls = models.IntegerField(blank=True,null=True)
+    snittpuls = models.FloatField(blank=True,null=True)
     minpuls = models.IntegerField(blank=True,null=True)
     kalorier = models.IntegerField(blank=True,null=True)
 
