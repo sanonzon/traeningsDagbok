@@ -5,7 +5,14 @@ $(document).ready(function () {
         $('.fast-workout-sections').hide();
         $('#'+$(this).val()).show();
     });
+    
+   var today = moment().format('YYYY-MM-DD');
+    $('#datePickerRun').val(today);
+    $('#datePickerSwim').val(today);
+    $('#datePickerGym').val(today);
+
 });
+
 
 document.getElementById('toggleButton').onclick = function() {
     document.getElementsByClassName('menu')[0].classList.toggle('responsive');
@@ -93,3 +100,4 @@ $('#login-form').on('submit', function(e) {
 });
 
 //~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
+

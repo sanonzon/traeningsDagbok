@@ -87,6 +87,8 @@ class LoginAccountForm(forms.Form):
         return password
 
 class WorkoutRegisterForm(forms.Form):
+    date = forms.DateField()
+    
     stretch = forms.IntegerField(label="Sträcka",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
@@ -127,6 +129,22 @@ class WorkoutRegisterForm(forms.Form):
                 'aria-describedby': 'basic-addon2',
             })
         )
+    gym_reps = forms.CharField(label="Reps",
+            max_length = 100,
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Repetitioner',
+                'aria-describedby': 'basic-addon2',
+            })
+        )
+    gym_sets = forms.CharField(label="Övning",
+            max_length = 100,
+            widget=forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Set',
+                'aria-describedby': 'basic-addon2',
+            })
+        )
 
     #~ def clean_time(self):
         #~ time = self.cleaned_data['time'].split(':')
@@ -151,6 +169,8 @@ class SearchForm(forms.Form):
             }))
 
 class AdvancedWorkout(forms.Form):
+    date = forms.DateField()
+    
     puls = forms.IntegerField(label="Maximal Puls",
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',

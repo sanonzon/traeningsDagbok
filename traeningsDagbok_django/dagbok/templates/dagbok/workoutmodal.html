@@ -15,7 +15,7 @@
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutDateNow.date }}</span>
             </div>
           </div>
           <div class="col-4">
@@ -46,7 +46,7 @@
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutDateNow.date }}</span>
             </div>
           </div>
           <div class="col-4">
@@ -77,7 +77,7 @@
           <div class="col-4">
             <div class="centered">
               <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.workoutDateNow }}</span>
+              <span class="workoutDetailsStyling">{{ workout.workoutDateNow.date }}</span>
             </div>
           </div>
         </div>
@@ -110,11 +110,16 @@
         {% endif %}
 
     {{ workout.workoutSport }}
+    {{ workout.workoutFeel}}
+    {{ workout.workoutUser}}
+    {{ workout.workoutStretch}}
+    {{ workout.workoutTime }}
+    {{ workout.workoutSec }}
     {{ workout.gym_type }}
     {{ workout.gym_weight }}
     {{ workout.puls }}
     {{ workout.snittpuls }}
-    {{ workout.minpuls }}
+    {{ workout.minpuls}}
     {{ workout.kalorier }}
 
       </div>
