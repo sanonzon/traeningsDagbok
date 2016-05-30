@@ -341,3 +341,18 @@ body {
   font-weight: bold !important;
   margin-right: 10px;
 }
+
+.author-forum {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.date-forum {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.profile-image-forum {
+  display: block;
+  margin-bottom: 10px;
+}
