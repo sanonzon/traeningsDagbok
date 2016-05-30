@@ -117,7 +117,6 @@
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
-
           <div class="row">
             <div class="col-2">
               <label class="fast-workout-label">Vikt:</label>
@@ -190,9 +189,9 @@
         <td>{{ field.workoutSport }}</td>
         <td>{{ field.workoutFeel }}</td>
         <td class="hidden">{{ field.id }}</td>
-      </tr>
+      </tr> <!-- END loop that ads workouts -->
       {% endfor %}
-      </table>
+    </table> <!-- END table with last workouts -->
       {% else %}
       <p>
         Vi hittade inga träningspass!
@@ -201,6 +200,7 @@
   </div> <!-- END chart-rect nummer 2 -->
 </div> <!-- END chart-rect-wrapper -->
 
+<!-- Workout Modal -->
 {% if workouts %}
     {% for workout in workouts %}
         {% include "dagbok/workoutmodal.html" %}
