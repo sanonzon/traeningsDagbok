@@ -11,7 +11,7 @@ import json
 import re
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
-from .models import WorkOuts, UserExtended, TotalWorkouts
+from .models import WorkOuts, UserExtended, TotalWorkouts, Goals
 
 # Create your views here.
 def index(request):
@@ -298,16 +298,32 @@ def update_user(request):
                     })
 
 def goals(request):
-    return render(request, 'dagbok/goals.html')
+    if request.POST:
+        if test_float(request.POST['viktgoal']) and test_float(request.POST['viktnow']):
+                Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
+                currentWeight=request.POST['viktnow']).save()
+        elif test_float(request.POST['viktgoal']):
+                Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
+                currentWeight=request.POST['viktnow']).save()
+            
+            
+        return redirect("/goals")
+    else:
+        g = Goals.objects.filter(user_id=request.user.id).get()
+        return render(request, 'dagbok/goals.html', {'goals':g})
 
 def forum(request):
     return render(request, 'dagbok/forum.html')
 
 def progress(request):
+    goals = []
+    
     return render(request, 'dagbok/progress.html')
 
 def settings(request):
-    return render(request, 'dagbok/settings.html')
+    extended = UserExtended.objects.filter(user_id=request.user.id).get()
+    
+    return render(request, 'dagbok/settings.html',{})
 
 def advanced_workout(request):
     if request.POST:
@@ -408,3 +424,7 @@ def test_time(x):
 
     else:
         return [0,0]
+
+
+        
+        

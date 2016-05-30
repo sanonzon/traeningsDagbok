@@ -8,7 +8,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#profil" aria-controls="profil" role="tab" data-toggle="tab">Profil</a></li>
-    <li role="presentation"><a href="#viewFriends" aria-controls="viewFriends" role="tab" data-toggle="tab">Kompisar</a></li>
+    <li role="presentation"><a href="#viewFriends" aria-controls="viewFriends" role="tab" data-toggle="tab">Följer</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -82,6 +82,18 @@
           </div>
         </div>
       </div>
+    </div>
+     <div role="tabpanel" class="tab-pane fade" id="viewFriends">
+         {% if buddies %} 
+         <ul>
+         {% for buddy in buddies %}
+            <li><a href="{% url "user" %}{{buddy}}">{{buddy}}</a></li>
+         {% endfor %}
+         </ul>
+         {% else%}
+         Du har inga kompisar :(
+         {% endif %}
+    
     </div>
   </div> <!-- END OF TAB-CONTENT -->
 
