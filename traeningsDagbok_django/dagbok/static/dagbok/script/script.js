@@ -5,6 +5,12 @@ $(document).ready(function () {
         $('.fast-workout-sections').hide();
         $('#'+$(this).val()).show();
     });
+    
+   var today = moment().format('YYYY-MM-DD');
+    $('#datePickerRun').val(today);
+    $('#datePickerSwim').val(today);
+    $('#datePickerGym').val(today);
+
 });
 
 
@@ -94,3 +100,4 @@ $('#login-form').on('submit', function(e) {
 });
 
 //~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
+

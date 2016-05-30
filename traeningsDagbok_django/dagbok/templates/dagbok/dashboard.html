@@ -21,6 +21,16 @@
           <input type="hidden" value="running" name="workoutType">
           <div class="row">
             <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerRun" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
               <label class="fast-workout-label">Sträcka:</label>
             </div> <!-- END col-2 -->
             <div class="col-10">
@@ -63,6 +73,16 @@
         <form method="POST" action="{% url "dashboard" %}">
           {% csrf_token %}
           <input type="hidden" value="swimming" name="workoutType">
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerSwim" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
           <div class="row">
             <div class="col-2">
               <label class="fast-workout-label">Sträcka:</label>
@@ -109,6 +129,16 @@
           <input type="hidden" value="weightlifting" name="workoutType">
           <div class="row">
             <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerGym" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
               <label class="fast-workout-label">Övning:</label>
             </div> <!-- END col-2 -->
             <div class="col-10">
@@ -134,7 +164,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                {{ WRF.stretch }}
+                {{ WRF.gym_sets }}
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -144,7 +174,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                {{ WRF.time }}
+                {{ WRF.gym_reps }}
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->

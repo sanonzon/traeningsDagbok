@@ -11,7 +11,7 @@ from django.forms import widgets
 
 @python_2_unicode_compatible
 class WorkOuts(models.Model):
-    workoutDateNow = models.DateTimeField(auto_now_add=True)
+    workoutDateNow = models.DateTimeField()
 
     workoutSport = models.CharField(
         max_length=100,
@@ -21,14 +21,16 @@ class WorkOuts(models.Model):
             ('Styrketraening', 'Styrketraening')
         ),
     )
-
+    #~ workoutCustomDate = models.DateTimeField(blank=True,null=True)
     workoutFeel = models.CharField(max_length=100,blank=True,null=True)
     workoutUser = models.ForeignKey(User)
     workoutStretch = models.FloatField(blank=True,null=True)
     workoutTime = models.IntegerField(blank=True,null=True)
     workoutSec = models.IntegerField(blank=True,null=True)
     gym_type = models.CharField(blank=True,max_length=100)
-    gym_weight = models.CharField(blank=True,max_length=100)
+    gym_weight = models.FloatField(blank=True,default=0)
+    gym_sets = models.IntegerField(blank=True,default=0)
+    gym_reps = models.IntegerField(blank=True,default=0)
     puls = models.IntegerField(blank=True,null=True)
     snittpuls = models.FloatField(blank=True,null=True)
     minpuls = models.IntegerField(blank=True,null=True)
