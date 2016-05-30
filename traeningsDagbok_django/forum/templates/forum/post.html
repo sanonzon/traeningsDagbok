@@ -18,8 +18,12 @@
         <div class="row forum-categories">
             <div class="col-3">
             
-                {% if p.author.id in picture %}                
-                <img src="{{picture.p.author.id}}" width="100px" class="profile-image-forum">
+                {% if p.author.id in picture %}  
+                    {% for key,value in picture.items %}
+                        {% if key == p.author.id %}              
+                    <img src="{{value}}" width="100px" class="profile-image-forum">
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
                 <img src="{% static "dagbok/img/profilepic.png" %}" width="100px" class="profile-image-forum">
                 {% endif %}
@@ -38,7 +42,11 @@
         <div class="row forum-categories">
             <div class="col-3">
                 {% if c.author.id in picture %}
-                <img src="{{picture.5}}" width="100px" class="profile-image-forum">
+                    {% for key,value in picture.items %}
+                        {% if key == c.author.id %}
+                        <img src="{{value}}" width="100px" class="profile-image-forum">
+                        {% endif %}
+                    {% endfor %}
                 {% else %}
                 <img src="{% static "dagbok/img/profilepic.png" %}" width="100px" class="profile-image-forum">
                 {% endif %}
