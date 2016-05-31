@@ -88,7 +88,8 @@ def dashboard(request):
 
             elif request.POST['workoutType'] == 'swimming':
                 tiden = test_time(request.POST['time'])
-
+                
+                WorkOut.workoutDateNow = request.POST['date']
                 WorkOut.workoutTime = tiden[0]
                 WorkOut.workoutSec = tiden[1]
                 WorkOut.workoutFeel = request.POST['feeling']
@@ -103,7 +104,8 @@ def dashboard(request):
 
             elif request.POST['workoutType'] == 'running':
                 tiden = test_time(request.POST['time'])
-
+                
+                WorkOut.workoutDateNow = request.POST['date']
                 WorkOut.workoutTime = tiden[0]
                 WorkOut.workoutSec = tiden[1]
                 WorkOut.workoutFeel = request.POST['feeling']
