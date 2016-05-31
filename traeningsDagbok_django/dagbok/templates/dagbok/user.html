@@ -8,7 +8,9 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#profil" aria-controls="profil" role="tab" data-toggle="tab">Profil</a></li>
+    {% if extended.user_id.id == request.user.id%}
     <li role="presentation"><a href="#viewFriends" aria-controls="viewFriends" role="tab" data-toggle="tab">Följer</a></li>
+    {% endif %}
   </ul>
 
   <!-- Tab panes -->
@@ -64,7 +66,7 @@
            <!-- KOMPISKNAPPEN END -->
           </ul>
         </div>
-
+ 
         <div class="col-8 profile-favorite-sports">
           <h4 class="centered">Favoritsporter</h4>
           <div class="favorite-sports">
