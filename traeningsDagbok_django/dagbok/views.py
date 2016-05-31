@@ -243,6 +243,7 @@ def create_user(request):
 
         UserExtended(user_id=user).save()
         TotalWorkouts(user_id=user).save()
+        Goals(user_id=user).save()
 
         login(request, authenticate(username=username, password=password))
         return redirect('/dashboard')
@@ -430,6 +431,4 @@ def test_time(x):
     else:
         return [0,0]
 
-
-        
 
