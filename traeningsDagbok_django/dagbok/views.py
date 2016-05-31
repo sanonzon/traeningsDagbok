@@ -438,7 +438,9 @@ def test_time(x):
 
         return fixed
 
+    elif test_integer(x):
+        return [int(x),0]
+
     else:
         return [0,0]
-
 
