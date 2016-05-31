@@ -31,7 +31,7 @@
         </div>
         <div class="col-3">
           <div class="centered-profile">
-            <img src="{% static "dagbok/img/time-passing.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"><!-- Räkna ut total tid här -->tid spenderad</span>
+            <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"><!-- Räkna ut totala kalorier här -->kalorier bränt</span>
           </div>
         </div>
         <div class="col-3">
@@ -66,7 +66,7 @@
            <!-- KOMPISKNAPPEN END -->
           </ul>
         </div>
- 
+
         <div class="col-8 profile-favorite-sports">
           <h4 class="centered">Favoritsporter</h4>
           <div class="favorite-sports">
@@ -86,7 +86,7 @@
       </div>
     </div>
      <div role="tabpanel" class="tab-pane fade" id="viewFriends">
-         {% if buddies %} 
+         {% if buddies %}
          <ul>
          {% for buddy in buddies %}
             <li><a href="{% url "user" %}{{buddy}}">{{buddy}}</a></li>
@@ -95,7 +95,7 @@
          {% else%}
          Du har inga kompisar :(
          {% endif %}
-    
+
     </div>
   </div> <!-- END OF TAB-CONTENT -->
 
