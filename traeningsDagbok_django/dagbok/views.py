@@ -201,6 +201,12 @@ def user(request):
                 if buddy.isdigit():
                     tmp += User.objects.values('username').filter(id=buddy)
                     buddy_ids.append(int(buddy))
+            
+            buddies_pic = []
+            for x in tmp:
+                buddies_pic.append(UserExtended.objects.values_list('picture',flat=True).filter(user_id=User.objects.filter(username=x['username']))[0])
+            
+            
             buddies = [x['username'] for x in tmp]
             if url_user.id == request.user.id:
                 buddy_button = None
@@ -209,13 +215,17 @@ def user(request):
             else:
                 buddy_button = True
 
+            zippat = zip(buddies,buddies_pic)
+
+            print buddies
+
             return render(request, 'dagbok/user.html', {
                 'user': url_user,
                 'full_name': hack_dict,
                 'total_workouts': TotalWorkouts.objects.filter(user_id=url_user.id).values_list('total_workouts',flat=True)[0],
                 'extended': url_user_extended,
                 'sports': str(url_user_extended.favorite_sport).lower().replace(" ", "").split(","),
-                'buddies': buddies,
+                'zippat': zippat,
                 'buddy_button': buddy_button,
                 })
         else:
