@@ -87,16 +87,19 @@
     </div>
      <div role="tabpanel" class="tab-pane fade" id="viewFriends">
          {% if buddies %}
-         <ul>
-         {% for buddy in buddies %}
-            <li><a href="{% url "user" %}{{buddy}}">{{buddy}}</a></li>
-         {% endfor %}
-         </ul>
-         {% else%}
-         Du har inga kompisar :(
-         {% endif %}
-
-    </div>
+         <div class="row">
+           <div class="col-12">
+             <ul>
+             {% for buddy in buddies %}
+                <li><a href="{% url "user" %}{{buddy}}">{{buddy}}</a></li>
+             {% endfor %}
+             </ul>
+             {% else%}
+             Du har inga kompisar :(
+             {% endif %}
+           </div>
+         </div>
+    </div> <!-- END OF TABPANEL -->
   </div> <!-- END OF TAB-CONTENT -->
 
 
