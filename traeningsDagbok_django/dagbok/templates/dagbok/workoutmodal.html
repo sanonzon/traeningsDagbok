@@ -7,6 +7,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
 
+        <!-- LÖPNING -->
         {% if workout.workoutSport == 'Loepning' %}
         <img src="{% static "dagbok/img/running.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
       </div>
@@ -14,29 +15,77 @@
         <div class="row">
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" data-toggle="tooltip" title="Datum" />
               <span class="workoutDetailsStyling">{{ workout.workoutDateNow.date }}</span>
-            </div>
-          </div>
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" data-toggle="tooltip" title="Sträcka" />
               <span class="workoutDetailsStyling">{{ workout.workoutStretch }} km</span>
-            </div>
-          </div>
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" data-toggle="tooltip" title="Tid" />
               <span class="workoutDetailsStyling">{{ workout.workoutTime }} min : {{ workout.workoutSec }} sek</span>
-            </div>
-          </div>
-        </div>
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+        </div> <!-- END row -->
         <div class="row">
-          <div class="col-12">
-            <strong>Känsla:</strong> {{ workout.workoutFeel }}
-          </div>
-        </div>
+          <div class="col-6">
+            <ul class="workout-details-list">
+              <li>
+                <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Kalorier" />
+                {% if workout.kalorier == None %}
+                <span class="workoutDetailsStyling-noborder">---</span>
+                {% else %}
+                <span class="workoutDetailsStyling-noborder">{{ workout.kalorier }}</span>
+                {% endif %}
+              </li>
+            </ul>
+          </div> <!-- END col-6 -->
+          <div class="col-6">
+            <ul class="workout-details-list">
+              <li><strong>Hur kändes det?</strong></li>
+              <li>{{ workout.workoutFeel }}</li>
+            </ul>
+          </div> <!-- END col-6 -->
+        </div> <!-- END row -->
+        <div class="row pulse-row-details">
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/cardiogram.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Maxpuls" />
+              {% if workout.puls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.puls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/heart.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Minpuls" />
+              {% if workout.minpuls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.minpuls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/pulse.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Snittpuls" />
+              {% if workout.snittpuls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.snittpuls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+        </div><!-- END row -->
 
+        <!-- SIMNING -->
         {% elif workout.workoutSport == 'Simning' %}
         <img src="{% static "dagbok/img/swimming.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
       </div>
@@ -45,82 +94,174 @@
         <div class="row">
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/calendar.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Datum" />
               <span class="workoutDetailsStyling">{{ workout.workoutDateNow.date }}</span>
-            </div>
-          </div>
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/distance.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Sträcka" />
               <span class="workoutDetailsStyling">{{ workout.workoutStretch }} km</span>
-            </div>
-          </div>
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/time-passing.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Tid" />
               <span class="workoutDetailsStyling">{{ workout.workoutTime }} min : {{ workout.workoutSec }} sek</span>
-            </div>
-          </div>
-        </div>
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+        </div> <!-- END row -->
         <div class="row">
-          <div class="col-12">
-            <strong>Känsla:</strong> {{ workout.workoutFeel }}
-          </div>
-        </div>
+          <div class="col-6">
+            <ul class="workout-details-list">
+              <li>
+                <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Kalorier" />
+                {% if workout.kalorier == None %}
+                <span class="workoutDetailsStyling-noborder">---</span>
+                {% else %}
+                <span class="workoutDetailsStyling-noborder">{{ workout.kalorier }}</span>
+                {% endif %}
+              </li>
+            </ul>
+          </div> <!-- END col-6 -->
+          <div class="col-6">
+            <ul class="workout-details-list">
+              <li><strong>Hur kändes det?</strong></li>
+              <li>{{ workout.workoutFeel }}</li>
+            </ul>
+          </div> <!-- END col-6 -->
+        </div> <!-- END row -->
+        <div class="row pulse-row-details">
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/cardiogram.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Maxpuls" />
+              {% if workout.puls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.puls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/heart.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Minpuls" />
+              {% if workout.minpuls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.minpuls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/pulse.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Snittpuls" />
+              {% if workout.snittpuls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.snittpuls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+        </div><!-- END row -->
 
+        <!-- STYRKETRÄNING -->
         {% elif workout.workoutSport == 'Styrketraening' %}
-        <img src="{% static "dagbok/img/dumbells.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.gym_type }}</h4>
+        <img src="{% static "dagbok/img/dumbells.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
       </div>
       <div class="modal-body">
 
         <div class="row">
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "dagbok/img/calendar.svg" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/calendar.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Datum" />
               <span class="workoutDetailsStyling">{{ workout.workoutDateNow.date }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
+            </div> <!-- END centered div -->
+          </div> <!-- END col-4 -->
           <div class="col-4">
             <div class="centered">
-              <img src="{% static "" %}" width="20px" alt="" />
+              <img src="{% static "dagbok/img/weightlifter-frontal-silhouette.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Övning" />
+              <span class="workoutDetailsStyling">{{ workout.gym_type }}</span>
+            </div> <!-- END centered div -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/weight-tool.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Vikt" />
               <span class="workoutDetailsStyling">{{ workout.gym_weight }} kg</span>
-            </div>
-          </div>
-          <div class="col-4">
-            <div class="centered">
-              <img src="{% static "dagbok/img/distance.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.gym_sets }} set</span>
-            </div>
-          </div>
-          <div class="col-4">
-            <div class="centered">
-              <img src="{% static "dagbok/img/time-passing.svg" %}" width="20px" alt="" />
-              <span class="workoutDetailsStyling">{{ workout.gym_reps }} repetioner</span>
-            </div>
-          </div>
-        </div>
+            </div> <!-- END centered div -->
+          </div> <!-- END col-4 -->
+        </div> <!-- END row -->
         <div class="row">
-          <div class="col-12">
-            <strong>Känsla:</strong> {{ workout.workoutFeel }}
-          </div>
-        </div>
+          <div class="col-6">
+            <ul class="workout-details-list">
+              {% if workout.gym_sets == 0 %}
+              <li>
+                <strong>Sets:</strong> ---
+              </li>
+              {% else %}
+              <li>
+                <strong>Sets:</strong> {{ workout.gym_sets }}
+              </li>
+              {% endif %}
+              {% if workout.gym_reps == 0 %}
+              <li>
+                <strong>Reps:</strong> ---
+              </li>
+              {% else %}
+              <li>
+                <strong>Reps:</strong> {{ workout.gym_reps }}
+              </li>
+              {% endif %}
+              <li>
+                <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Kalorier" />
+                {% if workout.kalorier == None %}
+                <span class="workoutDetailsStyling-noborder">---</span>
+                {% else %}
+                <span class="workoutDetailsStyling-noborder">{{ workout.kalorier }}</span>
+                {% endif %}
+              </li>
+            </ul>
+          </div> <!-- END col-6 -->
+          <div class="col-6">
+            <ul class="workout-details-list">
+              <li><strong>Hur kändes det?</strong></li>
+              <li>{{ workout.workoutFeel }}</li>
+            </ul>
+          </div> <!-- END col-6 -->
+        </div> <!-- END row -->
+        <div class="row pulse-row-details">
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/cardiogram.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Maxpuls" />
+              {% if workout.puls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.puls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/heart.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Minpuls" />
+              {% if workout.minpuls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.minpuls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+          <div class="col-4">
+            <div class="centered">
+              <img src="{% static "dagbok/img/pulse.svg" %}" width="30px" alt="" data-toggle="tooltip" title="Snittpuls" />
+              {% if workout.snittpuls == None %}
+              <span class="workoutDetailsStyling-noborder">---</span>
+              {% else %}
+              <span class="workoutDetailsStyling-noborder">{{ workout.snittpuls }}</span>
+              {% endif %}
+            </div> <!-- END centered -->
+          </div> <!-- END col-4 -->
+        </div><!-- END row -->
 
         {% endif %}
-
-    {{ workout.workoutSport }}
-    {{ workout.workoutFeel}}
-    {{ workout.workoutUser}}
-    {{ workout.workoutStretch}}
-    {{ workout.workoutTime }}
-    {{ workout.workoutSec }}
-    {{ workout.gym_type }}
-    {{ workout.gym_weight }}
-    {{ workout.puls }}
-    {{ workout.snittpuls }}
-    {{ workout.minpuls}}
-    {{ workout.kalorier }}
 
       </div>
       <div class="modal-footer">

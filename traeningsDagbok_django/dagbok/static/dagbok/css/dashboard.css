@@ -253,6 +253,12 @@ body {
   border-bottom: 3px solid #36bd6f;
 }
 
+.workoutDetailsStyling-noborder {
+  margin-left: 10px;
+  padding-bottom: 2px;
+  font-weight: bold;
+}
+
 .centered {
   text-align: center;
 }
@@ -355,4 +361,16 @@ body {
 .profile-image-forum {
   display: block;
   margin-bottom: 10px;
+}
+
+.workout-details-list {
+  list-style: none;
+}
+
+.workout-details-list li {
+  padding: 10px;
+}
+
+.pulse-row-details {
+  padding-top: 50px;
 }
