@@ -85,16 +85,26 @@
         </div>
       </div>
     </div>
-     <div role="tabpanel" class="tab-pane fade" id="viewFriends">
-         {% if zippat %}
-         {% for buddy,picture in zippat %}
-         <div class="row">
-           <div class="col-3">
-               {% if picture %}
-               <img src="{{picture}}" class="img-center" width="150px" alt="Profilbild" />
-               {% endif %}
-              <a href="{% url "user" %}{{buddy}}">{{buddy}}</a>
-           </div> <!-- END col-3 -->
+    <div role="tabpanel" class="tab-pane fade" id="viewFriends">
+      {% if zippat %}
+      {% for buddy,picture in zippat %}
+      <div class="row add-comment-forum">
+        <div class="col-12 forum-subjects buddy-header">
+          <a href="{% url "user" %}{{buddy}}">{{buddy}}</a>
+        </div>
+      </div>
+         <div class="row forum-categories">
+          <div class="col-3">
+            {% if picture %}
+            <div class="nailthumb-container">
+              <img src="{{picture}}" alt="Profilbild" />
+            </div>
+            {% else %}
+            <div class="nailthumb-container">
+              <img src="{% static "dagbok/img/profilepic.png" %}" alt="Profilbild" />
+            </div>
+            {% endif %}
+          </div> <!-- END col-3 -->
            <div class="col-9">
              SENASTE TRÄNINGSPASS HÄR
            </div> <!-- END col-9 -->
@@ -116,6 +126,12 @@
 {% else %}
   Dåligt sökt
 {% endif %}
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+      jQuery('.nailthumb-container').nailthumb({width:80,height:80,fitDirection:'top left'});
+  });
+</script>
 
 
 {% include "dagbok/footer.html" %}
