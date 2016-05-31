@@ -86,10 +86,13 @@
       </div>
     </div>
      <div role="tabpanel" class="tab-pane fade" id="viewFriends">
-         {% if buddies %}
-         {% for buddy in buddies %}
+         {% if zippat %}
+         {% for buddy,picture in zippat %}
          <div class="row">
            <div class="col-3">
+               {% if picture %}
+               <img src="{{picture}}" class="img-center" width="150px" alt="Profilbild" />
+               {% endif %}
               <a href="{% url "user" %}{{buddy}}">{{buddy}}</a>
            </div> <!-- END col-3 -->
            <div class="col-9">
@@ -106,6 +109,8 @@
          </div> <!-- END row -->
     </div> <!-- END OF TABPANEL -->
   </div> <!-- END OF TAB-CONTENT -->
+
+
 
 </div> <!-- END chart-rect full-rect -->
 {% else %}
