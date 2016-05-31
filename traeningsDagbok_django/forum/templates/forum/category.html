@@ -28,28 +28,36 @@
         {% endif %}
 
         {% if form %}
-        <h3>Skapa en ny tråd i {{category}}</h3>
-        <form action="/forum/new_post/" method="POST">
-             {% csrf_token %}
-            <input type="hidden" name="category" value="{{category}}">
-            <div class="row">
-                <div class="col-2">
-                    <label class="fast-workout-label">Titel:</label>
-                </div>
-                <div class="col-10">
-                    <input type="text" class="form-control input-group input-group-workout" name="title">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-2">
-                    <label class="fast-workout-label">Text:</label>
-                </div>
-                <div class="col-10">
-                    <textarea class="form-control input-group-workout" rows="10" name="text"></textarea>
-                </div>
-            </div>
-        <button type="submit" class="btn btn-success">Skapa</button>
-        </form>
+        <div class="row add-comment-forum">
+            <div class="col-12 forum-subjects">
+                <span>Skapa en ny tråd i {{category}}</span>
+            </div> <!-- END col-12 -->
+        </div> <!-- END row -->
+        <div class="row forum-categories">
+            <div class="col-12">
+                <form action="/forum/new_post/" method="POST">
+                     {% csrf_token %}
+                    <input type="hidden" name="category" value="{{category}}">
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="fast-workout-label">Titel:</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" class="form-control input-group input-group-workout" name="title">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="fast-workout-label">Text:</label>
+                        </div>
+                        <div class="col-10">
+                            <textarea class="form-control input-group-workout" rows="10" name="text"></textarea>
+                        </div>
+                    </div>
+                <button type="submit" class="btn btn-success">Skapa</button>
+                </form>
+            </div> <!-- END col-12 -->
+        </div><!-- END row -->
         {% endif %}
     </div> <!-- END chart-rect full-rect -->
 </div> <!-- END chart-rect-wrapper -->

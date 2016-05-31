@@ -17,10 +17,10 @@
         </div>
         <div class="row forum-categories">
             <div class="col-3">
-            
-                {% if p.author.id in picture %}  
+
+                {% if p.author.id in picture %}
                     {% for key,value in picture.items %}
-                        {% if key == p.author.id %}              
+                        {% if key == p.author.id %}
                     <img src="{{value}}" width="100px" class="profile-image-forum">
                         {% endif %}
                     {% endfor %}
@@ -37,7 +37,7 @@
             </div>
         </div>
         {% endfor %}
-        
+
         {% for c in comments %}
         <div class="row forum-categories">
             <div class="col-3">
@@ -50,7 +50,7 @@
                 {% else %}
                 <img src="{% static "dagbok/img/profilepic.png" %}" width="100px" class="profile-image-forum">
                 {% endif %}
-           
+
                 <span class="author-forum"><a href="/user/{{c.author }}">{{c.author }}</a></span>
                 <p class="date-forum">
                     {{c.date }}
@@ -63,23 +63,32 @@
             </div>
         </div>
          {% endfor %}
-     
+
 
         {% if form %}
-        <h3>Kommentera på inlägget</h3>
-        <form action="/forum/new_comment/" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="parent" value="{{post_id}}">
-            <div class="row">
-                <div class="col-2">
-                    <label class="fast-workout-label">Text:</label>
-                </div>
-                <div class="col-10">
-                    <textarea class="form-control input-group-workout" rows="10" name="text"></textarea>
-                </div>
+        <div class="row add-comment-forum">
+            <div class="col-12 forum-subjects">
+                <span>Kommentera på inlägget</span>
+            </div> <!-- END col-12 -->
+        </div> <!-- END row -->
+        <div class="row forum-categories">
+            <div class="col-12">
+                <form action="/forum/new_comment/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" value="{{post_id}}">
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="fast-workout-label">Text:</label>
+                        </div>
+                        <div class="col-10">
+                            <textarea class="form-control input-group-workout" rows="10" name="text"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Lägg till</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-success">Lägg till</button>
-        </form>
+        </div>
+
         {% else %}
             Finns inga Inlägg än.
         {% endif %}
