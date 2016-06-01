@@ -408,3 +408,15 @@ body {
   font-size: 14px;
   padding-left: 10px;
 }
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.icon-padding {
+  padding: 12px;
+}
