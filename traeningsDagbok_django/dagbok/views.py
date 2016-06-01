@@ -460,7 +460,8 @@ def advanced_workout(request):
         return render(request, "dagbok/advanced_workout.html",{
                 'advanced_workout_form':AdvancedWorkout(),
                 'WRF': WorkoutRegisterForm(),
-                'userExtended': UserExtended.objects.filter(user_id=user.id)
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
 
 def add_buddy(request):
