@@ -479,6 +479,7 @@ def change_workout(request, num):
         
 def update_workout(request):
     gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
+    gammal.workoutDateNow = None
     gammal.workoutFeel = ""
     gammal.workoutStretch = None
     gammal.workoutTime = None
@@ -535,6 +536,7 @@ def update_workout(request):
 
 
     elif "weightlifting" in request.POST['workoutType']:
+        gammal.workoutSport = "Styrketraening"
         gammal.workoutFeel = request.POST['feeling']
         gammal.gym_type = request.POST['gym_type']
         gammal.workoutDateNow = request.POST['date']
