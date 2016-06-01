@@ -419,36 +419,56 @@ def advanced_workout(request):
         if request.POST['workoutType'] == "running":
             WorkOut.workoutSport = u"Loepning"
 
+            if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
+                WorkOut.puls = int(request.POST['puls'])
+            if len(str(request.POST['snittpuls'])) > 0 and test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls']):
+                WorkOut.snittpuls = float(request.POST['snittpuls'])
+            if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
+                WorkOut.minpuls = int(request.POST['minpuls'])
+            if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
+                WorkOut.kalorier = int(request.POST['kalorier'])
+            if test_float(request.POST['stretch']):
+                WorkOut.workoutStretch = request.POST['stretch']
+            if request.POST['time']:
+                tiden = test_time(request.POST['time'])
+                if tiden is not None:
+                    WorkOut.workoutTime = tiden[0]
+                    WorkOut.workoutSec = tiden[1]
+
         elif request.POST['workoutType'] == "swimming":
             WorkOut.workoutSport = u"Simning"
+
+            if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
+                WorkOut.puls = int(request.POST['puls'])
+            if len(str(request.POST['snittpuls'])) > 0 and test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls']):
+                WorkOut.snittpuls = float(request.POST['snittpuls'])
+            if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
+                WorkOut.minpuls = int(request.POST['minpuls'])
+            if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
+                WorkOut.kalorier = int(request.POST['kalorier'])
+            if test_float(request.POST['stretch']):
+                WorkOut.workoutStretch = request.POST['stretch']
+            if request.POST['time']:
+                tiden = test_time(request.POST['time'])
+                if tiden is not None:
+                    WorkOut.workoutTime = tiden[0]
+                    WorkOut.workoutSec = tiden[1]
 
         elif request.POST['workoutType'] == "weightlifting":
             WorkOut.workoutSport = u"Styrketraening"
             WorkOut.gym_type = request.POST['gym_type']
+
             if test_integer(request.POST['gym_weight']) or test_float(request.POST['gym_weight']):
                 WorkOut.gym_weight = request.POST['gym_weight']
+            if test_integer(request.POST['gym_sets']):
+                WorkOut.gym_sets = request.POST['gym_sets']
+            if test_integer(request.POST['gym_reps']):
+                WorkOut.gym_reps = request.POST['gym_reps']
         else:
             return redirect("/dashboard")
 
-
-
-        if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
-            WorkOut.puls = int(request.POST['puls'])
-        if len(str(request.POST['snittpuls'])) > 0 and test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls']):
-            WorkOut.snittpuls = float(request.POST['snittpuls'])
-        if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
-            WorkOut.minpuls = int(request.POST['minpuls'])
-        if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
-            WorkOut.kalorier = int(request.POST['kalorier'])
-
-        WorkOut.workoutFeel = request.POST['feeling']
-        WorkOut.workoutStretch = request.POST['stretch']
-
-
-        tiden = test_time(request.POST['time'])
-        if tiden is not None:
-            WorkOut.workoutTime = tiden[0]
-            WorkOut.workoutSec = tiden[1]
+        if request.POST['feeling'] and len(request.POST['feeling']) >= 1:
+            WorkOut.workoutFeel = request.POST['feeling']
 
         WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
 
