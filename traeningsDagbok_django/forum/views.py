@@ -34,7 +34,7 @@ def category(request, category):
         return render(request, "forum/category.html", {
                 'category':category,
                 'posts':p,
-                'form':pf
+                'form':pf,
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
                 'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
@@ -59,7 +59,7 @@ def post(request, post):
                 'form':cf,
                 'comments':c,
                 'category':p.get().category,
-                'picture':userPicture
+                'picture':userPicture,
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
                 'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
