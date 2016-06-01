@@ -1,0 +1,345 @@
+{% include "dagbok/header.html" %}
+</div> <!-- Avslutar "dålig" div-->
+  <div class="col-12 chart-rect-wrapper">
+
+  <div class="chart-rect">
+    <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Ändra träning</span></h4>
+    <select id="selectFastWorkout" class="form-control">
+      <option value="option0">Välj träning</option>
+      <option value="fastWorkoutRunning">Löpning</option>
+      <option value="fastWorkoutSwimming">Simning</option>
+      <option value="fastWorkoutStyrke">Styrkelyftning</option>
+    </select> <!-- END #selectFastWorkout -->
+
+    <div id="fast-workout-wrapper">
+    
+      <div id="fastWorkoutRunning" class="fast-workout-sections">
+        <form method="POST" action="{% url 'update_workout' %}">
+          {% csrf_token %}
+          <input type="hidden" value="{{old.id}}" name="workout_id">
+          <input type="hidden" value="running" name="workoutType">
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerRun" value="{{old.workoutDateNow}}" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2"> 
+              <label class="fast-workout-label">Sträcka:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                  <input class="form-control" type="text" name="stretch" {% if "Loepning" in old.workoutSport %} value="{{old.workoutStretch}}" {% endif %}>
+                <span class="input-group-addon" id="basic-addon2">km</span>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Tid:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="time" {% if "Loepning" in old.workoutSport %} value="{{old.workoutTime}}" {% endif %}>
+                <span class="input-group-addon" id="basic-addon2">min:sek</span>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Känsla:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="feeling" {% if "Loepning" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Maxpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="puls" {% if "Loepning" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Minpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="minpuls" {% if "Loepning" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Snittpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+               <input class="form-control" type="text" name="snittpuls" {% if "Loepning" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Kalorier:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+               <input class="form-control" type="text" name="kalorier" {% if "Loepning" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-success">Lägg till träning</button>
+            </div> <!-- END col-12 -->
+          </div> <!-- END row -->
+        </form> <!-- END form running -->
+      </div> <!-- END #fastWorkoutRunning -->
+    
+      <div id="fastWorkoutSwimming" class="fast-workout-sections">
+        <form method="POST" action="{% url 'update_workout' %}">
+          {% csrf_token %}
+          <input type="hidden" value="{{old.id}}" name="workout_id">
+          <input type="hidden" value="swimming" name="workoutType">
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerSwim" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Sträcka:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                 <input class="form-control" type="text" name="stretch" {% if "Simning" in old.workoutSport %} value="{{old.workoutStretch}}" {% endif %}>
+                <span class="input-group-addon" id="basic-addon2">km</span>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Tid:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="time" {% if "Simning" in old.workoutSport %} value="{{old.workoutTime}}" {% endif %}>
+                <span class="input-group-addon" id="basic-addon2">min:sek</span>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Känsla:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="feeling" {% if "Simning" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Maxpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="puls" {% if "Simning" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Minpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="minpuls" {% if "Simning" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Snittpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+               <input class="form-control" type="text" name="snittpuls" {% if "Simning" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Kalorier:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+               <input class="form-control" type="text" name="kalorier" {% if "Simning" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-success">Lägg till träning</button>
+            </div> <!-- END col-12 -->
+          </div> <!-- END row -->
+        </form> <!-- END form swimming -->
+      </div> <!-- END #fastWorkoutSwimming -->
+    
+      <div id="fastWorkoutStyrke" class="fast-workout-sections">
+        <form method="POST" action="{% url 'update_workout' %}">
+          {% csrf_token %}
+          <input type="hidden" value="{{old.id}}" name="workout_id">
+          <input type="hidden" value="weightlifting" name="workoutType">
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerGym" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Övning:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="gym_type" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_type}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Vikt:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="gym_weight" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_weight}}" {% endif %}>
+                <span class="input-group-addon" id="basic-addon2">kg</span>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Set:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="gym_sets" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_sets}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Reps:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="gym_reps" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_reps}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Känsla:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="feeling" {% if "Styrketraening" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Maxpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="puls" {% if "Styrketraening" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Minpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input class="form-control" type="text" name="minpuls" {% if "Styrketraening" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Snittpuls:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+               <input class="form-control" type="text" name="snittpuls" {% if "Styrketraening" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Kalorier:</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+               <input class="form-control" type="text" name="kalorier" {% if "Styrketraening" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-success">Lägg till träning</button>
+            </div> <!-- END col-12 -->
+          </div> <!-- END row -->
+        </form> <!-- END form styrke -->
+      </div> <!-- END #fastWorkoutStyrke -->
+    </div> <!-- END #fast-workout-wrapper -->
+  </div> <!-- END chart-rect nummer 1 -->
+
+
+
+ 
+
+{% include "dagbok/footer.html" %}
+{% comment%}
+
+{{wr.date}}
+{{wr.stretch}}
+{{wr.time}}
+{{wr.feeling}}
+{{wr.gym_weight}}
+{{wr.gym_type}}
+{{wr.gym_reps}}
+{{wr.gym_sets}}
+{{aw.puls}}
+{{aw.snittpuls}}
+{{aw.minpuls}}
+{{aw.kalorier}}
+{{aw.time}}
+{{aw.feeling}}
+
+{% endcomment %}
