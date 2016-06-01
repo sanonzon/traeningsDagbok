@@ -12,12 +12,10 @@
 
 <script>
 var ctx = document.getElementById("myChart");
-var viktdata = [75, 76, 74, 72, 69, 67, 75, 76, 74, 72, 69, 67];
-var malvikt = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60];
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
+        labels: {{ lbls|safe }},
         datasets: [{
             label: 'Vikt',
             fill: false,
@@ -37,7 +35,8 @@ var myChart = new Chart(ctx, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: viktdata,
+            data: {{ weightData|safe }},
+            //~ data: viktdata,
         },
         {
           label: 'Målvikt',
@@ -58,7 +57,7 @@ var myChart = new Chart(ctx, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-          data: malvikt
+          data: {{ goalWeight|safe }}
         }]
     },
     options: {

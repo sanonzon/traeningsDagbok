@@ -318,25 +318,43 @@ def goals(request):
     if request.POST:
         timezone.now()
         if test_float(request.POST['viktgoal']) and test_float(request.POST['viktnow']):
-                Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
-                currentWeight=request.POST['viktnow']).save()
-        elif test_float(request.POST['viktgoal']):
-                Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
-                currentWeight=request.POST['viktnow']).save()
+                newGoal = Goals()
+                newGoal.user_id = User(id=request.user.id)
+                newGoal.goalWeight = request.POST['viktgoal']
+                newGoal.currentWeight = request.POST['viktnow']
+                newGoal.save()
+                
+                #~ Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
+                #~ currentWeight=request.POST['viktnow']).save()
+        #~ elif test_float(request.POST['viktgoal']):
+                #~ Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
+                #~ currentWeight=request.POST['viktnow']).save()
             
             
         return redirect("/goals")
     else:
-        g = Goals.objects.filter(user_id=request.user.id).get()
+        g = Goals.objects.filter(user_id=request.user.id)
         return render(request, 'dagbok/goals.html', {'goals':g})
 
 def forum(request):
     return render(request, 'dagbok/forum.html')
 
 def progress(request):
-    goals = []
-    
-    return render(request, 'dagbok/progress.html')
+    #~ weightData = [75, 76, 74, 72, 69, 67, 75, 76, 74, 72, 69, 67]
+    getGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
+    if len(getGoals) > 1:
+        getGoals = getGoals[1:]
+    #~ labels = json.dumps([str(goal.workoutDateNow)[:16] for goal in getGoals])
+    #~ print 'dates = ', [str(goal.workoutDateNow)[:16] for goal in goals]
+    weightData = [0, 70]
+    goalWeight = [60, 60]
+
+    return render(request, 'dagbok/progress.html',
+        {
+            'lbls': json.dumps([str(goal.workoutDateNow)[:16] for goal in getGoals]),
+            'weightData': json.dumps([goal.currentWeight for goal in getGoals]),
+            'goalWeight': json.dumps([goal.goalWeight for goal in getGoals]),
+        })
 
 def settings(request):
     sports = str(UserExtended.objects.filter(user_id=request.user.id).get().favorite_sport).lower().replace(" ", "").split(",")
