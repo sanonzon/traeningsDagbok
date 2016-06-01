@@ -349,14 +349,9 @@ def forum(request):
     return render(request, 'dagbok/forum.html')
 
 def progress(request):
-    #~ weightData = [75, 76, 74, 72, 69, 67, 75, 76, 74, 72, 69, 67]
     getGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
     if len(getGoals) > 1:
         getGoals = getGoals[1:]
-    #~ labels = json.dumps([str(goal.workoutDateNow)[:16] for goal in getGoals])
-    #~ print 'dates = ', [str(goal.workoutDateNow)[:16] for goal in goals]
-    weightData = [0, 70]
-    goalWeight = [60, 60]
 
     return render(request, 'dagbok/progress.html',
         {
