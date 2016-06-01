@@ -114,7 +114,7 @@
                   <li class="fixed-width">
                     <a href="#" data-toggle="collapse" data-target="#notifications">
                       <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-                      <span class="label label-warning">3</span>
+                      <span class="label label-warning">{% if alerts > 0 %}{{ alerts|safe }}{% endif %}</span>
                     </a>
                   </li>
                   <li>
@@ -132,7 +132,15 @@
             <div class="col-12">
 
               <div id="notifications" class="collapse bubble">
-                <div class="notifications-div">
-                  Axel följer nu dig!
-                </div>
+                  {% if notifications %}
+                    {% for notification in notifications %}
+                      <div class="notifications-div">
+                        {{ notification }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="notifications-div">
+                      Du har inga händelser att ladda.
+                    </div>
+                  {% endif %}
               </div>
