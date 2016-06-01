@@ -377,9 +377,9 @@ def goals(request):
                 newGoal.currentWeight = request.POST['viktnow']
                 newGoal.save()
             
-        return redirect("/goals")
+        return redirect("/progress")
     else:
-        g = Goals.objects.filter(user_id=request.user.id)
+        g = Goals.objects.filter(user_id=request.user.id).latest('id')
         return render(request, 'dagbok/goals.html', {
                 'goals': g,
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
