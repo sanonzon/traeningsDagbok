@@ -52,7 +52,6 @@ def post(request, post):
             if UserExtended.objects.filter(user_id=user.id).get().picture:
                 userPicture[user.id] = UserExtended.objects.filter(user_id=user.id).get().picture
                 
-        print userPicture
         return render(request, "forum/post.html", {
                 'post_id':post,
                 'post':p,

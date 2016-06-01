@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^change_workout/([\d]+)$', views.change_workout, name='change_workout'),
     url(r'^update_workout$', views.update_workout, name='update_workout'),
     url(r'^alerts/', views.update_alerts, name='alerts'),
+    
 ]
