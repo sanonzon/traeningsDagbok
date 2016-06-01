@@ -381,11 +381,16 @@ def goals(request):
     else:
         g = Goals.objects.filter(user_id=request.user.id).get()
         return render(request, 'dagbok/goals.html', {
-                'goals': g
+                'goals': g,
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
 
 def forum(request):
-    return render(request, 'dagbok/forum.html')
+    return render(request, 'dagbok/forum.html', {
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+        })
 
 def progress(request):
     getGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
@@ -572,7 +577,13 @@ def change_workout(request, num):
         aw = AdvancedWorkout()
         wr = WorkoutRegisterForm()
     
-        return render(request, "dagbok/change_workout.html", {'aw':aw,'WRF':wr, 'old':wo})
+        return render(request, "dagbok/change_workout.html", {
+                'aw':aw,
+                'WRF':wr,
+                'old':wo,
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+            })
         
     else:
         return redirect("/dashboard")

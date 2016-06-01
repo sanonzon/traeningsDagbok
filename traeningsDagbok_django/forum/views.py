@@ -18,7 +18,11 @@ def index(request):
         c = Category.choices
         fixed_list = [l[0] for l in c]
         
-        return render(request, "forum/index.html", {'category':fixed_list})
+        return render(request, "forum/index.html", {
+                'category':fixed_list,
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+            })
     else:
         return redirect("/")
 def category(request, category):
@@ -26,7 +30,13 @@ def category(request, category):
         pf = PostForm()
         p = Post.objects.filter(category=category)
         
-        return render(request, "forum/category.html", {'category':category,'posts':p,'form':pf})
+        return render(request, "forum/category.html", {
+                'category':category,
+                'posts':p,
+                'form':pf
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+            })
     else:
         return redirect("/")
 def post(request, post):
@@ -42,7 +52,16 @@ def post(request, post):
                 userPicture[user.id] = UserExtended.objects.filter(user_id=user.id).get().picture
                 
         print userPicture
-        return render(request, "forum/post.html", {'post_id':post, 'post':p, 'form':cf, 'comments':c, 'category':p.get().category, 'picture':userPicture})
+        return render(request, "forum/post.html", {
+                'post_id':post,
+                'post':p,
+                'form':cf,
+                'comments':c,
+                'category':p.get().category,
+                'picture':userPicture
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+            })
     else:
         return redirect("/")
     
