@@ -238,7 +238,7 @@ def user(request):
 
 def searched(request):
     if request.POST:
-        results =  User.objects.filter(username__contains=request.POST['search'])
+        results =  User.objects.filter(username__icontains=request.POST['search'])
         return render(request, 'dagbok/profile.html', {'results': results})
     else:
         return HttpResponseRedirect('/dashboard')
