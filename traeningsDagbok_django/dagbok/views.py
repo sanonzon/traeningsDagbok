@@ -217,10 +217,12 @@ def user(request):
                 buddy_button = True
 
             zippat = zip(buddies,buddies_pic,buddy_workout)
-            
-            print zippat
-
-            print buddy_workout 
+            if WorkOuts.objects.filter(workoutUser=User.objects.filter(id=url_user.id).get()):
+                query = WorkOuts.objects.values_list('kalorier', flat=True).filter(workoutUser=User.objects.filter(username=url_user).get())
+                kcal = sum([x for x in query if test_float(str(x))])
+            if WorkOuts.objects.filter(workoutUser=User.objects.filter(id=url_user.id).get()):
+                query = WorkOuts.objects.values_list('workoutStretch', flat=True).filter(workoutUser=User.objects.filter(username=url_user).get())
+                km = sum([x for x in query if test_float(str(x))])
             
             return render(request, 'dagbok/user.html', {
                 'user': url_user,
@@ -230,6 +232,8 @@ def user(request):
                 'sports': str(url_user_extended.favorite_sport).lower().replace(" ", "").split(","),
                 'zippat': zippat,
                 'buddy_button': buddy_button,
+                'kcal':kcal or None,
+                'km':km or None,
                 })
         else:
             return HttpResponseRedirect('/dashboard')

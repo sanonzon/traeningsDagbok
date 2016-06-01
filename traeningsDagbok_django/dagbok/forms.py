@@ -4,6 +4,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms import ModelForm
+from django.core.validators import RegexValidator
+
 #~ from .models import GymWorkout
 
 #~ from .models import Workout_gym
@@ -12,10 +14,12 @@ class CreateAccountForm(forms.Form):
     #TODO: Se om man kan ändra så att validation erroret som returneras
     #      från forms.CharField kan stå på svenska för att undvika en blandning
     #      av engelska och svenska på sidan.
-
+    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Endast bokstäver a-z och siffror.')
+    
     username = forms.CharField(
             min_length=2,
             max_length=30,
+            validators=[alphanumeric],
             widget=forms.TextInput(attrs = {
                 'class': 'form-control',
                 'placeholder': 'Anv\xC3\xA4ndarnamn',
