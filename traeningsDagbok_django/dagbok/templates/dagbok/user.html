@@ -31,12 +31,12 @@
         </div>
         <div class="col-3">
           <div class="centered-profile">
-            <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"><!-- Räkna ut totala kalorier här -->kalorier bränt</span>
+            <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{kcal}} kalorier bränt</span>
           </div>
         </div>
         <div class="col-3">
           <div class="centered-profile">
-            <img src="{% static "dagbok/img/distance.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"><!-- Räkna ut total sträcka här --> km avverkad</span>
+            <img src="{% static "dagbok/img/distance.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{km}} km avverkad</span>
           </div>
         </div>
       </div>
@@ -107,9 +107,10 @@
           </div> <!-- END col-3 -->
            <div class="col-9">
              {% for x in workout%}
-             {% for y in x%}
-             {{y}}
-             {% endfor %}
+             
+             {{x.0}}
+             {{x.1}}
+             
              {% endfor %}
            </div> <!-- END col-9 -->
          </div> <!-- END row -->
