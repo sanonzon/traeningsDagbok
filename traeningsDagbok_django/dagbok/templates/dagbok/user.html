@@ -72,13 +72,13 @@
           <div class="favorite-sports">
               {% for sport in sports %}
               {% if sport == "gym" %}
-            <img src="{% static "dagbok/img/dumbells.svg" %}" width="80px" alt="Styrkelyftning" />
+            <img src="{% static "dagbok/img/dumbells.svg" %}" width="80px" alt="Styrkelyftning" data-toggle="tooltip" title="Styrketräning" />
             {% endif %}
             {% if sport == "swim"%}
-            <img src="{% static "dagbok/img/swimming.svg" %}" width="80px" alt="Simning" />
+            <img src="{% static "dagbok/img/swimming.svg" %}" width="80px" alt="Simning" data-toggle="tooltip" title="Simning" />
             {% endif %}
             {% if sport == "run" %}
-            <img src="{% static "dagbok/img/running.svg" %}" width="80px" alt="Löpning" />
+            <img src="{% static "dagbok/img/running.svg" %}" width="80px" alt="Löpning" data-toggle="tooltip" title="Löpning" />
             {% endif %}
             {% endfor %}
           </div>
