@@ -73,13 +73,13 @@
           <div class="favorite-sports">
               {% for sport in sports %}
               {% if sport == "gym" %}
-            <img src="{% static "dagbok/img/dumbells.svg" %}" width="80px" alt="Styrkelyftning" />
+            <img src="{% static "dagbok/img/dumbells.svg" %}" width="80px" alt="Styrkelyftning" data-toggle="tooltip" title="Styrketräning" />
             {% endif %}
             {% if sport == "swim"%}
-            <img src="{% static "dagbok/img/swimming.svg" %}" width="80px" alt="Simning" />
+            <img src="{% static "dagbok/img/swimming.svg" %}" width="80px" alt="Simning" data-toggle="tooltip" title="Simning" />
             {% endif %}
             {% if sport == "run" %}
-            <img src="{% static "dagbok/img/running.svg" %}" width="80px" alt="Löpning" />
+            <img src="{% static "dagbok/img/running.svg" %}" width="80px" alt="Löpning" data-toggle="tooltip" title="Löpning" />
             {% endif %}
             {% endfor %}
           </div>
@@ -107,12 +107,13 @@
             {% endif %}
           </div> <!-- END col-3 -->
            <div class="col-9">
-             {% for x in workout%}
-             
-             {{x.0}}
-             {{x.1}}
-             
-             {% endfor %}
+
+            <h4 class="buddy-last-workout">Deras senaste pass</h4>
+            {% for x in workout%}
+            <span class="buddy-time">{{x.0}}</span>
+            <span class="buddy-workout-type">{{x.1}}</span>
+            {% endfor %}
+
            </div> <!-- END col-9 -->
          </div> <!-- END row -->
          {% endfor %}
