@@ -107,14 +107,18 @@
             {% endif %}
           </div> <!-- END col-3 -->
            <div class="col-9">
-
-            <h4 class="buddy-last-workout">Deras senaste pass</h4>
-            {% for x in workout%}
-            {% if x.0 and x.1 %}
-            <span class="buddy-time">{{x.0}}</span>
-            <span class="buddy-workout-type">{{x.1}}</span>
+            {% if workout %}
+                {% for x in workout %}
+                    <h4 class="buddy-last-workout">Deras senaste pass</h4>
+                    
+                    
+                    <span class="buddy-time">{{x.0}}</span>
+                    <span class="buddy-workout-type">{{x.1}}</span>
+                {% endfor %}
+            {% else %}
+            <h4 class="buddy-last-workout">Inget registrerat pass</h4>
             {% endif %}
-            {% endfor %}
+
 
            </div> <!-- END col-9 -->
          </div> <!-- END row -->
