@@ -106,12 +106,11 @@
             {% endif %}
           </div> <!-- END col-3 -->
            <div class="col-9">
-             <h4>Senaste träningspass</h4>
-             {% for x in workout%}
-             {% for y in x%}
-             {{y}}
-             {% endfor %}
-             {% endfor %}
+            <h4 class="buddy-last-workout">Deras senaste pass</h4>
+            {% for x in workout%}
+            <span class="buddy-time">{{x.0}}</span>
+            <span class="buddy-workout-type">{{x.1}}</span>
+            {% endfor %}
            </div> <!-- END col-9 -->
          </div> <!-- END row -->
          {% endfor %}
