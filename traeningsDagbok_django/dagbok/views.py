@@ -451,3 +451,111 @@ def test_time(x):
     else:
         return [0,0]
 
+
+
+def delete_workout(request):
+    d = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
+    if d.workoutUser.id == request.user.id:
+        d.delete()
+        s = TotalWorkouts.objects.filter(user_id=request.user.id).get()
+        s.total_workouts = s.total_workouts-2
+        s.save()
+    
+    return redirect("/dashboard")
+    
+def change_workout(request, num):
+    if WorkOuts.objects.filter(id=num,workoutUser=User.objects.filter(id=request.user.id).get()):
+        wo = WorkOuts.objects.filter(id=num).get()
+        
+        aw = AdvancedWorkout()
+        wr = WorkoutRegisterForm()
+    
+        return render(request, "dagbok/change_workout.html", {'aw':aw,'WRF':wr, 'old':wo})
+        
+    else:
+        return redirect("/dashboard")
+
+
+        
+def update_workout(request):
+    gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
+    gammal.workoutFeel = ""
+    gammal.workoutStretch = None
+    gammal.workoutTime = None
+    gammal.workoutSec = None
+    gammal.gym_type = ""
+    gammal.gym_weight = 0
+    gammal.gym_sets = 0
+    gammal.gym_reps = 0
+    gammal.puls = None
+    gammal.snittpuls = None
+    gammal.minpuls = None
+    gammal.kalorier = None
+    
+    if "running" in request.POST['workoutType']:
+        gammal.workoutSport = "Loepning"
+        tiden = test_time(request.POST['time'])
+        gammal.workoutTime = tiden[0]
+        gammal.workoutSec = tiden[1]
+        gammal.workoutDateNow = request.POST['date']
+        gammal.workoutFeel = request.POST['feeling']
+        if test_float(request.POST['stretch']):
+            gammal.workoutStretch = request.POST['stretch']
+        if test_integer(request.POST['puls']):
+            gammal.puls = request.POST['puls']
+        if test_float(request.POST['snittpuls']):
+            gammal.snittpuls = request.POST['snittpuls']
+        if test_integer(request.POST['minpuls']):
+            gammal.minpuls = request.POST['minpuls']
+        if test_integer(request.POST['kalorier']):
+            gammal.kalorier = request.POST['kalorier']
+            
+        gammal.save()
+
+        
+    elif "swimming" in request.POST['workoutType']:
+        gammal.workoutSport = "Simning"
+        tiden = test_time(request.POST['time'])
+        gammal.workoutTime = tiden[0]
+        gammal.workoutSec = tiden[1]
+        gammal.workoutDateNow = request.POST['date']
+        gammal.workoutFeel = request.POST['feeling']
+        if test_float(request.POST['stretch']):
+            gammal.workoutStretch = request.POST['stretch']
+        if test_integer(request.POST['puls']):
+            gammal.puls = request.POST['puls']
+        if test_float(request.POST['snittpuls']):
+            gammal.snittpuls = request.POST['snittpuls']
+        if test_integer(request.POST['minpuls']):
+            gammal.minpuls = request.POST['minpuls']
+        if test_integer(request.POST['kalorier']):
+            gammal.kalorier = request.POST['kalorier']
+            
+        gammal.save()
+
+
+    elif "weightlifting" in request.POST['workoutType']:
+        gammal.workoutFeel = request.POST['feeling']
+        gammal.gym_type = request.POST['gym_type']
+        gammal.workoutDateNow = request.POST['date']
+        if test_float(request.POST['gym_weight']):
+            gammal.gym_weight = request.POST['gym_weight']
+        if test_integer(request.POST['gym_sets']):
+            gammal.gym_sets = request.POST['gym_sets']
+        if test_integer(request.POST['gym_reps']):
+            gammal.gym_reps = request.POST['gym_reps']
+        if test_integer(request.POST['puls']):
+            gammal.puls = request.POST['puls']
+        if test_float(request.POST['snittpuls']):
+            gammal.snittpuls = request.POST['snittpuls']
+        if test_integer(request.POST['minpuls']):
+            gammal.minpuls = request.POST['minpuls']
+        if test_integer(request.POST['kalorier']):
+            gammal.kalorier = request.POST['kalorier']
+        
+        
+        gammal.save()
+
+    
+    return redirect("/dashboard")
+    

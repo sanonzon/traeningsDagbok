@@ -36,5 +36,8 @@ urlpatterns = [
     url(r'^advanced_workout$', views.advanced_workout, name='advanced_workout'),
     url(r'^add_buddy$', views.add_buddy, name='add_buddy'),
     url(r'^forum/', include('forum.urls'), name='forum'),
+    url(r'^delete_workout$', views.delete_workout, name='delete_workout'),
+    url(r'^change_workout/([\d]+)$', views.change_workout, name='change_workout'),
+    url(r'^update_workout$', views.update_workout, name='update_workout'),
 
 ]
