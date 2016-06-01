@@ -328,12 +328,21 @@ def goals(request):
                 newGoal.currentWeight = request.POST['viktnow']
                 newGoal.save()
                 
-                #~ Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
-                #~ currentWeight=request.POST['viktnow']).save()
-        #~ elif test_float(request.POST['viktgoal']):
-                #~ Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
-                #~ currentWeight=request.POST['viktnow']).save()
+        elif test_float(request.POST['viktgoal']):
+                newGoal = Goals()
+                oldGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
+                newGoal.user_id = User(id=request.user.id)
+                newGoal.goalWeight = request.POST['viktgoal']
+                newGoal.currentWeight = oldGoals[len(oldGoals) - 1].currentWeight
+                newGoal.save()
             
+        elif test_float(request.POST['viktnow']):
+                newGoal = Goals()
+                oldGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
+                newGoal.user_id = User(id=request.user.id)
+                newGoal.goalWeight = oldGoals[len(oldGoals) - 1].goalWeight
+                newGoal.currentWeight = request.POST['viktnow']
+                newGoal.save()
             
         return redirect("/goals")
     else:
@@ -344,14 +353,9 @@ def forum(request):
     return render(request, 'dagbok/forum.html')
 
 def progress(request):
-    #~ weightData = [75, 76, 74, 72, 69, 67, 75, 76, 74, 72, 69, 67]
     getGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
     if len(getGoals) > 1:
         getGoals = getGoals[1:]
-    #~ labels = json.dumps([str(goal.workoutDateNow)[:16] for goal in getGoals])
-    #~ print 'dates = ', [str(goal.workoutDateNow)[:16] for goal in goals]
-    weightData = [0, 70]
-    goalWeight = [60, 60]
 
     return render(request, 'dagbok/progress.html',
         {
