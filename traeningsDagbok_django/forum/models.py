@@ -44,6 +44,6 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return "%s - %s - %s" %(self.date, self.author.username, postParent.title)
+        return "%s - %s - %s" %(self.date, self.author.username, self.postParent.title)
 
 
