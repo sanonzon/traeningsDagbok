@@ -379,7 +379,7 @@ def goals(request):
             
         return redirect("/goals")
     else:
-        g = Goals.objects.filter(user_id=request.user.id).get()
+        g = Goals.objects.filter(user_id=request.user.id)
         return render(request, 'dagbok/goals.html', {
                 'goals': g,
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
