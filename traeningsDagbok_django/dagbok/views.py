@@ -576,7 +576,7 @@ def change_workout(request, num):
         
         aw = AdvancedWorkout()
         wr = WorkoutRegisterForm()
-    
+
         return render(request, "dagbok/change_workout.html", {
                 'aw':aw,
                 'WRF':wr,
@@ -588,8 +588,6 @@ def change_workout(request, num):
     else:
         return redirect("/dashboard")
 
-
-        
 def update_workout(request):
     gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
     gammal.workoutDateNow = None

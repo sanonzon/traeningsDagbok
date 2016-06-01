@@ -25,6 +25,7 @@ def index(request):
             })
     else:
         return redirect("/")
+
 def category(request, category):
     if request.user.is_authenticated():
         pf = PostForm()
