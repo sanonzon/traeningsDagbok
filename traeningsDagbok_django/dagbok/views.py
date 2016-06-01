@@ -130,7 +130,14 @@ def dashboard(request):
         return redirect("/")
 
 def header(request):
-    return render(request, 'dagbok/header.html')
+    alertsReset = UserExtended.objects.filter(user_id=request.user.id).get()
+    alertsReset.alerts = 0
+    alertsReset.save()
+    
+    return render(request, 'dagbok/header.html', {
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+        })
 
 def footer(request):
     return render(request, 'dagbok/footer.html')

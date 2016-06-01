@@ -80,25 +80,45 @@ $("#contactbutton").click(function() {
 
 
 
-$('#login-form').on('submit', function(e) {
+//~ $('#login-form').on('submit', function(e) {
+    //~ var csrftoken = getCookie('csrftoken');
+    //~ $.ajax({
+        //~ type: 'POST',
+        //~ url: $(this).attr('action'),
+        //~ dataType: "json",
+        //~ data: {
+                //~ 'csrfmiddlewaretoken': csrftoken,
+        //~ },
+        //~ success: function() {
+                //~ console.log("OKLART SOM FAN, success ka det vara.");
+        //~ },
+        //~ error: function() {
+                //~ console.log("FAIL");
+                //~ $('#loginModal').modal('show');
+        //~ },
+    //~ });
+    //~ // return false;
+//~ 
+//~ });
+
+$('#notification-button').click(function() {
+    console.log("OKLART SOM FAN, success ka det vara.");
     var csrftoken = getCookie('csrftoken');
     $.ajax({
-        type: 'POST',
-        url: $(this).attr('action'),
-        dataType: "json",
+        //~ type: 'POST',
+        // url: $(this).attr('action'),
+        url: '/header/',
         data: {
-                'csrfmiddlewaretoken': csrftoken,
+            'csrfmiddlewaretoken': csrftoken,
         },
-        success: function() {
-                console.log("OKLART SOM FAN, success ka det vara.");
+        success: function(serverResponse) {
+            console.log("OKLART SOM FAN, success ka det vara.");
         },
-        error: function() {
-                console.log("FAIL");
-                $('#loginModal').modal('show');
+        error: function(newData) {
+            console.log("FAIL");
         },
     });
-    //~ return false;
-
 });
+
 
 //~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit
