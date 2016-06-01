@@ -401,8 +401,21 @@ def add_buddy(request):
         else:
             user_extended.buddies = request.POST['get_buddy'] + ","
 
+        buddyObject = UserExtended.objects.filter(user_id=request.POST['get_buddy'])[0]
+        if len(buddyObject.notifications.split(',')) > 0 and len(buddyObject.notifications.split(',')) >= 11:
+            tmpNotifications = ""
+            for notice in buddyObject.notifications.split(',')[1:-1]:
+                tmpNotifications += notice + ','
+            tmpNotifications += request.user.username + " foeljer nu dig.,"
+            buddyObject.notifications = tmpNotifications
+        elif len(buddyObject.notifications.split(',')) > 0:
+            buddyObject.notifications += request.user.username + " foeljer nu dig.,"
+        else:
+            buddyObject.notifications = request.user.username + " foeljer nu dig.,"
+        buddyObject.alerts += 1
+        buddyObject.save()
 
-
+        print buddyObject.notifications
         user_extended.save()
         return redirect("/user/"+request.user.username)
 

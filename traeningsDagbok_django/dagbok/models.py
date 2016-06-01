@@ -49,6 +49,8 @@ class UserExtended(models.Model):
     favorite_sport = models.CharField(max_length=100,default="")
     buddies = models.CharField(max_length=255,default="")
     picture = models.CharField(max_length=255,default="")
+    notifications = models.CharField(max_length=511,default="")
+    alerts = models.IntegerField(blank=True,default=0)
 
     def __str__(self):
         return "%s - %s" %(self.user_id.username, self.user_id.id)
