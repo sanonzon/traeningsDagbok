@@ -43,11 +43,11 @@ class WorkOuts(models.Model):
 @python_2_unicode_compatible
 class UserExtended(models.Model):
     user_id = models.ForeignKey(User)
-    city = models.CharField(max_length=100,default="")
-    favorite_sport = models.CharField(max_length=100,default="")
-    buddies = models.CharField(max_length=255,default="")
-    picture = models.CharField(max_length=255,default="")
-    notifications = models.CharField(max_length=511,default="")
+    city = models.CharField(max_length=100,default="",blank=True)
+    favorite_sport = models.CharField(max_length=100,default="",blank=True)
+    buddies = models.CharField(max_length=255,default="",blank=True)
+    picture = models.CharField(max_length=255,default="",blank=True)
+    notifications = models.CharField(max_length=511,default="",blank=True)
     alerts = models.IntegerField(blank=True,default=0)
 
     def __str__(self):

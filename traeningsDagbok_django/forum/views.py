@@ -49,7 +49,7 @@ def post(request, post):
         
         
         for user in User.objects.all():
-            if len(UserExtended.objects.filter(user_id=user.id).get().picture) > 0:
+            if UserExtended.objects.filter(user_id=user.id).get().picture:
                 userPicture[user.id] = UserExtended.objects.filter(user_id=user.id).get().picture
                 
         print userPicture
