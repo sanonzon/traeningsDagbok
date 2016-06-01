@@ -305,51 +305,35 @@ def create_user(request):
 def update_user(request):
     #~ firstname        lastname        email        new_password        new_password_repeat        current_password
     if request.POST:
-        user = authenticate(username=request.POST['username'], password=request.POST['current_password'])
+        extended = UserExtended.objects.filter(user_id=request.user.id).get()
 
-        if user:
+        sports = ""
+        if "swim" in request.POST:
+            sports += "swim,"
 
-            if UserExtended.objects.filter(user_id=user.id):
-                extended = UserExtended.objects.filter(user_id=user.id).get()
-            else:
-                extended = UserExtended()
-                extended.user_id = User.objects.filter(id=user.id).get()
+        if "gym" in request.POST:
+            sports += "gym,"
 
-            sports = ""
-            if "swim" in request.POST:
-                sports += "swim,"
+        if "run" in request.POST:
+            sports += "run,"
 
-            if "gym" in request.POST:
-                sports += "gym,"
+        user.first_name = request.POST['firstname']
+        user.last_name = request.POST['lastname']
+        user.email = request.POST['email']
+        extended.picture=request.POST['picture']
+        extended.favorite_sport = sports
+        extended.city = request.POST['city']
 
-            if "run" in request.POST:
-                sports += "run,"
-
-            user.first_name = request.POST['firstname']
-            user.last_name = request.POST['lastname']
-            user.email = request.POST['email']
-            extended.picture=request.POST['picture']
-            extended.favorite_sport = sports
-            extended.city = request.POST['city']
-
-            if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
+        if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
+            if authenticate(username=request.POST['username'], password=request.POST['current_password']):
                 user.set_password(request.POST['new_password'])
-
-            extended.save()
-            user.save()
-            return redirect("/dashboard")
-        else:
-            return redirect("/")
-
+                user.save()
+        extended.save()
+      
+        return redirect("/dashboard")
     else:
         return redirect("/")
 
-
-    return render(request, 'dagbok/gymtest.html', {
-                    'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
-                    'form':form
-                })
 
 def goals(request):
     if request.POST:
