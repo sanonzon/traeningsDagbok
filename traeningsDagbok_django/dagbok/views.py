@@ -324,12 +324,21 @@ def goals(request):
                 newGoal.currentWeight = request.POST['viktnow']
                 newGoal.save()
                 
-                #~ Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
-                #~ currentWeight=request.POST['viktnow']).save()
-        #~ elif test_float(request.POST['viktgoal']):
-                #~ Goals(user_id=User.objects.filter(id=request.user.id).get(),goalWeight=request.POST['viktgoal'],
-                #~ currentWeight=request.POST['viktnow']).save()
+        elif test_float(request.POST['viktgoal']):
+                newGoal = Goals()
+                oldGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
+                newGoal.user_id = User(id=request.user.id)
+                newGoal.goalWeight = request.POST['viktgoal']
+                newGoal.currentWeight = oldGoals[len(oldGoals) - 1].currentWeight
+                newGoal.save()
             
+        elif test_float(request.POST['viktnow']):
+                newGoal = Goals()
+                oldGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
+                newGoal.user_id = User(id=request.user.id)
+                newGoal.goalWeight = oldGoals[len(oldGoals) - 1].goalWeight
+                newGoal.currentWeight = request.POST['viktnow']
+                newGoal.save()
             
         return redirect("/goals")
     else:
