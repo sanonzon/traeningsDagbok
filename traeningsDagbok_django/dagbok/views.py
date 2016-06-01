@@ -122,21 +122,26 @@ def dashboard(request):
         else:
             return render(request, 'dagbok/dashboard.html', {
                     'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
                     'WRF': WorkoutRegisterForm(),
                     'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-id')[:5],
                 })
     else:
         return redirect("/")
 
-def header(request):
+def update_alerts(request):
     alertsReset = UserExtended.objects.filter(user_id=request.user.id).get()
     alertsReset.alerts = 0
     alertsReset.save()
-    
+
+    return render(request, 'dagbok/alerts.html', {
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+        })
+
+def header(request):
     return render(request, 'dagbok/header.html', {
             'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
         })
 
 def footer(request):
@@ -170,14 +175,14 @@ def calendar(request):
         html = loader.render_to_string('dagbok/workoutmodal.html', {
                 'workout': workout,
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
         return HttpResponse(html)
     else:
         return render(request, 'dagbok/calendar.html', {
                 'workout_calendar': json.dumps(calendar),
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
 
 def profile(request):
@@ -186,13 +191,13 @@ def profile(request):
                 'searchForm': SearchForm(),
                 'results': User.objects.filter(username__contains=request.POST['search']),
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
 
     return render(request, 'dagbok/profile.html', {
             'searchForm': SearchForm(),
             'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
         })
 
 def user(request):
@@ -246,7 +251,7 @@ def user(request):
             
             return render(request, 'dagbok/user.html', {
                     'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
                     'user': url_user,
                     'full_name': hack_dict,
                     'total_workouts': TotalWorkouts.objects.filter(user_id=url_user.id).values_list('total_workouts',flat=True)[0],
@@ -268,7 +273,7 @@ def searched(request):
         return render(request, 'dagbok/profile.html', {
                 'results': results,
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
     else:
         return HttpResponseRedirect('/dashboard')
@@ -342,7 +347,7 @@ def update_user(request):
 
     return render(request, 'dagbok/gymtest.html', {
                     'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
                     'form':form
                 })
 
@@ -372,7 +377,7 @@ def progress(request):
     
     return render(request, 'dagbok/progress.html', {
             'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
         })
 
 def settings(request):
@@ -383,7 +388,7 @@ def settings(request):
             'sports':sports,
             'extended':extended,
             'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
-            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1] or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
         })
 
 def advanced_workout(request):

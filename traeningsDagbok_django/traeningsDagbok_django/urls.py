@@ -36,5 +36,5 @@ urlpatterns = [
     url(r'^advanced_workout$', views.advanced_workout, name='advanced_workout'),
     url(r'^add_buddy$', views.add_buddy, name='add_buddy'),
     url(r'^forum/', include('forum.urls'), name='forum'),
-    url(r'^header/', views.header, name='header'),
+    url(r'^alerts/', views.update_alerts, name='alerts'),
 ]

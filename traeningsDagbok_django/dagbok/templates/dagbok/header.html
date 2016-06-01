@@ -112,9 +112,8 @@
                 </div>
                 <ul class="pull-right">
                   <li class="fixed-width">
-                    <a href="#" data-toggle="collapse" data-target="#notifications">
-                      <i class="fa fa-envelope fa-lg" id="notification-button" aria-hidden="true"></i>
-                      <span class="label label-warning">{% if alerts > 0 %}{{ alerts|safe }}{% endif %}</span>
+                    <a href="#" id="notification-area" data-toggle="collapse" data-target="#notifications">
+                      {% include "dagbok/alerts.html" %}
                     </a>
                   </li>
                   <li>
@@ -131,15 +130,12 @@
                 $('#notification-button').click(function() {
                     var csrftoken = getCookie('csrftoken');
                     $.ajax({
-                        //~ type: 'POST',
-                        // url: $(this).attr('action'),
-                        url: '/header/',
+                        url: '/alerts/',
                         data: {
                             'csrfmiddlewaretoken': csrftoken,
                         },
                         success: function(newData) {
-                            
-                            console.log("OKLART SOM FAN, success ka det vara.");
+                            $('#notification-area').html(newData);
                         },
                     });
                 });
