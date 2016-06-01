@@ -31,12 +31,13 @@
         </div>
         <div class="col-3">
           <div class="centered-profile">
-            <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{kcal}} kalorier bränt</span>
+            <img src="{% static "dagbok/img/calories.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">
+                {% if kcal %} {{kcal}} {%else%}0{%endif%} kalorier bränt</span>
           </div>
         </div>
         <div class="col-3">
           <div class="centered-profile">
-            <img src="{% static "dagbok/img/distance.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling">{{km}} km avverkad</span>
+            <img src="{% static "dagbok/img/distance.svg" %}" width="30px" alt="Antal pass" /><span class="workoutDetailsStyling"> {% if km %} {{km}} {%else%}0{%endif%} km avverkad</span>
           </div>
         </div>
       </div>
