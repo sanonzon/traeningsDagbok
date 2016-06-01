@@ -15,7 +15,6 @@ $(document).ready(function () {
 
 });
 
-
 document.getElementById('toggleButton').onclick = function() {
     document.getElementsByClassName('menu')[0].classList.toggle('responsive');
 }
@@ -38,30 +37,6 @@ function getCookie(name) {
 }
 //~ var csrftoken = getCookie('csrftoken');
 
-
-//~ $('#register-form').on('submit', function(e) {
-    //~ var csrftoken = getCookie('csrftoken');
-    //~ var formData = $('#register-form').serialize();
-    //~ $.ajax({
-        //~ type: 'POST',
-        //~ // url: $(this).attr('action'),
-        //~ url: '/register/',
-        //~ data: {
-            //~ formData,
-            //~ 'csrfmiddlewaretoken': csrftoken,
-        //~ },
-        //~ success: function(serverResponse) {
-            //~ console.log(serverResponse)
-            //~ console.log("OKLART SOM FAN, success ka det vara.");
-        //~ },
-        //~ error: function(newData) {
-            //~ console.log("FAIL");
-            //~ $('#register-area').html(newData);
-        //~ },
-    //~ });
-// });
-
-
 $("#contactbutton").click(function() {
     var formData = $("#contactform").serialize();
     $.ajax({
@@ -78,27 +53,23 @@ $("#contactbutton").click(function() {
     });
 });
 
-
-
-//~ $('#login-form').on('submit', function(e) {
-    //~ var csrftoken = getCookie('csrftoken');
-    //~ $.ajax({
+$('#notification-button').click(function() {
+    console.log("OKLART SOM FAN, success ka det vara.");
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
         //~ type: 'POST',
-        //~ url: $(this).attr('action'),
-        //~ dataType: "json",
-        //~ data: {
-                //~ 'csrfmiddlewaretoken': csrftoken,
-        //~ },
-        //~ success: function() {
-                //~ console.log("OKLART SOM FAN, success ka det vara.");
-        //~ },
-        //~ error: function() {
-                //~ console.log("FAIL");
-                //~ $('#loginModal').modal('show');
-        //~ },
-    //~ });
-    //~ // return false;
-//~ 
-//~ });
+        // url: $(this).attr('action'),
+        url: '/header/',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+        },
+        success: function(serverResponse) {
+            console.log("OKLART SOM FAN, success ka det vara.");
+        },
+        error: function(newData) {
+            console.log("FAIL");
+        },
+    });
+});
 
 //~ http://stackoverflow.com/questions/19468088/handling-django-model-form-error-in-ajax-submit

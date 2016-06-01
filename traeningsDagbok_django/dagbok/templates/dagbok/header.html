@@ -112,9 +112,8 @@
                 </div>
                 <ul class="pull-right">
                   <li class="fixed-width">
-                    <a href="#">
-                      <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-                      <span class="label label-warning">3</span>
+                    <a href="#" id="notification-area" data-toggle="collapse" data-target="#notifications">
+                      {% include "dagbok/alerts.html" %}
                     </a>
                   </li>
                   <li>
@@ -127,4 +126,33 @@
               </div>
             </header>
 
+            <script>
+                $('#notification-button').click(function() {
+                    var csrftoken = getCookie('csrftoken');
+                    $.ajax({
+                        url: '/alerts/',
+                        data: {
+                            'csrfmiddlewaretoken': csrftoken,
+                        },
+                        success: function(newData) {
+                            $('#notification-area').html(newData);
+                        },
+                    });
+                });
+            </script>
+
             <div class="col-12">
+
+              <div id="notifications" class="collapse bubble">
+                  {% if notifications %}
+                    {% for notification in notifications %}
+                      <div class="notifications-div">
+                        {{ notification }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="notifications-div">
+                      Du har inga händelser att ladda.
+                    </div>
+                  {% endif %}
+              </div>

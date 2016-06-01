@@ -121,14 +121,28 @@ def dashboard(request):
                 return HttpResponseRedirect("/dashboard")
         else:
             return render(request, 'dagbok/dashboard.html', {
-                'WRF': WorkoutRegisterForm(),
-                'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-id')[:5],
+                    'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+                    'WRF': WorkoutRegisterForm(),
+                    'workouts': WorkOuts.objects.filter(workoutUser = request.user.id).order_by('-id')[:5],
                 })
     else:
         return redirect("/")
 
+def update_alerts(request):
+    alertsReset = UserExtended.objects.filter(user_id=request.user.id).get()
+    alertsReset.alerts = 0
+    alertsReset.save()
+
+    return render(request, 'dagbok/alerts.html', {
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+        })
+
 def header(request):
-    return render(request, 'dagbok/header.html')
+    return render(request, 'dagbok/header.html', {
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+        })
 
 def footer(request):
     return render(request, 'dagbok/footer.html')
@@ -160,23 +174,31 @@ def calendar(request):
     if request.is_ajax():
         html = loader.render_to_string('dagbok/workoutmodal.html', {
                 'workout': workout,
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
         return HttpResponse(html)
     else:
         return render(request, 'dagbok/calendar.html', {
                 'workout_calendar': json.dumps(calendar),
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
             })
 
 def profile(request):
     if request.POST:
         return render(request, 'dagbok/profile.html', {
-        'searchForm': SearchForm(),
-        'results': User.objects.filter(username__contains=request.POST['search'])
-        })
+                'searchForm': SearchForm(),
+                'results': User.objects.filter(username__contains=request.POST['search']),
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+            })
 
     return render(request, 'dagbok/profile.html', {
-    'searchForm': SearchForm(),
-    })
+            'searchForm': SearchForm(),
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+        })
 
 def user(request):
     #~ GET '/user/axeasd22232l/'
@@ -216,6 +238,9 @@ def user(request):
             else:
                 buddy_button = True
 
+            kcal = None
+            km = None
+            
             zippat = zip(buddies,buddies_pic,buddy_workout)
             if WorkOuts.objects.filter(workoutUser=User.objects.filter(id=url_user.id).get()):
                 query = WorkOuts.objects.values_list('kalorier', flat=True).filter(workoutUser=User.objects.filter(username=url_user).get())
@@ -225,15 +250,17 @@ def user(request):
                 km = sum([x for x in query if test_float(str(x))])
             
             return render(request, 'dagbok/user.html', {
-                'user': url_user,
-                'full_name': hack_dict,
-                'total_workouts': TotalWorkouts.objects.filter(user_id=url_user.id).values_list('total_workouts',flat=True)[0],
-                'extended': url_user_extended,
-                'sports': str(url_user_extended.favorite_sport).lower().replace(" ", "").split(","),
-                'zippat': zippat,
-                'buddy_button': buddy_button,
-                'kcal':kcal or None,
-                'km':km or None,
+                    'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+                    'user': url_user,
+                    'full_name': hack_dict,
+                    'total_workouts': TotalWorkouts.objects.filter(user_id=url_user.id).values_list('total_workouts',flat=True)[0],
+                    'extended': url_user_extended,
+                    'sports': str(url_user_extended.favorite_sport).lower().replace(" ", "").split(","),
+                    'zippat': zippat,
+                    'buddy_button': buddy_button,
+                    'kcal':kcal,
+                    'km':km,
                 })
         else:
             return HttpResponseRedirect('/dashboard')
@@ -243,7 +270,11 @@ def user(request):
 def searched(request):
     if request.POST:
         results =  User.objects.filter(username__icontains=request.POST['search'])
-        return render(request, 'dagbok/profile.html', {'results': results})
+        return render(request, 'dagbok/profile.html', {
+                'results': results,
+                'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+            })
     else:
         return HttpResponseRedirect('/dashboard')
 
@@ -315,8 +346,10 @@ def update_user(request):
 
 
     return render(request, 'dagbok/gymtest.html', {
+                    'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+                    'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
                     'form':form
-                    })
+                })
 
 def goals(request):
     if request.POST:
@@ -346,8 +379,10 @@ def goals(request):
             
         return redirect("/goals")
     else:
-        g = Goals.objects.filter(user_id=request.user.id)
-        return render(request, 'dagbok/goals.html', {'goals':g})
+        g = Goals.objects.filter(user_id=request.user.id).get()
+        return render(request, 'dagbok/goals.html', {
+                'goals': g
+            })
 
 def forum(request):
     return render(request, 'dagbok/forum.html')
@@ -362,13 +397,20 @@ def progress(request):
             'lbls': json.dumps([str(goal.workoutDateNow)[:16] for goal in getGoals]),
             'weightData': json.dumps([goal.currentWeight for goal in getGoals]),
             'goalWeight': json.dumps([goal.goalWeight for goal in getGoals]),
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
         })
 
 def settings(request):
     sports = str(UserExtended.objects.filter(user_id=request.user.id).get().favorite_sport).lower().replace(" ", "").split(",")
     extended = UserExtended.objects.filter(user_id=request.user.id).get()
     
-    return render(request, 'dagbok/settings.html',{'sports':sports, 'extended':extended})
+    return render(request, 'dagbok/settings.html',{
+            'sports':sports,
+            'extended':extended,
+            'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
+            'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
+        })
 
 def advanced_workout(request):
     if request.POST:
@@ -415,7 +457,11 @@ def advanced_workout(request):
 
         return redirect("/dashboard")
     else:
-        return render(request, "dagbok/advanced_workout.html",{'advanced_workout_form':AdvancedWorkout(),'WRF': WorkoutRegisterForm()})
+        return render(request, "dagbok/advanced_workout.html",{
+                'advanced_workout_form':AdvancedWorkout(),
+                'WRF': WorkoutRegisterForm(),
+                'userExtended': UserExtended.objects.filter(user_id=user.id)
+            })
 
 def add_buddy(request):
     if request.POST:
@@ -427,8 +473,21 @@ def add_buddy(request):
         else:
             user_extended.buddies = request.POST['get_buddy'] + ","
 
+        buddyObject = UserExtended.objects.filter(user_id=request.POST['get_buddy'])[0]
+        if len(buddyObject.notifications.split(',')) > 0 and len(buddyObject.notifications.split(',')) >= 11:
+            tmpNotifications = ""
+            for notice in buddyObject.notifications.split(',')[1:-1]:
+                tmpNotifications += notice + ','
+            tmpNotifications += request.user.username + " foeljer nu dig.,"
+            buddyObject.notifications = tmpNotifications
+        elif len(buddyObject.notifications.split(',')) > 0:
+            buddyObject.notifications += request.user.username + " foeljer nu dig.,"
+        else:
+            buddyObject.notifications = request.user.username + " foeljer nu dig.,"
+        buddyObject.alerts += 1
+        buddyObject.save()
 
-
+        print buddyObject.notifications
         user_extended.save()
         return redirect("/user/"+request.user.username)
 
