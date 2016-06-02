@@ -88,7 +88,7 @@ def dashboard(request):
 
             elif request.POST['workoutType'] == 'swimming':
                 tiden = test_time(request.POST['time'])
-                
+
                 WorkOut.workoutDateNow = request.POST['date']
                 WorkOut.workoutTime = tiden[0]
                 WorkOut.workoutSec = tiden[1]
@@ -104,7 +104,7 @@ def dashboard(request):
 
             elif request.POST['workoutType'] == 'running':
                 tiden = test_time(request.POST['time'])
-                
+
                 WorkOut.workoutDateNow = request.POST['date']
                 WorkOut.workoutTime = tiden[0]
                 WorkOut.workoutSec = tiden[1]
@@ -230,13 +230,13 @@ def user(request):
                     if buddy.isdigit():
                         tmp += User.objects.values('username').filter(id=buddy)
                         buddy_ids.append(int(buddy))
-                
+
                 buddies_pic = []
                 buddy_workout = []
                 for x in tmp:
                     buddies_pic.append(UserExtended.objects.values_list('picture',flat=True).filter(user_id=User.objects.filter(username=x['username']))[0])
                     buddy_workout.append(WorkOuts.objects.values_list('workoutDateNow','workoutSport').filter(workoutUser=User.objects.filter(username=x['username'])).order_by('-id')[:1])
-                
+
                 buddies = [x['username'] for x in tmp]
                 if url_user.id == request.user.id:
                     buddy_button = None
@@ -247,7 +247,7 @@ def user(request):
 
                 kcal = None
                 km = None
-                
+
                 zippat = zip(buddies,buddies_pic,buddy_workout)
                 if WorkOuts.objects.filter(workoutUser=User.objects.filter(id=url_user.id).get()):
                     query = WorkOuts.objects.values_list('kalorier', flat=True).filter(workoutUser=User.objects.filter(username=url_user).get())
@@ -255,7 +255,7 @@ def user(request):
                 if WorkOuts.objects.filter(workoutUser=User.objects.filter(id=url_user.id).get()):
                     query = WorkOuts.objects.values_list('workoutStretch', flat=True).filter(workoutUser=User.objects.filter(username=url_user).get())
                     km = sum([x for x in query if test_float(str(x))])
-                
+
                 return render(request, 'dagbok/user.html', {
                         'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
                         'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
@@ -337,7 +337,7 @@ def update_user(request):
                     user.set_password(request.POST['new_password'])
                     user.save()
             extended.save()
-          
+
             return redirect("/dashboard")
         else:
             return redirect("/")
@@ -355,7 +355,7 @@ def goals(request):
                     newGoal.goalWeight = request.POST['viktgoal']
                     newGoal.currentWeight = request.POST['viktnow']
                     newGoal.save()
-                    
+
             elif test_float(request.POST['viktgoal']):
                     newGoal = Goals()
                     oldGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
@@ -363,7 +363,7 @@ def goals(request):
                     newGoal.goalWeight = request.POST['viktgoal']
                     newGoal.currentWeight = oldGoals[len(oldGoals) - 1].currentWeight
                     newGoal.save()
-                
+
             elif test_float(request.POST['viktnow']):
                     newGoal = Goals()
                     oldGoals = Goals.objects.filter(user_id=request.user.id).order_by('workoutDateNow')
@@ -371,7 +371,7 @@ def goals(request):
                     newGoal.goalWeight = oldGoals[len(oldGoals) - 1].goalWeight
                     newGoal.currentWeight = request.POST['viktnow']
                     newGoal.save()
-                
+
             return redirect("/progress")
         else:
             g = Goals.objects.filter(user_id=request.user.id).latest('id')
@@ -400,7 +400,7 @@ def progress(request):
 
         return render(request, 'dagbok/progress.html',
             {
-                'lbls': json.dumps([str(goal.workoutDateNow)[:16] for goal in getGoals]),
+                'lbls': json.dumps([str(goal.workoutDateNow)[:11] for goal in getGoals]),
                 'weightData': json.dumps([goal.currentWeight for goal in getGoals]),
                 'goalWeight': json.dumps([goal.goalWeight for goal in getGoals]),
                 'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
@@ -408,12 +408,12 @@ def progress(request):
             })
     else:
         return redirect("/")
-        
+
 def settings(request):
     if request.user.is_authenticated():
         sports = str(UserExtended.objects.filter(user_id=request.user.id).get().favorite_sport).lower().replace(" ", "").split(",")
         extended = UserExtended.objects.filter(user_id=request.user.id).get()
-        
+
         return render(request, 'dagbok/settings.html',{
                 'sports':sports,
                 'extended':extended,
@@ -497,7 +497,7 @@ def advanced_workout(request):
                 })
     else:
         return redirect("/")
-        
+
 def add_buddy(request):
     if request.user.is_authenticated():
         if request.POST:
@@ -579,16 +579,16 @@ def delete_workout(request):
             s = TotalWorkouts.objects.filter(user_id=request.user.id).get()
             s.total_workouts = s.total_workouts-2
             s.save()
-        
+
         return redirect("/dashboard")
     else:
         return redirect("/")
-    
+
 def change_workout(request, num):
     if request.user.is_authenticated():
         if WorkOuts.objects.filter(id=num,workoutUser=User.objects.filter(id=request.user.id).get()):
             wo = WorkOuts.objects.filter(id=num).get()
-            
+
             aw = AdvancedWorkout()
             wr = WorkoutRegisterForm()
 
@@ -599,7 +599,7 @@ def change_workout(request, num):
                     'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
                     'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
                 })
-            
+
         else:
             return redirect("/dashboard")
     else:
@@ -621,7 +621,7 @@ def update_workout(request):
         gammal.snittpuls = None
         gammal.minpuls = None
         gammal.kalorier = None
-        
+
         if "running" in request.POST['workoutType']:
             gammal.workoutSport = "Loepning"
             tiden = test_time(request.POST['time'])
@@ -639,7 +639,7 @@ def update_workout(request):
                 gammal.minpuls = request.POST['minpuls']
             if test_integer(request.POST['kalorier']):
                 gammal.kalorier = request.POST['kalorier']
-                
+
         elif "swimming" in request.POST['workoutType']:
             gammal.workoutSport = "Simning"
             tiden = test_time(request.POST['time'])
@@ -657,7 +657,7 @@ def update_workout(request):
                 gammal.minpuls = request.POST['minpuls']
             if test_integer(request.POST['kalorier']):
                 gammal.kalorier = request.POST['kalorier']
-                
+
         elif "weightlifting" in request.POST['workoutType']:
             gammal.workoutSport = "Styrketraening"
             gammal.workoutFeel = request.POST['feeling']
@@ -677,7 +677,7 @@ def update_workout(request):
                 gammal.minpuls = request.POST['minpuls']
             if test_integer(request.POST['kalorier']):
                 gammal.kalorier = request.POST['kalorier']
-        
+
         gammal.save()
         return redirect("/dashboard")
     else:

@@ -169,7 +169,6 @@
         <img src="{% static "dagbok/img/dumbells.svg" %}" width="40px" alt="Styrketräning" /><h4 class="modal-title workoutDetails">{{ workout.workoutSport }}</h4>
       </div>
       <div class="modal-body">
-
         <div class="row">
           <div class="col-4">
             <div class="centered">
@@ -266,8 +265,6 @@
         <div class="row">
           <div class="col-6">
             <div class="align-left">
-                 
-   
               <a href="/change_workout/{{workout.id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="icon-padding">Redigera träningspass</span></a>
             </div>
           </div>
@@ -285,7 +282,24 @@
           </div>
         </div>
 
-      </div>
+        <div class="row">
+          <div class="col-12">
+
+            <div id="fb-root"></div>
+
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.6";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+          </div>
+        </div>
+
+      </div> <!-- MODAL BODY END -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="register-button" data-dismiss="modal">Stäng</button>
       </div>
