@@ -4,7 +4,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />
+  	<meta property="og:type" content="website" />
+  	<meta property="og:title" content="Träningsdojon" />
+  	<meta property="og:description" content="Din träningsdagbok på nätet" />
+  	<meta property="og:image" content="http://www.stouttjosan.com/static/dagbok/img/traeningsdojon-preview.png" />
+
     <title>Dashboard</title>
+
     <link rel="shortcut icon" href="{% static "dagbok/img/sports.ico" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/style.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/dashboard.css" %}">
@@ -115,6 +122,10 @@
                     <a href="#" id="notification-area" data-toggle="collapse" data-target="#notifications">
                       {% include "dagbok/alerts.html" %}
                     </a>
+                    <script>
+                    $(document).on('click',function(){
+                    	$('.collapse').collapse('hide');
+                    })</script>
                   </li>
                   <li>
                     <a href="{% url "logout" %}" class="logout">

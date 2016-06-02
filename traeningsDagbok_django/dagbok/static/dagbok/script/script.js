@@ -30,7 +30,7 @@ $(document).ready(function () {
     $('#datePickerSwim').val(today);
     $('#datePickerGym').val(today);
 
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 
 });
 
