@@ -1,6 +1,25 @@
 $(document).ready(function () {
     $('.fast-workout-sections').hide();
 
+    console.log($('#oldWorkoutSelector').text());
+
+    switch ($('#oldWorkoutSelector').text()) {
+        case "Simning":
+            $("option[value='fastWorkoutSwimming']").attr('selected','selected');
+            $('#fastWorkoutSwimming').show();
+            break;
+        case "Loepning":
+            $("option[value='fastWorkoutRunning']").attr('selected','selected');
+            $('#fastWorkoutRunning').show();
+            break;
+        case "Styrketraening":
+            $("option[value='fastWorkoutStyrke']").attr('selected','selected');
+            $('#fastWorkoutStyrke').show();
+            break;
+        
+    }
+    $('#').text($('#oldWorkoutSelector').text())
+
     $('#selectFastWorkout').change(function () {
         $('.fast-workout-sections').hide();
         $('#'+$(this).val()).show();
