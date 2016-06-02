@@ -511,15 +511,15 @@ def add_buddy(request):
 
             buddyObject = UserExtended.objects.filter(user_id=request.POST['get_buddy'])[0]
             if len(buddyObject.notifications.split(',')) > 0 and len(buddyObject.notifications.split(',')) >= 11:
-                tmpNotifications = ""
+                tmpNotifications = u""
                 for notice in buddyObject.notifications.split(',')[1:-1]:
-                    tmpNotifications += notice + ','
-                tmpNotifications += request.user.username + " foeljer nu dig.,"
+                    tmpNotifications += notice + u','
+                tmpNotifications += request.user.username + u" följer nu dig.,"
                 buddyObject.notifications = tmpNotifications
             elif len(buddyObject.notifications.split(',')) > 0:
-                buddyObject.notifications += request.user.username + " foeljer nu dig.,"
+                buddyObject.notifications += request.user.username + u" följer nu dig.,"
             else:
-                buddyObject.notifications = request.user.username + " foeljer nu dig.,"
+                buddyObject.notifications = request.user.username + u" följer nu dig.,"
             buddyObject.alerts += 1
             buddyObject.save()
 
