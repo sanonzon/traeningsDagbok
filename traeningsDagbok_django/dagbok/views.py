@@ -611,7 +611,7 @@ def update_workout(request):
         gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
 
         if "running" in request.POST['workoutType']:
-            gammal.gym_type = None
+            gammal.gym_type = ""
             gammal.gym_weight = None
             gammal.gym_sets = None
             gammal.gym_reps = None
@@ -633,7 +633,7 @@ def update_workout(request):
                 gammal.kalorier = int(request.POST['kalorier'])
 
         elif "swimming" in request.POST['workoutType']:
-            gammal.gym_type = None
+            gammal.gym_type = ""
             gammal.gym_weight = None
             gammal.gym_sets = None
             gammal.gym_reps = None
@@ -683,3 +683,11 @@ def update_workout(request):
         return redirect("/dashboard")
     else:
         return redirect("/")
+
+def facebook_share(request, wid):
+    if WorkOuts.objects.filter(id=wid):
+        wo = WorkOuts.objects.filter(id=wid).get()
+        
+        return render(request, 'dagbok/fbshr.html', {'workout': wo})
+    else:
+        return HttpResponse("Denna sidan finns inte.")

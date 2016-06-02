@@ -25,12 +25,22 @@ $(document).ready(function () {
         $('#'+$(this).val()).show();
     });
 
-   var today = moment().format('YYYY-MM-DD');
-    $('#datePickerRun').val(today);
-    $('#datePickerSwim').val(today);
-    $('#datePickerGym').val(today);
+    
+   //~ var today = $('#datumet').text();
+   //~ console.log(today);
+   //~ var today = new Date(now()).format("YYYY-MM-DD");
+    //~ $('#datePickerRun').val(today);
+    //~ $('#datePickerSwim').val(today);
+    //~ $('#datePickerGym').val(today);
 
-    $('[data-toggle="tooltip"]').tooltip();
+    //~ $('[data-toggle="tooltip"]').tooltip();
+    
+    
+    
+
+//var minutesOffset = dateValue1.getTimezoneOffset();
+
+//~ document.body.innerHTML += $.datepicker.formatDate(currentFormat, dateValue1) + "<br />";
 
 });
 

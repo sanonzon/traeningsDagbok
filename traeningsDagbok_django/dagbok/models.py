@@ -12,7 +12,7 @@ from django.utils import timezone
 
 @python_2_unicode_compatible
 class WorkOuts(models.Model):
-    workoutDateNow = models.DateTimeField(default=timezone.now)
+    workoutDateNow = models.DateField(default=datetime.datetime.now)
 
     workoutSport = models.CharField(
         max_length=100,
@@ -28,7 +28,7 @@ class WorkOuts(models.Model):
     workoutStretch = models.FloatField(blank=True,null=True)
     workoutTime = models.IntegerField(blank=True,null=True)
     workoutSec = models.IntegerField(blank=True,null=True)
-    gym_type = models.CharField(blank=True,max_length=100,null=True)
+    gym_type = models.CharField(blank=True,max_length=100,default="")
     gym_weight = models.FloatField(blank=True,default=0,null=True)
     gym_sets = models.IntegerField(blank=True,default=0,null=True)
     gym_reps = models.IntegerField(blank=True,default=0,null=True)
