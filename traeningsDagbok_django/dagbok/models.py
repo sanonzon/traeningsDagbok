@@ -7,12 +7,12 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.forms import widgets
 
-import datetime
+from datetime import date
 from django.utils import timezone
 
 @python_2_unicode_compatible
 class WorkOuts(models.Model):
-    workoutDateNow = models.DateField(default=datetime.date)
+    workoutDateNow = models.DateField(default=date.today())
 
     workoutSport = models.CharField(
         max_length=100,

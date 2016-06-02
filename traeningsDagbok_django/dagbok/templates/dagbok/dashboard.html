@@ -215,7 +215,7 @@
       </tr>
       {% for field in workouts %}
       <tr class="showDetails" id="{{field.id}}" data-toggle="modal" data-target="#detailModal{{field.id}}">
-        <td>{{ field.workoutDateNow.date }}</td>
+        <td>{{ field.workoutDateNow }}</td>
         <td>{{ field.workoutSport }}</td>
         <td>{{ field.workoutFeel }}</td>
         <td class="hidden">{{ field.id }}</td>
