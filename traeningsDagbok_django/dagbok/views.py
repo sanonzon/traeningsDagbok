@@ -68,58 +68,61 @@ def dashboard(request):
         WRF = WorkoutRegisterForm(request.POST)
         WorkOut = WorkOuts()
 
-        if request.POST and date_check(request.POST['date']):
-        #~ if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
-            if request.POST['workoutType'] == 'weightlifting':
-                WorkOut.workoutDateNow = request.POST['date']
-                WorkOut.gym_type = request.POST['gym_type']
-                if test_float(request.POST['gym_weight']):
-                    WorkOut.gym_weight = request.POST['gym_weight']
-                if test_integer(request.POST['gym_sets']):
-                    WorkOut.gym_sets = request.POST['gym_sets']
-                if test_integer(request.POST['gym_reps']):
-                    WorkOut.gym_reps = request.POST['gym_reps']
-                WorkOut.workoutFeel = request.POST['feeling']
-                WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                WorkOut.workoutSport = u"Styrketraening"
-                WorkOut.save()
-                TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+        if request.POST:
+            if date_check(request.POST['date']):
+            #~ if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
+                if request.POST['workoutType'] == 'weightlifting':
+                    WorkOut.workoutDateNow = request.POST['date']
+                    WorkOut.gym_type = request.POST['gym_type']
+                    if test_float(request.POST['gym_weight']):
+                        WorkOut.gym_weight = request.POST['gym_weight']
+                    if test_integer(request.POST['gym_sets']):
+                        WorkOut.gym_sets = request.POST['gym_sets']
+                    if test_integer(request.POST['gym_reps']):
+                        WorkOut.gym_reps = request.POST['gym_reps']
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+                    WorkOut.workoutSport = u"Styrketraening"
+                    WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
-                return redirect("/dashboard")
+                    return redirect("/dashboard")
 
-            elif request.POST['workoutType'] == 'swimming':
-                tiden = test_time(request.POST['time'])
+                elif request.POST['workoutType'] == 'swimming':
+                    tiden = test_time(request.POST['time'])
 
-                WorkOut.workoutDateNow = request.POST['date']
-                WorkOut.workoutTime = tiden[0]
-                WorkOut.workoutSec = tiden[1]
-                WorkOut.workoutFeel = request.POST['feeling']
-                if test_float(request.POST['stretch']):
-                    WorkOut.workoutStretch = request.POST['stretch']
-                WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                WorkOut.workoutSport = u"Simning"
-                WorkOut.save()
-                TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+                    WorkOut.workoutDateNow = request.POST['date']
+                    WorkOut.workoutTime = tiden[0]
+                    WorkOut.workoutSec = tiden[1]
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    if test_float(request.POST['stretch']):
+                        WorkOut.workoutStretch = request.POST['stretch']
+                    WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+                    WorkOut.workoutSport = u"Simning"
+                    WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
-                return redirect("/dashboard")
+                    return redirect("/dashboard")
 
-            elif request.POST['workoutType'] == 'running':
-                tiden = test_time(request.POST['time'])
+                elif request.POST['workoutType'] == 'running':
+                    tiden = test_time(request.POST['time'])
 
-                WorkOut.workoutDateNow = request.POST['date']
-                WorkOut.workoutTime = tiden[0]
-                WorkOut.workoutSec = tiden[1]
-                WorkOut.workoutFeel = request.POST['feeling']
-                if test_float(request.POST['stretch']):
-                    WorkOut.workoutStretch = request.POST['stretch']
-                WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                WorkOut.workoutSport = u"Loepning"
-                WorkOut.save()
-                TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+                    WorkOut.workoutDateNow = request.POST['date']
+                    WorkOut.workoutTime = tiden[0]
+                    WorkOut.workoutSec = tiden[1]
+                    WorkOut.workoutFeel = request.POST['feeling']
+                    if test_float(request.POST['stretch']):
+                        WorkOut.workoutStretch = request.POST['stretch']
+                    WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+                    WorkOut.workoutSport = u"Loepning"
+                    WorkOut.save()
+                    TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
-                return redirect("/dashboard")
+                    return redirect("/dashboard")
+                else:
+                    return redirect("/dashboard")
             else:
-                return HttpResponseRedirect("/dashboard")
+                return redirect("/dashboard")
         else:
             return render(request, 'dagbok/dashboard.html', {
                     'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
@@ -429,69 +432,72 @@ def settings(request):
 
 def advanced_workout(request):
     if request.user.is_authenticated():
-        if request.POST and date_check(request.POST['date']):
-            WorkOut = WorkOuts()
+        if request.POST:
+            if date_check(request.POST['date']):
+                WorkOut = WorkOuts()
 
-            if request.POST['workoutType'] == "running":
-                WorkOut.workoutSport = u"Loepning"
+                if request.POST['workoutType'] == "running":
+                    WorkOut.workoutSport = u"Loepning"
 
-                if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
-                    WorkOut.puls = int(request.POST['puls'])
-                if len(str(request.POST['snittpuls'])) > 0 and (test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls'])):
-                    WorkOut.snittpuls = float(request.POST['snittpuls'])
-                if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
-                    WorkOut.minpuls = int(request.POST['minpuls'])
-                if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
-                    WorkOut.kalorier = int(request.POST['kalorier'])
-                if test_float(request.POST['stretch']):
-                    WorkOut.workoutStretch = request.POST['stretch']
-                if request.POST['time']:
-                    tiden = test_time(request.POST['time'])
-                    if tiden is not None:
-                        WorkOut.workoutTime = tiden[0]
-                        WorkOut.workoutSec = tiden[1]
+                    if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
+                        WorkOut.puls = int(request.POST['puls'])
+                    if len(str(request.POST['snittpuls'])) > 0 and (test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls'])):
+                        WorkOut.snittpuls = float(request.POST['snittpuls'])
+                    if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
+                        WorkOut.minpuls = int(request.POST['minpuls'])
+                    if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
+                        WorkOut.kalorier = int(request.POST['kalorier'])
+                    if test_float(request.POST['stretch']):
+                        WorkOut.workoutStretch = request.POST['stretch']
+                    if request.POST['time']:
+                        tiden = test_time(request.POST['time'])
+                        if tiden is not None:
+                            WorkOut.workoutTime = tiden[0]
+                            WorkOut.workoutSec = tiden[1]
 
-            elif request.POST['workoutType'] == "swimming":
-                WorkOut.workoutSport = u"Simning"
+                elif request.POST['workoutType'] == "swimming":
+                    WorkOut.workoutSport = u"Simning"
 
-                if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
-                    WorkOut.puls = int(request.POST['puls'])
-                if len(str(request.POST['snittpuls'])) > 0 and test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls']):
-                    WorkOut.snittpuls = float(request.POST['snittpuls'])
-                if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
-                    WorkOut.minpuls = int(request.POST['minpuls'])
-                if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
-                    WorkOut.kalorier = int(request.POST['kalorier'])
-                if test_float(request.POST['stretch']):
-                    WorkOut.workoutStretch = request.POST['stretch']
-                if request.POST['time']:
-                    tiden = test_time(request.POST['time'])
-                    if tiden is not None:
-                        WorkOut.workoutTime = tiden[0]
-                        WorkOut.workoutSec = tiden[1]
+                    if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
+                        WorkOut.puls = int(request.POST['puls'])
+                    if len(str(request.POST['snittpuls'])) > 0 and test_integer(request.POST['snittpuls']) or test_float(request.POST['snittpuls']):
+                        WorkOut.snittpuls = float(request.POST['snittpuls'])
+                    if len(str(request.POST['minpuls'])) > 0 and test_integer(request.POST['minpuls']):
+                        WorkOut.minpuls = int(request.POST['minpuls'])
+                    if len(str(request.POST['kalorier'])) > 0 and test_integer(request.POST['kalorier']):
+                        WorkOut.kalorier = int(request.POST['kalorier'])
+                    if test_float(request.POST['stretch']):
+                        WorkOut.workoutStretch = request.POST['stretch']
+                    if request.POST['time']:
+                        tiden = test_time(request.POST['time'])
+                        if tiden is not None:
+                            WorkOut.workoutTime = tiden[0]
+                            WorkOut.workoutSec = tiden[1]
 
-            elif request.POST['workoutType'] == "weightlifting":
-                WorkOut.workoutSport = u"Styrketraening"
-                WorkOut.gym_type = request.POST['gym_type']
+                elif request.POST['workoutType'] == "weightlifting":
+                    WorkOut.workoutSport = u"Styrketraening"
+                    WorkOut.gym_type = request.POST['gym_type']
 
-                if test_integer(request.POST['gym_weight']) or test_float(request.POST['gym_weight']):
-                    WorkOut.gym_weight = request.POST['gym_weight']
-                if test_integer(request.POST['gym_sets']):
-                    WorkOut.gym_sets = request.POST['gym_sets']
-                if test_integer(request.POST['gym_reps']):
-                    WorkOut.gym_reps = request.POST['gym_reps']
-            else:
+                    if test_integer(request.POST['gym_weight']) or test_float(request.POST['gym_weight']):
+                        WorkOut.gym_weight = request.POST['gym_weight']
+                    if test_integer(request.POST['gym_sets']):
+                        WorkOut.gym_sets = request.POST['gym_sets']
+                    if test_integer(request.POST['gym_reps']):
+                        WorkOut.gym_reps = request.POST['gym_reps']
+                else:
+                    return redirect("/dashboard")
+
+                if request.POST['feeling'] and len(request.POST['feeling']) >= 1:
+                    WorkOut.workoutFeel = request.POST['feeling']
+
+                WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
+
+                WorkOut.save()
+                TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
+
                 return redirect("/dashboard")
-
-            if request.POST['feeling'] and len(request.POST['feeling']) >= 1:
-                WorkOut.workoutFeel = request.POST['feeling']
-
-            WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-
-            WorkOut.save()
-            TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
-
-            return redirect("/dashboard")
+            else:
+                return redirect("/advanced_workout")
         else:
             return render(request, "dagbok/advanced_workout.html",{
                     'advanced_workout_form':AdvancedWorkout(),
@@ -698,17 +704,18 @@ def facebook_share(request, wid):
         return HttpResponse("Denna sidan finns inte.")
 
 def date_check(date):
-    if date and len(date) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', date):
-        if '-' in date:
-            dateSeperate = date.split('-')
-            if 0 < int(dateSeperate[1]) <= 12:
-                if (dateSeperate[1] == '01' or dateSeperate[1] == '03' or dateSeperate[1] == '05' or dateSeperate[1] == '07' or dateSeperate[1] == '08' or dateSeperate[1] == '10' or dateSeperate[1] == '12') and 0 < int(dateSeperate[2]) <= 31:
+    if re.search(r'^\d{4}-\d{2}-\d{2}$',date):
+        dateSeperate = date.split('-')
+        if 0 < int(dateSeperate[1]) <= 12:
+            if (dateSeperate[1] == '01' or dateSeperate[1] == '03' or dateSeperate[1] == '05' or dateSeperate[1] == '07' or dateSeperate[1] == '08' or dateSeperate[1] == '10' or dateSeperate[1] == '12') and 0 < int(dateSeperate[2]) <= 31:
+                return True
+            elif (dateSeperate[1] == '04' or dateSeperate[1] == '06' or dateSeperate[1] == '09' or dateSeperate[1] == '11') and 0 < int(dateSeperate[2]) <= 30:
+                return True
+            elif dateSeperate[1] == '02':
+                if int(dateSeperate[0]) % 400 == 0 and 0 < int(dateSeperate[2]) <= 29:
                     return True
-                elif (dateSeperate[1] == '04' or dateSeperate[1] == '06' or dateSeperate[1] == '09' or dateSeperate[1] == '11') and 0 < int(dateSeperate[2]) <= 30:
+                elif int(dateSeperate[0]) % 4 == 0 and dateSeperate[0][-3:-1] != "00" and 0 < int(dateSeperate[2]) <= 29:
                     return True
-                elif dateSeperate[1] == '02':
-                    if int(dateSeperate[0]) % 400 == 0 and 0 < int(dateSeperate[2]) <= 29:
-                        return True
-                    elif int(dateSeperate[0]) % 4 == 0 and dateSeperate[0][-3:-1] != "00" and 0 < int(dateSeperate[2]) <= 28:
-                        return True
+                elif 0 < int(dateSeperate[2]) <= 28:
+                    return True
     return False
