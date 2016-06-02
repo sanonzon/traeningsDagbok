@@ -430,6 +430,7 @@ body {
   right: 10px;
   width: 300px;
   min-height: 150px;
+  z-index: 2;
 }
 
 .notifications-div {
