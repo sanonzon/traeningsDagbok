@@ -22,6 +22,16 @@
             {% csrf_token %}
             <input type="hidden" value="running" name="workoutType">
             <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerRun" value="{{old.workoutDateNow}}" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+            <div class="row">
               <div class="col-2">
                 <label class="fast-workout-label">Sträcka:</label>
               </div> <!-- END col-2 -->
@@ -106,6 +116,16 @@
             {% csrf_token %}
             <input type="hidden" value="swimming" name="workoutType">
             <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerSwim" value="{{old.workoutDateNow}}" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
+            <div class="row">
               <div class="col-2">
                 <label class="fast-workout-label">Sträcka:</label>
               </div> <!-- END col-2 -->
@@ -189,6 +209,16 @@
           <form method="POST" action="{% url "advanced_workout" %}">
             {% csrf_token %}
             <input type="hidden" value="weightlifting" name="workoutType">
+            <div class="row">
+            <div class="col-2">
+              <label class="fast-workout-label">Datum</label>
+            </div> <!-- END col-2 -->
+            <div class="col-10">
+              <div class="input-group input-group-workout">
+                <input type="date" name="date" id="datePickerGym" value="{{old.workoutDateNow}}" >
+              </div> <!-- END input-group -->
+            </div> <!-- END col-10 -->
+          </div> <!-- END row -->
             <div class="row">
               <div class="col-2">
                 <label class="fast-workout-label">Övning: </label>
