@@ -68,7 +68,8 @@ def dashboard(request):
         WRF = WorkoutRegisterForm(request.POST)
         WorkOut = WorkOuts()
 
-        if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
+        if request.POST and date_check(request.POST['date']):
+        #~ if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
             if request.POST['workoutType'] == 'weightlifting':
                 WorkOut.workoutDateNow = request.POST['date']
                 WorkOut.gym_type = request.POST['gym_type']
@@ -428,7 +429,7 @@ def settings(request):
 
 def advanced_workout(request):
     if request.user.is_authenticated():
-        if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
+        if request.POST and date_check(request.POST['date']):
             WorkOut = WorkOuts()
 
             if request.POST['workoutType'] == "running":
@@ -695,3 +696,19 @@ def facebook_share(request, wid):
             return HttpResponse("Användaren är inte publik, vänligen logga in eller skapa konto.<br><h1><a href='/'>Frontpage</a><h1>")
     else:
         return HttpResponse("Denna sidan finns inte.")
+
+def date_check(date):
+    if date and len(date) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', date):
+        if '-' in date:
+            dateSeperate = date.split('-')
+            if 0 < int(dateSeperate[1]) <= 12:
+                if (dateSeperate[1] == '01' or dateSeperate[1] == '03' or dateSeperate[1] == '05' or dateSeperate[1] == '07' or dateSeperate[1] == '08' or dateSeperate[1] == '10' or dateSeperate[1] == '12') and 0 < int(dateSeperate[2]) <= 31:
+                    return True
+                elif (dateSeperate[1] == '04' or dateSeperate[1] == '06' or dateSeperate[1] == '09' or dateSeperate[1] == '11') and 0 < int(dateSeperate[2]) <= 30:
+                    return True
+                elif dateSeperate[1] == '02':
+                    if int(dateSeperate[0]) % 400 == 0 and 0 < int(dateSeperate[2]) <= 29:
+                        return True
+                    elif int(dateSeperate[0]) % 4 == 0 and dateSeperate[0][-3:-1] != "00" and 0 < int(dateSeperate[2]) <= 28:
+                        return True
+    return False
