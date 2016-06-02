@@ -1,7 +1,7 @@
 {% include "dagbok/header.html" %}
 </div> <!-- Avslutar "dålig" div-->
   <div class="col-12 chart-rect-wrapper">
-<div id="datetimezone" type="hidden" value="{{datum}}"></div>
+<div id="oldWorkoutSelector" class="hidden" >{{old.workoutSport}}</div>
   <div class="chart-rect">
     <h4 class="widget-header"><i class="fa fa-plus"></i><span class="icon-padding">Ändra träning</span></h4>
     <select id="selectFastWorkout" class="form-control">
@@ -12,6 +12,7 @@
     </select> <!-- END #selectFastWorkout -->
 
     <div id="fast-workout-wrapper">
+        
     
       <div id="fastWorkoutRunning" class="fast-workout-sections">
         <form method="POST" action="{% url 'update_workout' %}">
@@ -102,7 +103,7 @@
           </div> <!-- END row -->
           <div class="row">
             <div class="col-12">
-              <button type="submit" class="btn btn-success">Lägg till träning</button>
+              <button type="submit" class="btn btn-success">Ändra träning</button>
             </div> <!-- END col-12 -->
           </div> <!-- END row -->
         </form> <!-- END form running -->
@@ -198,7 +199,7 @@
           </div> <!-- END row -->
           <div class="row">
             <div class="col-12">
-              <button type="submit" class="btn btn-success">Lägg till träning</button>
+              <button type="submit" class="btn btn-success">Ändra träning</button>
             </div> <!-- END col-12 -->
           </div> <!-- END row -->
         </form> <!-- END form swimming -->
@@ -312,7 +313,7 @@
           </div> <!-- END row -->
           <div class="row">
             <div class="col-12">
-              <button type="submit" class="btn btn-success">Lägg till träning</button>
+              <button type="submit" class="btn btn-success">Ändra träning</button>
             </div> <!-- END col-12 -->
           </div> <!-- END row -->
         </form> <!-- END form styrke -->
