@@ -12,7 +12,7 @@ from django.utils import timezone
 
 @python_2_unicode_compatible
 class WorkOuts(models.Model):
-    workoutDateNow = models.DateField(default=datetime.datetime.now)
+    workoutDateNow = models.DateField(default=datetime.date)
 
     workoutSport = models.CharField(
         max_length=100,
@@ -49,6 +49,7 @@ class UserExtended(models.Model):
     picture = models.CharField(max_length=255,default="",blank=True)
     notifications = models.CharField(max_length=511,default="",blank=True)
     alerts = models.IntegerField(blank=True,default=0)
+    public_profile = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s - %s" %(self.user_id.username, self.user_id.id)
