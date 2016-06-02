@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms import ModelForm
 from django.core.validators import RegexValidator
+from datetime import date
 
 #~ from .models import GymWorkout
 
@@ -91,7 +92,14 @@ class LoginAccountForm(forms.Form):
         return password
 
 class WorkoutRegisterForm(forms.Form):
-    date = forms.DateField()
+    date = forms.DateField(
+            widget=forms.DateInput(attrs = {
+                'value': date.today(),
+                'class': 'form-control',
+                'id': 'datePickerRun',
+                'placeholder': 'YYYY-MM-DD',
+            })
+        )
     
     stretch = forms.IntegerField(label="Sträcka",
             widget=forms.TextInput(attrs = {
@@ -173,7 +181,7 @@ class SearchForm(forms.Form):
             }))
 
 class AdvancedWorkout(forms.Form):
-    date = forms.DateField()
+    #~ date = forms.DateField()
     
     puls = forms.IntegerField(label="Maximal Puls",
             widget=forms.TextInput(attrs = {

@@ -121,7 +121,10 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input type="date" name="date" id="datePickerSwim" value="{{old.workoutDateNow}}" >
+                {{ WRF.date }}
+                {% comment %}
+                    <!-- <input type="date" name="date" id="datePickerSwim" value="{{old.workoutDateNow}}"> -->
+                {% endcomment %}
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -215,7 +218,10 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input type="date" name="date" id="datePickerGym" value="{{old.workoutDateNow}}" >
+                {{ WRF.date }}
+                {% comment %}
+                    <!-- <input type="date" name="date" id="datePickerSwim" value="{{old.workoutDateNow}}"> -->
+                {% endcomment %}
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->

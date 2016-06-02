@@ -68,7 +68,7 @@ def dashboard(request):
         WRF = WorkoutRegisterForm(request.POST)
         WorkOut = WorkOuts()
 
-        if request.POST:
+        if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
             if request.POST['workoutType'] == 'weightlifting':
                 WorkOut.workoutDateNow = request.POST['date']
                 WorkOut.gym_type = request.POST['gym_type']
@@ -170,8 +170,7 @@ def calendar(request):
                 calendar.append({
                     'id': event.id,
                     'title': event.workoutSport,
-                    'start': event.workoutDateNow.replace(microsecond = 0).isoformat(),
-                    #~ 'end': event.workoutDateNow.replace(microsecond = 0).isoformat(),
+                    'start': event.workoutDateNow.isoformat(),
                 })
 
         if request.is_ajax():
@@ -425,7 +424,7 @@ def settings(request):
 
 def advanced_workout(request):
     if request.user.is_authenticated():
-        if request.POST:
+        if request.POST and len(request.POST['date']) == 10 and re.search(r'\d\d\d\d-\d\d-\d\d', request.POST['date']):
             WorkOut = WorkOuts()
 
             if request.POST['workoutType'] == "running":
