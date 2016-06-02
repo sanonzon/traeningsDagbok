@@ -90,6 +90,27 @@
               </div>
             </div>
           </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-2">
+                <label class="fast-workout-label">Publik profil?</label>
+              </div>
+              <div class="col-10">
+                <div class="checkbox">
+                  <label>
+                      <input type="checkbox" id="public_yes" name="public_yes" {% if extended.public_profile %}checked{% endif %}>
+                      Ja
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                      <input type="checkbox" id="public_no" name="public_no" {% if not extended.public_profile %}checked{% endif %}>
+                      Nej
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="form-group">
             <div class="row">

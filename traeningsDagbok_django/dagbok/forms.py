@@ -198,3 +198,11 @@ class AdvancedWorkout(forms.Form):
                 'class': 'form-control',
                 'placeholder': 'Kalorier',
             }))
+            
+#~ class public_profileForm(forms.Form):
+    #~ yesno = forms.ChoiceField(required = True, choices = ((1, 'Ja'),(0,'Nej')),widget=forms.RadioSelect(attrs={'class' : 'Radio'}), initial={'regular_service':'Regular Service'})
+    
+         #~ regular_service = forms.ChoiceField(required = True, choices = CHOICES, widget=forms.RadioSelect(attrs={'class' : 'Radio'}), initial={'regular_service':'Regular Service'})
+
+    
+    

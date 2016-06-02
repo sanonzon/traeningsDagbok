@@ -314,7 +314,11 @@ def update_user(request):
     if request.user.is_authenticated():
         if request.POST:
             extended = UserExtended.objects.filter(user_id=request.user.id).get()
-
+            if "public_yes" in request.POST:
+                extended.public_profile = True
+            else:
+                extended.public_profile = False
+                
             sports = ""
             if "swim" in request.POST:
                 sports += "swim,"
@@ -413,7 +417,7 @@ def settings(request):
     if request.user.is_authenticated():
         sports = str(UserExtended.objects.filter(user_id=request.user.id).get().favorite_sport).lower().replace(" ", "").split(",")
         extended = UserExtended.objects.filter(user_id=request.user.id).get()
-
+        
         return render(request, 'dagbok/settings.html',{
                 'sports':sports,
                 'extended':extended,
@@ -572,7 +576,7 @@ def test_time(x):
 
 
 def delete_workout(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated() and WorkOuts.objects.filter(workoutUser=User.objects.filter(id=request.user.id).get()):
         d = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
         if d.workoutUser.id == request.user.id:
             d.delete()
@@ -686,8 +690,9 @@ def update_workout(request):
 
 def facebook_share(request, wid):
     if WorkOuts.objects.filter(id=wid):
-        wo = WorkOuts.objects.filter(id=wid).get()
-        
-        return render(request, 'dagbok/fbshr.html', {'workout': wo})
+        if UserExtended.objects.filter(user_id=WorkOuts.objects.filter(id=wid).get().workoutUser).get().public_profile or request.user.is_authenticated():
+            return render(request, 'dagbok/fbshr.html', {'workout': WorkOuts.objects.filter(id=wid).get()})
+        else:
+            return HttpResponse("Användaren är inte publik, vänligen logga in eller skapa konto.<br><h1><a href='/'>Frontpage</a><h1>")
     else:
         return HttpResponse("Denna sidan finns inte.")
