@@ -608,7 +608,6 @@ def change_workout(request, num):
 
 def update_workout(request):
     if request.user.is_authenticated():
-        print request.POST
         gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
 
         if "running" in request.POST['workoutType']:

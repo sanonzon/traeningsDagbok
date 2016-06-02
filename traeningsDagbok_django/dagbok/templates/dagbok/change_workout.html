@@ -35,7 +35,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                  <input class="form-control" type="text" name="stretch" {% if "Loepning" in old.workoutSport %} value="{{old.workoutStretch}}" {% endif %}>
+                  <input class="form-control" type="text" name="stretch" {% if old.workoutStretch and "Loepning" in old.workoutSport %} value="{{old.workoutStretch}}" {% endif %}>
                 <span class="input-group-addon" id="basic-addon2">km</span>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
@@ -46,7 +46,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="time" {% if "Loepning" in old.workoutSport %} value="{{old.workoutTime}}" {% endif %}>
+                <input class="form-control" type="text" name="time" value="{% if "Loepning" in old.workoutSport %}{% if old.workoutTime and old.workoutSec %}{{old.workoutTime}}:{{old.workoutSec}}{% elif old.workoutTime %}{{old.workoutTime}}:0{% elif old.workoutSec %}0:{{old.workoutSec}}{% endif %}{% endif%}">
                 <span class="input-group-addon" id="basic-addon2">min:sek</span>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
@@ -57,7 +57,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="feeling" {% if "Loepning" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
+                <input class="form-control" type="text" name="feeling" {% if old.workoutFeel and "Loepning" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -67,7 +67,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="puls" {% if "Loepning" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
+                <input class="form-control" type="text" name="puls" {% if old.puls and "Loepning" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -77,7 +77,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="minpuls" {% if "Loepning" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
+                <input class="form-control" type="text" name="minpuls" {% if old.minpuls and "Loepning" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -87,7 +87,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-               <input class="form-control" type="text" name="snittpuls" {% if "Loepning" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
+               <input class="form-control" type="text" name="snittpuls" {% if old.snittpuls and "Loepning" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -97,7 +97,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-               <input class="form-control" type="text" name="kalorier" {% if "Loepning" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
+               <input class="form-control" type="text" name="kalorier" {% if old.kalorier and "Loepning" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -130,7 +130,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                 <input class="form-control" type="text" name="stretch" {% if "Simning" in old.workoutSport %} value="{{old.workoutStretch}}" {% endif %}>
+                 <input class="form-control" type="text" name="stretch" {% if old.workoutStretch and "Simning" in old.workoutSport %} value="{{old.workoutStretch}}" {% endif %}>
                 <span class="input-group-addon" id="basic-addon2">km</span>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
@@ -141,7 +141,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="time" {% if "Simning" in old.workoutSport %} value="{{old.workoutTime}}" {% endif %}>
+                <input class="form-control" type="text" name="time" value="{% if "Simning" in old.workoutSport %}{% if old.workoutTime and old.workoutSec %}{{old.workoutTime}}:{{old.workoutSec}}{% elif old.workoutTime %}{{old.workoutTime}}:0{% elif old.workoutSec %}0:{{old.workoutSec}}{% endif %}{% endif%}">
                 <span class="input-group-addon" id="basic-addon2">min:sek</span>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
@@ -152,7 +152,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="feeling" {% if "Simning" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
+                <input class="form-control" type="text" name="feeling" {% if old.workoutFeel and "Simning" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -163,7 +163,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="puls" {% if "Simning" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
+                <input class="form-control" type="text" name="puls" {% if old.puls and "Simning" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -173,7 +173,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="minpuls" {% if "Simning" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
+                <input class="form-control" type="text" name="minpuls" {% if old.minpuls and "Simning" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -183,7 +183,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-               <input class="form-control" type="text" name="snittpuls" {% if "Simning" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
+               <input class="form-control" type="text" name="snittpuls" {% if old.snittpuls and "Simning" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -193,7 +193,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-               <input class="form-control" type="text" name="kalorier" {% if "Simning" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
+               <input class="form-control" type="text" name="kalorier" {% if old.kalorier and "Simning" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -226,7 +226,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="gym_type" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_type}}" {% endif %}>
+                <input class="form-control" type="text" name="gym_type" {% if old.gym_type and "Styrketraening" in old.workoutSport %} value="{{old.gym_type}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -236,7 +236,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="gym_weight" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_weight}}" {% endif %}>
+                <input class="form-control" type="text" name="gym_weight" {% if old.gym_weight and "Styrketraening" in old.workoutSport %} value="{{old.gym_weight}}" {% endif %}>
                 <span class="input-group-addon" id="basic-addon2">kg</span>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
@@ -247,7 +247,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="gym_sets" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_sets}}" {% endif %}>
+                <input class="form-control" type="text" name="gym_sets" {% if old.gym_sets and "Styrketraening" in old.workoutSport %} value="{{old.gym_sets}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -257,7 +257,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="gym_reps" {% if "Styrketraening" in old.workoutSport %} value="{{old.gym_reps}}" {% endif %}>
+                <input class="form-control" type="text" name="gym_reps" {% if old.gym_reps and "Styrketraening" in old.workoutSport %} value="{{old.gym_reps}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -267,7 +267,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="feeling" {% if "Styrketraening" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
+                <input class="form-control" type="text" name="feeling" {% if old.workoutFeel and "Styrketraening" in old.workoutSport %} value="{{old.workoutFeel}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -277,7 +277,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="puls" {% if "Styrketraening" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
+                <input class="form-control" type="text" name="puls" {% if old.puls and "Styrketraening" in old.workoutSport %} value="{{old.puls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -287,7 +287,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input class="form-control" type="text" name="minpuls" {% if "Styrketraening" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
+                <input class="form-control" type="text" name="minpuls" {% if old.minpuls and "Styrketraening" in old.workoutSport %} value="{{old.minpuls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -297,7 +297,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-               <input class="form-control" type="text" name="snittpuls" {% if "Styrketraening" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
+               <input class="form-control" type="text" name="snittpuls" {% if old.snittpuls and "Styrketraening" in old.workoutSport %} value="{{old.snittpuls}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -307,7 +307,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-               <input class="form-control" type="text" name="kalorier" {% if "Styrketraening" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
+               <input class="form-control" type="text" name="kalorier" {% if old.kalorier and "Styrketraening" in old.workoutSport %} value="{{old.kalorier}}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
