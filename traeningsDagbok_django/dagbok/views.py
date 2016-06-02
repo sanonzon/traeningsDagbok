@@ -579,8 +579,6 @@ def test_time(x):
     else:
         return [0,0]
 
-
-
 def delete_workout(request):
     if request.user.is_authenticated() and WorkOuts.objects.filter(workoutUser=User.objects.filter(id=request.user.id).get()):
         d = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
@@ -596,19 +594,13 @@ def delete_workout(request):
 
 def change_workout(request, num):
     if request.user.is_authenticated():
-        datumtid = timezone.now()
         if WorkOuts.objects.filter(id=num,workoutUser=User.objects.filter(id=request.user.id).get()):
             wo = WorkOuts.objects.filter(id=num).get()
-            aw = AdvancedWorkout()
-            wr = WorkoutRegisterForm()
 
             return render(request, "dagbok/change_workout.html", {
-                    'aw':aw,
-                    'WRF':wr,
-                    'old':wo,
+                    'old': wo,
                     'alerts': UserExtended.objects.filter(user_id=request.user.id).get().alerts or None,
                     'notifications': "," in UserExtended.objects.filter(user_id=request.user.id).get().notifications and reversed(UserExtended.objects.filter(user_id=request.user.id).get().notifications.split(',')[:-1]) or None,
-                    'datumet':datumtid,
                 })
 
         else:
@@ -618,79 +610,84 @@ def change_workout(request, num):
 
 def update_workout(request):
     if request.user.is_authenticated():
-        gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
+        if request.POST:
+            if date_check(request.POST['date']):
+                gammal = WorkOuts.objects.filter(id=request.POST['workout_id']).get()
 
-        if "running" in request.POST['workoutType']:
-            gammal.gym_type = ""
-            gammal.gym_weight = None
-            gammal.gym_sets = None
-            gammal.gym_reps = None
-            gammal.workoutSport = "Loepning"
-            tiden = test_time(request.POST['time'])
-            gammal.workoutTime = tiden[0]
-            gammal.workoutSec = tiden[1]
-            gammal.workoutDateNow = request.POST['date']
-            gammal.workoutFeel = request.POST['feeling']
-            if test_float(request.POST['stretch']):
-                gammal.workoutStretch = float(request.POST['stretch'])
-            if test_integer(request.POST['puls']):
-                gammal.puls = int(request.POST['puls'])
-            if test_float(request.POST['snittpuls']):
-                gammal.snittpuls = float(request.POST['snittpuls'])
-            if test_integer(request.POST['minpuls']):
-                gammal.minpuls = int(request.POST['minpuls'])
-            if test_integer(request.POST['kalorier']):
-                gammal.kalorier = int(request.POST['kalorier'])
+                if "running" in request.POST['workoutType']:
+                    gammal.gym_type = ""
+                    gammal.gym_weight = None
+                    gammal.gym_sets = None
+                    gammal.gym_reps = None
+                    gammal.workoutSport = "Loepning"
+                    tiden = test_time(request.POST['time'])
+                    gammal.workoutTime = tiden[0]
+                    gammal.workoutSec = tiden[1]
+                    gammal.workoutDateNow = request.POST['date']
+                    gammal.workoutFeel = request.POST['feeling']
+                    if test_float(request.POST['stretch']):
+                        gammal.workoutStretch = float(request.POST['stretch'])
+                    if test_integer(request.POST['puls']):
+                        gammal.puls = int(request.POST['puls'])
+                    if test_float(request.POST['snittpuls']):
+                        gammal.snittpuls = float(request.POST['snittpuls'])
+                    if test_integer(request.POST['minpuls']):
+                        gammal.minpuls = int(request.POST['minpuls'])
+                    if test_integer(request.POST['kalorier']):
+                        gammal.kalorier = int(request.POST['kalorier'])
 
-        elif "swimming" in request.POST['workoutType']:
-            gammal.gym_type = ""
-            gammal.gym_weight = None
-            gammal.gym_sets = None
-            gammal.gym_reps = None
-            gammal.workoutSport = "Simning"
-            tiden = test_time(request.POST['time'])
-            gammal.workoutTime = tiden[0]
-            gammal.workoutSec = tiden[1]
-            gammal.workoutDateNow = request.POST['date']
-            gammal.workoutFeel = request.POST['feeling']
-            if test_float(request.POST['stretch']):
-                gammal.workoutStretch = float(request.POST['stretch'])
-            if test_integer(request.POST['puls']):
-                gammal.puls = int(request.POST['puls'])
-            if test_float(request.POST['snittpuls']):
-                gammal.snittpuls = float(request.POST['snittpuls'])
-            if test_integer(request.POST['minpuls']):
-                gammal.minpuls = int(request.POST['minpuls'])
-            if test_integer(request.POST['kalorier']):
-                gammal.kalorier = int(request.POST['kalorier'])
+                elif "swimming" in request.POST['workoutType']:
+                    gammal.gym_type = ""
+                    gammal.gym_weight = None
+                    gammal.gym_sets = None
+                    gammal.gym_reps = None
+                    gammal.workoutSport = "Simning"
+                    tiden = test_time(request.POST['time'])
+                    gammal.workoutTime = tiden[0]
+                    gammal.workoutSec = tiden[1]
+                    gammal.workoutDateNow = request.POST['date']
+                    gammal.workoutFeel = request.POST['feeling']
+                    if test_float(request.POST['stretch']):
+                        gammal.workoutStretch = float(request.POST['stretch'])
+                    if test_integer(request.POST['puls']):
+                        gammal.puls = int(request.POST['puls'])
+                    if test_float(request.POST['snittpuls']):
+                        gammal.snittpuls = float(request.POST['snittpuls'])
+                    if test_integer(request.POST['minpuls']):
+                        gammal.minpuls = int(request.POST['minpuls'])
+                    if test_integer(request.POST['kalorier']):
+                        gammal.kalorier = int(request.POST['kalorier'])
 
-        elif "weightlifting" in request.POST['workoutType']:
-            gammal.workoutStretch = None
-            gammal.workoutTime = None
-            gammal.workoutSec = None
-            gammal.workoutSport = "Styrketraening"
-            gammal.workoutFeel = request.POST['feeling']
-            gammal.gym_type = request.POST['gym_type']
-            gammal.workoutDateNow = request.POST['date']
-            if test_float(request.POST['gym_weight']):
-                gammal.gym_weight = float(request.POST['gym_weight'])
-            if test_integer(request.POST['gym_sets']):
-                gammal.gym_sets = int(request.POST['gym_sets'])
-            if test_integer(request.POST['gym_reps']):
-                gammal.gym_reps = int(request.POST['gym_reps'])
-            if test_integer(request.POST['puls']):
-                gammal.puls = int(request.POST['puls'])
-            if test_float(request.POST['snittpuls']):
-                gammal.snittpuls = float(request.POST['snittpuls'])
-            if test_integer(request.POST['minpuls']):
-                gammal.minpuls = int(request.POST['minpuls'])
-            if test_integer(request.POST['kalorier']):
-                gammal.kalorier = int(request.POST['kalorier'])
-        
+                elif "weightlifting" in request.POST['workoutType']:
+                    gammal.workoutStretch = None
+                    gammal.workoutTime = None
+                    gammal.workoutSec = None
+                    gammal.workoutSport = "Styrketraening"
+                    gammal.workoutFeel = request.POST['feeling']
+                    gammal.gym_type = request.POST['gym_type']
+                    gammal.workoutDateNow = request.POST['date']
+                    if test_float(request.POST['gym_weight']):
+                        gammal.gym_weight = float(request.POST['gym_weight'])
+                    if test_integer(request.POST['gym_sets']):
+                        gammal.gym_sets = int(request.POST['gym_sets'])
+                    if test_integer(request.POST['gym_reps']):
+                        gammal.gym_reps = int(request.POST['gym_reps'])
+                    if test_integer(request.POST['puls']):
+                        gammal.puls = int(request.POST['puls'])
+                    if test_float(request.POST['snittpuls']):
+                        gammal.snittpuls = float(request.POST['snittpuls'])
+                    if test_integer(request.POST['minpuls']):
+                        gammal.minpuls = int(request.POST['minpuls'])
+                    if test_integer(request.POST['kalorier']):
+                        gammal.kalorier = int(request.POST['kalorier'])
 
-        gammal.save()
+                gammal.save()
 
-        return redirect("/dashboard")
+                return redirect("/dashboard")
+            else:
+                return redirect("/dashboard")
+        else:
+            return redirect("/dashboard")
     else:
         return redirect("/")
 

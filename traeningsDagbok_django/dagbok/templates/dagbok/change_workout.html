@@ -26,7 +26,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                {{WRF.date}}
+                <input class="form-control" type="date" name="date" id="datePickerRun" placeholder="YYYY-MM-DD" {% if old.workoutDateNow and "Loepning" in old.workoutSport %} value="{{ old.workoutDateNow.isoformat }}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -121,7 +121,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input type="date" name="date" id="datePickerSwim" >
+                <input class="form-control" type="date" name="date" id="datePickerSwim" placeholder="YYYY-MM-DD" {% if old.workoutDateNow and "Simning" in old.workoutSport %} value="{{ old.workoutDateNow.isoformat }}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
@@ -217,7 +217,7 @@
             </div> <!-- END col-2 -->
             <div class="col-10">
               <div class="input-group input-group-workout">
-                <input type="date" name="date" id="datePickerGym" >
+                <input class="form-control" type="date" name="date" id="datePickerGym" placeholder="YYYY-MM-DD" {% if old.workoutDateNow and "Styrketraening" in old.workoutSport %} value="{{ old.workoutDateNow.isoformat }}" {% endif %}>
               </div> <!-- END input-group -->
             </div> <!-- END col-10 -->
           </div> <!-- END row -->
