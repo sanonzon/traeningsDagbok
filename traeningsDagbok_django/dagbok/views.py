@@ -545,14 +545,14 @@ def add_buddy(request):
 def test_integer(x):
     try:
         int(x)
-        return not isinf(x)
+        return not isinf(float(x))
     except ValueError:
         return False
 
 def test_float(x):
     try:
         float(x)
-        return not isinf(x)
+        return not isinf(float(x))
     except ValueError:
         return False
 
