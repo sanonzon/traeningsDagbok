@@ -17,9 +17,9 @@ class WorkOuts(models.Model):
     workoutSport = models.CharField(
         max_length=100,
         choices=(
-            ('Loepning', 'Loepning'),
+            ('Löpning', 'Löpning'),
             ('Simning', 'Simning'),
-            ('Styrketraening', 'Styrketraening')
+            ('Styrketräning', 'Styrketräning')
         ),
     )
     #~ workoutCustomDate = models.DateTimeField(blank=True,null=True)

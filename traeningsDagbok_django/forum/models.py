@@ -12,9 +12,9 @@ from django.forms import widgets
 @python_2_unicode_compatible
 class Category(models.Model):
     choices =  [
-            ('Loepning', 'Loepning'), 
+            ('Löpning', 'Löpning'), 
             ('Simning', 'Simning'), 
-            ('Styrketraening', 'Styrketraening')
+            ('Styrketräning', 'Styrketräning')
         ]
         
     def __str__(self):

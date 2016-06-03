@@ -83,7 +83,7 @@ def dashboard(request):
                         WorkOut.gym_reps = request.POST['gym_reps']
                     WorkOut.workoutFeel = request.POST['feeling']
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                    WorkOut.workoutSport = u"Styrketraening"
+                    WorkOut.workoutSport = u"Styrketräning"
                     WorkOut.save()
                     TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
@@ -115,7 +115,7 @@ def dashboard(request):
                     if test_float(request.POST['stretch']):
                         WorkOut.workoutStretch = request.POST['stretch']
                     WorkOut.workoutUser = User.objects.filter(id=request.user.id).get()
-                    WorkOut.workoutSport = u"Loepning"
+                    WorkOut.workoutSport = u"Löpning"
                     WorkOut.save()
                     TotalWorkouts.objects.filter(user_id=request.user.id).get().save()
 
@@ -438,7 +438,7 @@ def advanced_workout(request):
                 WorkOut = WorkOuts()
 
                 if request.POST['workoutType'] == "running":
-                    WorkOut.workoutSport = u"Loepning"
+                    WorkOut.workoutSport = u"Löpning"
 
                     if len(str(request.POST['puls'])) > 0 and test_integer(request.POST['puls']):
                         WorkOut.puls = int(request.POST['puls'])
@@ -476,7 +476,7 @@ def advanced_workout(request):
                             WorkOut.workoutSec = tiden[1]
 
                 elif request.POST['workoutType'] == "weightlifting":
-                    WorkOut.workoutSport = u"Styrketraening"
+                    WorkOut.workoutSport = u"Styrketräning"
                     WorkOut.gym_type = request.POST['gym_type']
 
                     if test_integer(request.POST['gym_weight']) or test_float(request.POST['gym_weight']):
@@ -620,7 +620,7 @@ def update_workout(request):
                     gammal.gym_weight = None
                     gammal.gym_sets = None
                     gammal.gym_reps = None
-                    gammal.workoutSport = "Loepning"
+                    gammal.workoutSport = "Löpning"
                     tiden = test_time(request.POST['time'])
                     gammal.workoutTime = tiden[0]
                     gammal.workoutSec = tiden[1]
@@ -663,7 +663,7 @@ def update_workout(request):
                     gammal.workoutStretch = None
                     gammal.workoutTime = None
                     gammal.workoutSec = None
-                    gammal.workoutSport = "Styrketraening"
+                    gammal.workoutSport = "Styrketräning"
                     gammal.workoutFeel = request.POST['feeling']
                     gammal.gym_type = request.POST['gym_type']
                     gammal.workoutDateNow = request.POST['date']
@@ -715,3 +715,5 @@ def date_check(date):
                 elif int(dateSeperate[2]) == 29 and (int(dateSeperate[0]) % 400 == 0 or (int(dateSeperate[0]) % 4 == 0 and dateSeperate[0][-2:] != "00")):
                     return True
     return False
+
+
