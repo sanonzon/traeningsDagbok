@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static "dagbok/css/fbstyles.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/style.css" %}">
     <link rel="stylesheet" href="{% static "dagbok/css/bootstrap.css" %}">
+    
   </head>
   <body>
     <div class="fb-header-title">
@@ -17,7 +18,7 @@
     <div class="fb-wrapper">
 
       <!-- LÖPNING -->
-      {% if workout.workoutSport == 'Loepning' %}
+      {% if workout.workoutSport == 'Löpning' %}
       <div class="row">
         <div class="col-12 fb-workout-header">
           <div class="fb-centered">
@@ -196,8 +197,8 @@
         </div> <!-- END col-4 -->
       </div> <!-- END row -->
 
-      <!-- STYRKETRÄNING -->
-      {% elif workout.workoutSport == 'Styrketraening' %}
+      <!-- Styrketräning -->
+      {% elif workout.workoutSport == 'Styrketräning' %}
       <div class="row">
         <div class="col-12 fb-workout-header">
           <div class="fb-centered">
