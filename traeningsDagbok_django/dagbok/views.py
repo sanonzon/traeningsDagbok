@@ -705,7 +705,7 @@ def facebook_share(request, wid):
 def date_check(date):
     if re.search(r'^\d{4}-\d{2}-\d{2}$',date):
         dateSeperate = date.split('-')
-        if 0 < int(dateSeperate[1]) <= 12:
+        if int(dateSeperate[0]) > 0 and 0 < int(dateSeperate[1]) <= 12:
             if (dateSeperate[1] == '01' or dateSeperate[1] == '03' or dateSeperate[1] == '05' or dateSeperate[1] == '07' or dateSeperate[1] == '08' or dateSeperate[1] == '10' or dateSeperate[1] == '12') and 0 < int(dateSeperate[2]) <= 31:
                 return True
             elif (dateSeperate[1] == '04' or dateSeperate[1] == '06' or dateSeperate[1] == '09' or dateSeperate[1] == '11') and 0 < int(dateSeperate[2]) <= 30:
