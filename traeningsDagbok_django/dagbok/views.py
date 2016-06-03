@@ -697,7 +697,7 @@ def facebook_share(request, wid):
         if UserExtended.objects.filter(user_id=WorkOuts.objects.filter(id=wid).get().workoutUser).get().public_profile or request.user.is_authenticated():
             return render(request, 'dagbok/fbshr.html', {'workout': WorkOuts.objects.filter(id=wid).get()})
         else:
-            return HttpResponse("Användaren är inte publik, vänligen logga in eller skapa konto.<br><h1>Tillbaka till <a href='/'>Startsidan</a><h1>")
+            return HttpResponse("Användaren är inte publik, vänligen logga in eller skapa konto.<br><h1>Tillbaka till <a href='/#register-section'>Startsidan</a><h1>")
     else:
         return HttpResponse("Denna sidan finns inte.<br><h1>Tillbaka till <a href='/'>Startsidan</a><h1>")
 
