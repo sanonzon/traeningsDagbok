@@ -710,10 +710,8 @@ def date_check(date):
             elif (dateSeperate[1] == '04' or dateSeperate[1] == '06' or dateSeperate[1] == '09' or dateSeperate[1] == '11') and 0 < int(dateSeperate[2]) <= 30:
                 return True
             elif dateSeperate[1] == '02':
-                if int(dateSeperate[0]) % 400 == 0 and 0 < int(dateSeperate[2]) <= 29:
+                if 0 < int(dateSeperate[2]) <= 28:
                     return True
-                elif int(dateSeperate[0]) % 4 == 0 and dateSeperate[0][-3:-1] != "00" and 0 < int(dateSeperate[2]) <= 29:
-                    return True
-                elif 0 < int(dateSeperate[2]) <= 28:
+                elif int(dateSeperate[2]) == 29 and (int(dateSeperate[0]) % 400 == 0 or (int(dateSeperate[0]) % 4 == 0 and dateSeperate[0][-2:] != "00")):
                     return True
     return False
