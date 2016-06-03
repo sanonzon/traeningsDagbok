@@ -14,6 +14,7 @@ import datetime
 
 from .forms import CreateAccountForm, LoginAccountForm, WorkoutRegisterForm, SearchForm, AdvancedWorkout
 from .models import WorkOuts, UserExtended, TotalWorkouts, Goals
+from  math import isinf
 
 # Create your views here.
 def index(request):
@@ -544,14 +545,14 @@ def add_buddy(request):
 def test_integer(x):
     try:
         int(x)
-        return True
+        return not isinf(float(x))
     except ValueError:
         return False
 
 def test_float(x):
     try:
         float(x)
-        return True
+        return not isinf(float(x))
     except ValueError:
         return False
 
@@ -696,9 +697,9 @@ def facebook_share(request, wid):
         if UserExtended.objects.filter(user_id=WorkOuts.objects.filter(id=wid).get().workoutUser).get().public_profile or request.user.is_authenticated():
             return render(request, 'dagbok/fbshr.html', {'workout': WorkOuts.objects.filter(id=wid).get()})
         else:
-            return HttpResponse("Användaren är inte publik, vänligen logga in eller skapa konto.<br><h1><a href='/'>Frontpage</a><h1>")
+            return HttpResponse("Användaren är inte publik, vänligen logga in eller skapa konto.<br><h1>Tillbaka till <a href='/'>Startsidan</a><h1>")
     else:
-        return HttpResponse("Denna sidan finns inte.")
+        return HttpResponse("Denna sidan finns inte.<br><h1>Tillbaka till <a href='/'>Startsidan</a><h1>")
 
 def date_check(date):
     if re.search(r'^\d{4}-\d{2}-\d{2}$',date):
