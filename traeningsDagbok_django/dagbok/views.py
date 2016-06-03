@@ -318,11 +318,12 @@ def update_user(request):
     if request.user.is_authenticated():
         if request.POST:
             extended = UserExtended.objects.filter(user_id=request.user.id).get()
-            if "public_yes" in request.POST:
-                extended.public_profile = True
-            else:
-                extended.public_profile = False
-                
+            if "public" in request.POST:
+                if "yes" in request.POST["public"]:
+                    extended.public_profile = True
+                else:
+                    extended.public_profile = False
+
             sports = ""
             if "swim" in request.POST:
                 sports += "swim,"
@@ -421,7 +422,7 @@ def settings(request):
     if request.user.is_authenticated():
         sports = str(UserExtended.objects.filter(user_id=request.user.id).get().favorite_sport).lower().replace(" ", "").split(",")
         extended = UserExtended.objects.filter(user_id=request.user.id).get()
-        
+
         return render(request, 'dagbok/settings.html',{
                 'sports':sports,
                 'extended':extended,
