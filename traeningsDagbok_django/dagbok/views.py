@@ -317,6 +317,7 @@ def create_user(request):
 def update_user(request):
     if request.user.is_authenticated():
         if request.POST:
+            user = User.objects.filter(id=request.user.id).get()
             extended = UserExtended.objects.filter(user_id=request.user.id).get()
             if "public" in request.POST:
                 if "yes" in request.POST["public"]:
@@ -344,7 +345,8 @@ def update_user(request):
             if len(request.POST['new_password']) > 0 and request.POST['new_password'] == request.POST['new_password_repeat']:
                 if authenticate(username=request.POST['username'], password=request.POST['current_password']):
                     user.set_password(request.POST['new_password'])
-                    user.save()
+            
+            user.save()
             extended.save()
 
             return redirect("/dashboard")
